@@ -53,6 +53,7 @@ public class RecipeController {
 
         Recipe recipe = new Recipe(recipeName, category, listportion, listhour, listminut);
         recipe.showFields();
+        System.out.println("hui!");
 
 
 
