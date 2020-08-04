@@ -7,5 +7,100 @@
 </head>
 <body>
     <header th:insert="template/header :: header"></header>
+
+    <div class="w3-container w3-padding">
+
+        <div class="w3-card w3-light-grey">
+            <div class="w3-container w3-center w3-row w3-teal">
+                <div class="w3-third w3-container">
+                </div>
+                <div class="w3-third w3-container w3-center">
+                    <h2>Рецепты</h2>
+                </div>
+                <div class="w3-third w3-container" style="vertical-align: middle">
+                </div>
+            </div>
+            <table class="w3-table w3-bordered w3-centered ">
+                <tr>
+                    <td>
+                        <div class="w3-container" style="cursor: pointer" onclick="location.href='/recipe/list?category=breakfast'">
+                            <div class="w3-container w3-center w3-padding-24" style="width:100%">
+                                <img src="img_avatar3.png" alt="Завтраки" style="width:80%">
+                                <h5>Завтраки</h5>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="w3-container" style="cursor: pointer" onclick="location.href='/recipe/list?category=soups'">
+                            <div class="w3-container w3-center w3-padding-24" style="width:100%">
+                                <img src="img_avatar3.png" alt="Супы" style="width:80%">
+                                <h5>Супы</h5>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="w3-container" style="cursor: pointer" onclick="location.href='/recipe/list?category=main-dishes'">
+                            <div class="w3-container w3-center w3-padding-24" style="width:100%">
+                                <img src="img_avatar3.png" alt="Основные блюда" style="width:80%">
+                                <h5>Основные блюда</h5>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="w3-container" style="cursor: pointer" onclick="location.href='/recipe/list?category=baking-and-Desserts'">
+                            <div class="w3-container w3-center w3-padding-24" style="width:100%">
+                                <img src="img_avatar3.png" alt="Выпечка и десерты" style="width:80%">
+                                <h5>Выпечка и десерты</h5>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="w3-container" style="cursor: pointer" onclick="location.href='/recipe/list?category=sandwiches'">
+                            <div class="w3-container w3-center w3-padding-24" style="width:100%">
+                                <img src="img_avatar3.png" alt="Сэндвичи" style="width:80%">
+                                <h5>Сэндвичи</h5>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="w3-container" style="cursor: pointer" onclick="location.href='/recipe/list?category=pasta-and-Pizza'">
+                            <div class="w3-container w3-center w3-padding-24" style="width:100%">
+                                <img src="img_avatar3.png" alt="Паста и пицца" style="width:80%">
+                                <h5>Паста и пицца</h5>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="w3-container" style="cursor: pointer" onclick="location.href='/recipe/list?category=salads'">
+                            <div class="w3-container w3-center w3-padding-24" style="width:100%">
+                                <img src="img_avatar3.png" alt="Салаты" style="width:80%">
+                                <h5>Салаты</h5>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="w3-container" style="cursor: pointer" onclick="location.href='/recipe/list?category=sauces'">
+                            <div class="w3-container w3-center w3-padding-24" style="width:100%">
+                                <img src="img_avatar3.png" alt="Соусы" style="width:80%">
+                                <h5>Соусы</h5>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="w3-container" style="cursor: pointer" onclick="location.href='/recipe/list?category=beverages'">
+                            <div class="w3-container w3-center w3-padding-24" style="width:100%">
+                                <img src="img_avatar3.png" alt="Напитки" style="width:80%">
+                                <h5>Напитки</h5>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

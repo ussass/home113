@@ -4,23 +4,28 @@
             <a href="/" class="w3-bar-item w3-button">Home</a>
             <a href="/" class="w3-bar-item w3-button">Состояние</a>
             <div class="w3-dropdown-hover">
-                <button class="w3-button w3-hide-small" onclick="location.href='/recipe/main'">Рецепты</button>
+                <!--                <button class="w3-button w3-hide-small" onclick="location.href='/recipe/main'">Рецепты</button>-->
+                <button class="w3-button w3-hide-small" onclick="location.href='/recipe/main'">
+                    <a style="text-decoration: none" href="/recipe/main">Рецепты</a>
+                </button>
                 <div class="w3-dropdown-content w3-bar-block w3-card-4">
-                    <a onclick="location.href='/recipe/new'" class="w3-bar-item w3-button">Добавить рецепт</a>
+                    <a href="/recipe/add" class="w3-bar-item w3-button">Добавить рецепт</a>
                     <a href="/recipe/list" class="w3-bar-item w3-button">Все рецепты</a>
-                    <a onclick="location.href='/recipe/show?id=17'" class="w3-bar-item w3-button">Избранное</a>
+                    <a href="/recipe/list" class="w3-bar-item w3-button">Избранное</a>
                 </div>
             </div>
             <a class="w3-bar-item w3-button w3-hide-small" onclick="location.href='/recipe/test'">Тест 2</a>
             <a href="#" class="w3-bar-item w3-button w3-hide-small">Link 3</a>
-            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="myFunction()">&#9776;</a>
+            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
+               onclick="myFunction()">&#9776;</a>
         </div>
         <div id="demo" class="w3-bar-block w3-deep-purple w3-hide w3-hide-large w3-hide-medium">
             <a href="/recipe/main" class="w3-bar-item w3-button">Рецепты</a>
             <a href="#" class="w3-bar-item w3-button">Link 2</a>
             <a href="#" class="w3-bar-item w3-button">Link 3</a>
         </div>
-    </div><br /><br />
+    </div>
+    <br/><br/>
     <script>
         function myFunction() {
             var x = document.getElementById("demo");
