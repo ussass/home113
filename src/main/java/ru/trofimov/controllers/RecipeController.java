@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import ru.trofimov.entity.Recipe;
+import ru.trofimov.model.Crutch;
+import ru.trofimov.model.DirtyJob;
+
+import java.io.UnsupportedEncodingException;
 
 @Controller
 @RequestMapping("/recipe")
@@ -40,7 +44,7 @@ public class RecipeController {
             @RequestParam String[] ingName,
             @RequestParam int[] quantity,
             @RequestParam int[] measure
-            ){
+            ) throws UnsupportedEncodingException {
 //        System.out.println("I'm here!");
 //        System.out.println("RecipeName: " + recipeName);
 //        System.out.println("Category: " + category);
@@ -51,9 +55,9 @@ public class RecipeController {
 //        for (String x : ingName)
 //            System.out.println("   " + x);
 
-        Recipe recipe = new Recipe(recipeName, category, listportion, listhour, listminut);
+        Recipe recipe = new Recipe(Crutch.toUTF8(recipeName), category, listportion, listhour, listminut);
         recipe.showFields();
-        System.out.println("hui!");
+        System.out.println(DirtyJob.multipartToString(photo).toString());
 
 
 
