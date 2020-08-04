@@ -8,7 +8,7 @@ function iAdd(){
     while(document.getElementById('ingredient'+Ix) == null){
         Ix--;
     }
-    var newElement = document.createElement('label');
+    var newElement = document.createElement('div');
     newElement.appendAfter(document.getElementById('ingredient'+ Ix));
     Ix++;
     newElement.id = 'ingredient'+ Ix;
