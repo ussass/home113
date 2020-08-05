@@ -25,22 +25,11 @@ public class WorkWithMultipartFile {
         this.recipeName = toTranscript(recipeName);
     }
 
-    private String changeName(int count){
-        return recipeName + "-" + count + "." + multipartFile[count].getContentType().split("/")[1];
-    }
-
-    private void saveFile(int count) throws IOException {
-        String imageName = changeName(count);
-        File file = new File(directory + imageName);
-        multipartFile[count].transferTo(file);
-        list.add(imageName);
-    }
-
-    public String[] saveFiles(){
+    public String[] saveFiles(boolean forSteps){
         for (int i = 0; i < multipartFile.length; i++){
             if (multipartFile[i].getSize() == 0) continue;
             try {
-                saveFile(i);
+                saveFile(i, forSteps);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -48,6 +37,18 @@ public class WorkWithMultipartFile {
         }
         String[] result = new String[list.size()];
         return list.toArray(result);
+    }
+
+    private void saveFile(int count, boolean forSteps) throws IOException {
+        String imageName = changeName(count);
+        if (forSteps) imageName = "St&" + imageName;
+        File file = new File(directory + imageName);
+        multipartFile[count].transferTo(file);
+        list.add(imageName);
+    }
+
+    private String changeName(int count){
+        return recipeName + "-" + count + "." + multipartFile[count].getContentType().split("/")[1];
     }
 
     private String toTranscript(String ruText){

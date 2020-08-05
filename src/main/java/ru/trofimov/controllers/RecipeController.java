@@ -43,23 +43,13 @@ public class RecipeController {
             @RequestParam int[] quantity,
             @RequestParam int[] measure
             ) throws UnsupportedEncodingException {
-//        System.out.println("I'm here!");
-//        System.out.println("RecipeName: " + recipeName);
-//        System.out.println("Category: " + category);
-//        System.out.println("Listportion: " + listportion);
-//        System.out.println("Time: " + listhour + ":" + listminut);
-//        System.out.println(photo[0].getResource().getFilename());
-//        System.out.println("ingredients:");
-//        for (String x : ingName)
-//            System.out.println("   " + x);
 
         Recipe recipe = new Recipe(Crutch.toUTF8(recipeName), category, listportion, listhour, listminut);
 
         System.out.println(DirtyJob.multipartToString(photo).toString());
 
-//        WorkWithMultipartFile.getFileNameOfMultipartFile(photo[0], recipeName);
         WorkWithMultipartFile work = new WorkWithMultipartFile(photo, Crutch.toUTF8(recipeName));
-        recipe.setNamesMainImage(work.saveFiles());
+        recipe.setNamesMainImage(work.saveFiles(false));
         recipe.setIngredients(CreateClassesForRecipe.createIngredients(ingName, quantity, measure));
 
 
