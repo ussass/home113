@@ -10,7 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.trofimov.entity.Recipe;
 import ru.trofimov.model.Crutch;
 import ru.trofimov.model.DirtyJob;
+import ru.trofimov.model.WorkWithMultipartFile;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 @Controller
@@ -56,9 +58,15 @@ public class RecipeController {
 //            System.out.println("   " + x);
 
         Recipe recipe = new Recipe(Crutch.toUTF8(recipeName), category, listportion, listhour, listminut);
-        recipe.showFields();
+
         System.out.println(DirtyJob.multipartToString(photo).toString());
 
+//        WorkWithMultipartFile.getFileNameOfMultipartFile(photo[0], recipeName);
+        WorkWithMultipartFile work = new WorkWithMultipartFile(photo, Crutch.toUTF8(recipeName));
+        recipe.setNamesMainImage(work.saveFiles());
+
+
+        recipe.showFields();
 
 
         return "redirect:/recipe/add";

@@ -7,17 +7,17 @@ public class Recipe {
     private int category;
     private int portion;
     private int time;
-    private String[] pathToMainImage;
+    private String[] namesMainImage;
     private Ingredient[] ingredients;
     private Step[] steps;
 
-    public Recipe(int id, String recipeName, int category, int portion, int hour, int min, String[] pathToMainImage, Ingredient[] ingredients, Step[] steps) {
+    public Recipe(int id, String recipeName, int category, int portion, int hour, int min, String[] NamesMainImage, Ingredient[] ingredients, Step[] steps) {
         this.id = id;
         this.recipeName = recipeName;
         this.category = category;
         this.portion = portion;
         this.time = hour * 60 + min;
-        this.pathToMainImage = pathToMainImage;
+        this.namesMainImage = NamesMainImage;
         this.ingredients = ingredients;
         this.steps = steps;
     }
@@ -29,11 +29,20 @@ public class Recipe {
         this.time = hour * 60 + min;
     }
 
+    public void setNamesMainImage(String[] namesMainImage) {
+        this.namesMainImage = namesMainImage;
+    }
+
     public void showFields(){
         System.out.println("id: " + id);
         System.out.println("recipeName: " + recipeName);
         System.out.println("category: " + category);
         System.out.println("portion: " + portion);
         System.out.println("time: " + time);
+        System.out.println("namesMainImage:");
+        for (String x : namesMainImage) {
+            System.out.print("   ");
+            System.out.print(x + " ");
+        }
     }
 }
