@@ -37,6 +37,10 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
+    public void setSteps(Step[] steps) {
+        this.steps = steps;
+    }
+
     public void showFields(){
         System.out.println("id: " + id);
         System.out.println("recipeName: " + recipeName);
@@ -51,6 +55,12 @@ public class Recipe {
         System.out.println();
         System.out.println("ingredients:");
         for (Ingredient x : ingredients) {
+            System.out.print("   ");
+            System.out.print(x.show() + " ");
+        }
+        System.out.println();
+        System.out.println("steps:");
+        for (Step x : steps) {
             System.out.print("   ");
             System.out.print(x.show() + " ");
         }

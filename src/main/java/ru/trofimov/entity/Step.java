@@ -9,4 +9,8 @@ public class Step {
         this.description = description;
         this.pathToImage = pathToImage;
     }
+
+    String show(){
+        return description + " " + pathToImage;
+    }
 }

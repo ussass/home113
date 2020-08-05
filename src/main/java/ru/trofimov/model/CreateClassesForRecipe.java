@@ -16,13 +16,16 @@ public class CreateClassesForRecipe {
         return ingredients;
     }
 
-    public static Step[] createSteps(MultipartFile[] files, String[] steps, String recipeName){
+    public static Step[] createSteps(MultipartFile[] files, String[] steps, String recipeName) throws UnsupportedEncodingException {
         Step[] stepsArray = new Step[steps.length];
-        for (int i = 0; i < stepsArray.length; i++){
-            WorkWithMultipartFile work = new WorkWithMultipartFile(files, recipeName);
-//            recipe.setNamesMainImage(work.saveFiles());
+        WorkWithMultipartFile work = new WorkWithMultipartFile(files, recipeName);
+        String[] stepsImage = work.saveFiles(true);
+        for (String x : stepsImage){
+            System.out.println(x + "         CreateClassesForRecipe:24");
         }
-
+        for (int i = 0; i < stepsArray.length; i++){
+            stepsArray[i] = new Step(Crutch.toUTF8(steps[i]), stepsImage[i]);
+        }
         return stepsArray;
     }
 }

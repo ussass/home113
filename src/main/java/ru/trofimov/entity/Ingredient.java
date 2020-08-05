@@ -11,7 +11,7 @@ public class Ingredient {
         this.measure = measure;
     }
 
-    public String show(){
+    String show(){
         return ingredientName + " " + quantity + " " + measure;
     }
 }
