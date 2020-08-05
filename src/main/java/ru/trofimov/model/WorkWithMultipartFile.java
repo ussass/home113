@@ -50,19 +50,6 @@ public class WorkWithMultipartFile {
         return list.toArray(result);
     }
 
-
-    void sdd(MultipartFile file) throws IOException {
-        Date now = new Date();
-        String addName = "" + now.getTime()/1000;
-//        String resultPathName = pathName + File.separator + addName.substring(5) + file.getOriginalFilename();
-        String name = addName.substring(5) + file.getOriginalFilename();
-        String resultPathName = directory + addName.substring(5) + file.getOriginalFilename();
-        System.out.println("resultPathName: " + resultPathName);
-
-        File file1 = new File(resultPathName);
-        file.transferTo(file1);
-    }
-
     private String toTranscript(String ruText){
         Transliterator toLatinTrans = Transliterator.getInstance("Russian-Latin/BGN");
         return toLatinTrans.transliterate(ruText).replaceAll(" ", "-");

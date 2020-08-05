@@ -8,11 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import ru.trofimov.entity.Recipe;
-import ru.trofimov.model.Crutch;
-import ru.trofimov.model.DirtyJob;
-import ru.trofimov.model.WorkWithMultipartFile;
+import ru.trofimov.model.*;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 @Controller
@@ -35,8 +32,7 @@ public class RecipeController {
     }
 
     @PostMapping("/add")
-    public String postAdd(
-            Model model,
+    public String postAdd( Model model,
             @RequestParam String recipeName,
             @RequestParam int category,
             @RequestParam int listportion,
@@ -64,6 +60,7 @@ public class RecipeController {
 //        WorkWithMultipartFile.getFileNameOfMultipartFile(photo[0], recipeName);
         WorkWithMultipartFile work = new WorkWithMultipartFile(photo, Crutch.toUTF8(recipeName));
         recipe.setNamesMainImage(work.saveFiles());
+        recipe.setIngredients(CreateClassesForRecipe.createIngredients(ingName, quantity, measure));
 
 
         recipe.showFields();

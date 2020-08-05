@@ -10,4 +10,8 @@ public class Ingredient {
         this.quantity = quantity;
         this.measure = measure;
     }
+
+    public String show(){
+        return ingredientName + " " + quantity + " " + measure;
+    }
 }

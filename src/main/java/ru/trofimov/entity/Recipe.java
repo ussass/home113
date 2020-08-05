@@ -33,6 +33,10 @@ public class Recipe {
         this.namesMainImage = namesMainImage;
     }
 
+    public void setIngredients(Ingredient[] ingredients) {
+        this.ingredients = ingredients;
+    }
+
     public void showFields(){
         System.out.println("id: " + id);
         System.out.println("recipeName: " + recipeName);
@@ -43,6 +47,11 @@ public class Recipe {
         for (String x : namesMainImage) {
             System.out.print("   ");
             System.out.print(x + " ");
+        }
+        System.out.println("ingredients:");
+        for (Ingredient x : ingredients) {
+            System.out.print("   ");
+            System.out.print(x.show() + " ");
         }
     }
 }
