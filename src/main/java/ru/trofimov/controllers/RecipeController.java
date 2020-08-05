@@ -46,8 +46,6 @@ public class RecipeController {
 
         Recipe recipe = new Recipe(Crutch.toUTF8(recipeName), category, listportion, listhour, listminut);
 
-        System.out.println(DirtyJob.multipartToString(photo).toString());
-
         WorkWithMultipartFile work = new WorkWithMultipartFile(photo, Crutch.toUTF8(recipeName));
         recipe.setNamesMainImage(work.saveFiles(false));
         recipe.setIngredients(CreateClassesForRecipe.createIngredients(ingName, quantity, measure));

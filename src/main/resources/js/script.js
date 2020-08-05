@@ -4,6 +4,7 @@ Element.prototype.appendAfter = function (elemsd) {
 var Ix = 0;
 var Sx = 0;
 var Px = 0;
+
 function iAdd(){
     while(document.getElementById('ingredient'+Ix) == null){
         Ix--;
@@ -50,4 +51,36 @@ function iAdd(){
 
 function iDel(whom){
     document.getElementById("formIng").removeChild(document.getElementById("ingredient" + whom));
+}
+
+function sAdd(){
+
+    while(document.getElementById('step'+Sx) == null){
+        Sx--;
+    }
+    var newElement = document.createElement('div');
+    newElement.appendAfter(document.getElementById('step'+ Sx));
+    Sx++;
+    newElement.id = 'step'+ Sx;
+
+    var inLabel = document.getElementById('step' + Sx);
+
+    inLabel.insertAdjacentHTML("beforeEnd", "<br /><div class=\"w3-row\">\n" +
+        "                            <div class=\"w3-half\">\n" +
+        "                                <div style=\"padding: 8px 16px\">Далее</div>\n" +
+        "                            </div>\n" +
+        "                            <div class=\"w3-half\">\n" +
+        "                                <div onclick=\"sDel(" + Sx + ")\" class=\"w3-button w3-right w3-deep-orange w3-round-large\">Удалить</div>\n" +
+        "                            </div>\n" +
+        "                        </div>\n" +
+        "                        <div style=\"padding: 8px 16px\">\n" +
+        "                            <label for=\"photoStep\">Добавить изображение к описанию</label>\n" +
+        "                            <input type=\"file\" name=\"photoStep\" id=\"photoStep\" class=\"w3-center\" accept=\".jpg, .jpeg, .png, .gif\">\n" +
+        "                        </div>\n" +
+        "                        <br />\n" +
+        "                        <textarea name=\"step\" class=\"w3-input w3-border w3-round-large\" style=\"resize: vertical\" placeholder=\"Описание\"></textarea><br /><br />");
+}
+
+function sDel(whom){
+    document.getElementById("formStp").removeChild(document.getElementById("step" + whom));
 }

@@ -48,6 +48,7 @@ public class Recipe {
             System.out.print("   ");
             System.out.print(x + " ");
         }
+        System.out.println();
         System.out.println("ingredients:");
         for (Ingredient x : ingredients) {
             System.out.print("   ");
