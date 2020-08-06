@@ -11,6 +11,11 @@ public class Ingredient {
         this.measure = measure;
     }
 
+    @Override
+    public String toString() {
+        return ingredientName + "&%&" + quantity + "&%&" + measure;
+    }
+
     String show(){
         return ingredientName + " " + quantity + " " + measure;
     }

@@ -1,5 +1,6 @@
 package ru.trofimov.entity;
 
+
 public class Recipe {
 
     private int id;
@@ -45,5 +46,28 @@ public class Recipe {
             System.out.print("   ");
             System.out.print(x.show() + " ");
         }
+    }
+
+    public String insertIntoDb(){
+        StringBuilder ingredient = new StringBuilder();
+        for (Ingredient value : ingredients) {
+            ingredient.append(value.toString()).append("&*&");
+        }
+
+        StringBuilder step = new StringBuilder();
+        for (Step value : steps) {
+            step.append(value.toString()).append("&*&");
+        }
+
+        StringBuilder nameMainImage = new StringBuilder();
+        for (String value : namesMainImage) {
+            nameMainImage.append(value).append("&*&");
+        }
+        System.out.println(nameMainImage.toString());
+
+        return "VALUES ('" + recipeName + "', " + category + ", " + portion + ", " + time + ", '" + ingredient.toString() + "', '" + step.toString() + "', '" + nameMainImage.toString() + "');";
+//  "VALUES ('хлеб', 2, 2, 300, 'хлеб!!!2!!!2', 'St&dfdf-0.jpg!!!равловпагвпал', 'dfdf-0.jpg');");  " +  + "
+//                          recipeName,           category,          portion,    cookingTime,        ingredients,                steps,                              photos
+
     }
 }

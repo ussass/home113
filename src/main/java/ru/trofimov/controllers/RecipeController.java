@@ -57,12 +57,13 @@ public class RecipeController {
                 CreateClassesForRecipe.createIngredients(ingName, quantity, measure),
                 CreateClassesForRecipe.createSteps(photoStep, step, Crutch.toUTF8(recipeName)));
 
-//        recipe.setNamesMainImage(work.saveFiles(false));
-//        recipe.setIngredients(CreateClassesForRecipe.createIngredients(ingName, quantity, measure));
-//        recipe.setSteps(CreateClassesForRecipe.createSteps(photoStep, step, Crutch.toUTF8(recipeName)));
 
         recipe.showFields();
+        System.out.println("-----------------");
+        System.out.println(recipe.insertIntoDb());
 
+        int id = WorkWithDB.save(recipe);
+        System.out.println(id);
 
         return "redirect:/recipe/add";
     }

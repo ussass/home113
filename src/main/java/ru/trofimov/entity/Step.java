@@ -10,6 +10,11 @@ public class Step {
         this.pathToImage = pathToImage;
     }
 
+    @Override
+    public String toString() {
+        return description + "&%&" + pathToImage;
+    }
+
     String show(){
         return description + " " + pathToImage;
     }
