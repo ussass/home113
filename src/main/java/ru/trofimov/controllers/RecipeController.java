@@ -18,6 +18,7 @@ public class RecipeController {
 
     @GetMapping("/main")
     public String showMain() {
+
         return "recipe/recipes";
     }
 
@@ -47,7 +48,7 @@ public class RecipeController {
     ) throws UnsupportedEncodingException {
 
         WorkWithMultipartFile work = new WorkWithMultipartFile(photo, Crutch.toUTF8(recipeName));
-        Recipe recipe = new Recipe(0,
+        Recipe recipe = new Recipe(
                 Crutch.toUTF8(recipeName),
                 category,
                 listportion,

@@ -12,8 +12,7 @@ public class Recipe {
     private Ingredient[] ingredients;
     private Step[] steps;
 
-    public Recipe(int id, String recipeName, int category, int portion, int hour, int min, String[] NamesMainImage, Ingredient[] ingredients, Step[] steps) {
-        this.id = id;
+    public Recipe(String recipeName, int category, int portion, int hour, int min, String[] NamesMainImage, Ingredient[] ingredients, Step[] steps) {
         this.recipeName = recipeName;
         this.category = category;
         this.portion = portion;
