@@ -20,7 +20,7 @@ public class Step {
         return description + "&%&" + pathToImage;
     }
 
-    String show(){
+    String show() {
         return description + " " + pathToImage;
     }
 }

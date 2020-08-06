@@ -11,6 +11,7 @@ import ru.trofimov.entity.Recipe;
 import ru.trofimov.model.*;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/recipe")
@@ -18,14 +19,14 @@ public class RecipeController {
 
     @GetMapping("/main")
     public String showMain() {
-        Recipe recipe = WorkWithDB.read(34);
-        recipe.showFields();
-
         return "recipe/recipes";
     }
 
     @GetMapping("/list")
     public String showList() {
+        List<Recipe> list = WorkWithDB.findAll(0);
+        System.out.println(list.size() + "         RecipeController.showList");
+        list.get(3).showFields();
         return "recipe/list";
     }
 

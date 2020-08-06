@@ -3,9 +3,9 @@ package ru.trofimov.model;
 import ru.trofimov.entity.Recipe;
 
 import java.lang.reflect.InvocationTargetException;
-        import java.sql.*;
-        import java.util.ArrayList;
-        import java.util.List;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WorkWithDB {
 
@@ -14,7 +14,7 @@ public class WorkWithDB {
     private static final String PASSWORD = "12345678";
 
     static {
-        try{
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException | ClassNotFoundException e) {
             System.out.println("Кака-то херь попалась: " + e);
@@ -30,18 +30,10 @@ public class WorkWithDB {
             ResultSet resultSet = connection.createStatement().executeQuery(sql);
 
             while (resultSet.next()) {
-//                Recipe recipe = new Recipe();
-//                recipe.setId(resultSet.getInt("id"));
-//                recipe.setRecipeName(resultSet.getString("recipeName"));
-//                recipe.setCategory(resultSet.getInt("category"));
-//                recipe.setPortion(resultSet.getInt("portion"));
-//                recipe.setTime(resultSet.getInt("cookingTime"));
-//                recipe.setIngredient(resultSet.getString("ingredients"));
-//                recipe.setQuantity(resultSet.getString("quantity"));
-//                recipe.setMeasure(resultSet.getString("measure"));
-//                recipe.setSteps(resultSet.getString("steps"));
-//                recipe.setPhotoPath(resultSet.getString("photos"));
-//                list.add(recipe);
+                Recipe recipe = new Recipe(resultSet.getInt("id"), resultSet.getString("recipeName"), resultSet.getInt("category"),
+                        resultSet.getInt("portion"), resultSet.getInt("cookingTime"), resultSet.getString("photos"),
+                        resultSet.getString("ingredients"), resultSet.getString("steps"));
+                list.add(recipe);
             }
         } catch (SQLException e) {
             System.out.println("Неудалось загрузить класс драйвера!");
@@ -49,15 +41,15 @@ public class WorkWithDB {
         return list;
     }
 
-    public static int save(Recipe recipe){
+    public static int save(Recipe recipe) {
         int lastId = 0;
-        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)){
+        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
 //            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             Statement statement = connection.createStatement();
             statement.execute("INSERT INTO recipes (recipeName, category, portion, cookingTime, ingredients, steps, photos) " + recipe.insertIntoDb());
 //                    "VALUES ('" + recipe.getRecipeName() + "', " + recipe.getCategory() + ", " + recipe.getPortion() + ", " + recipe.getTime() + ", '" + recipe.getIngredient() + "', '" + recipe.getQuantity() + "', '" + recipe.getMeasure() + "', '" + recipe.getSteps() + "', '" + recipe.getPhotoPath() + "');");
             ResultSet resultSet = statement.executeQuery("SELECT LAST_INSERT_ID()");
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 lastId = resultSet.getInt(1);
             }
         } catch (SQLException e) {
@@ -67,57 +59,26 @@ public class WorkWithDB {
         }
         return lastId;
     }
-    public static Recipe read(int id){
+
+    public static Recipe read(int id) {
 
         Recipe recipe;
         try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-//            Statement statement = connection.createStatement();
-//            statement.execute("SELECT * FROM recipes WHERE id = " + id + "; ");
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM recipes WHERE id = " + id + "; ");
-//            ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM recipes WHERE id = " + id + "; ");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM recipes WHERE id = " + id + ";");
 
             if (resultSet.next()) {
-                System.out.println(resultSet.getString("recipeName"));
-                 recipe = new Recipe(resultSet.getInt("id"), resultSet.getString("recipeName"), resultSet.getInt("category"),
+                recipe = new Recipe(resultSet.getInt("id"), resultSet.getString("recipeName"), resultSet.getInt("category"),
                         resultSet.getInt("portion"), resultSet.getInt("cookingTime"), resultSet.getString("photos"),
                         resultSet.getString("ingredients"), resultSet.getString("steps"));
-
-//                Recipe recipe = new Recipe();
-//                recipe.setId(resultSet.getInt("id"));
-//                recipe.setRecipeName(resultSet.getString("recipeName"));
-//                recipe.setCategory(resultSet.getInt("category"));
-//                recipe.setPortion(resultSet.getInt("portion"));
-//                recipe.setTime(resultSet.getInt("cookingTime"));
-//                recipe.setIngredient(resultSet.getString("ingredients"));
-//                recipe.setQuantity(resultSet.getString("quantity"));
-//                recipe.setMeasure(resultSet.getString("measure"));
-//                recipe.setSteps(resultSet.getString("steps"));
-//                recipe.setPhotoPath(resultSet.getString("photos"));
-//                list.add(recipe);
-            }
-            else recipe = new Recipe(id, "No", 0, 0, 0, "No-Image-Found.png", "No&%&1&%&0", "111111111111111111&%&St&No-Image-Found.png");
-        }catch (SQLException e){
-                System.out.println("Неудалось загрузить класс драйвера!");
+            } else
                 recipe = new Recipe(id, "No", 0, 0, 0, "No-Image-Found.png", "No&%&1&%&0", "111111111111111111&%&St&No-Image-Found.png");
+        } catch (SQLException e) {
+            System.out.println("Неудалось загрузить класс драйвера!");
+            recipe = new Recipe(id, "No", 0, 0, 0, "No-Image-Found.png", "No&%&1&%&0", "111111111111111111&%&St&No-Image-Found.png");
         }
 
         return recipe;
-
-
-
-//        Statement statement = connection.createStatement();
-//        ResultSet resultSet = statement.executeQuery("SELECT * FROM recipes WHERE id = " + id + "; ");
-//        while (resultSet.next()){
-//            recipe.setRecipeName(resultSet.getString("recipeName"));
-//            recipe.setCategory(resultSet.getInt("category"));
-//            recipe.setPortion(resultSet.getInt("portion"));
-//            recipe.setTime(resultSet.getInt("cookingTime"));
-//            recipe.setIngredients(resultSet.getString("ingredients"));
-//            recipe.setQuantity(resultSet.getString("quantity"));
-//            recipe.setMeasure(resultSet.getString("measure"));
-//            recipe.setSteps(resultSet.getString("steps"));
-//            recipe.setPhotoPath(resultSet.getString("photos"));
     }
 }
 
