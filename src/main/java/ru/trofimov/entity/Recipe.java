@@ -22,6 +22,27 @@ public class Recipe {
         this.steps = steps;
     }
 
+    public Recipe(int id, String recipeName, int category, int portion, int time, String namesMainImage, String ingredients, String steps) {
+        this.id = id;
+        this.recipeName = recipeName;
+        this.category = category;
+        this.portion = portion;
+        this.time = time;
+        this.namesMainImage = namesMainImage.split("&\\*&");
+        Ingredient[] ing = new Ingredient[ingredients.split("&\\*&").length];
+        for (int i = 0; i < ing.length; i++){
+            String x = ingredients.split("&\\*&")[i];
+            ing[i] = new Ingredient(x);
+        }
+        this.ingredients = ing;
+        Step[] st = new Step[steps.split("&\\*&").length];
+        for (int i = 0; i < st.length; i++){
+            String x = steps.split("&\\*&")[i];
+            st[i] = new Step(x);
+        }
+        this.steps = st;
+    }
+
     public void showFields(){
         System.out.println("id: " + id);
         System.out.println("recipeName: " + recipeName);

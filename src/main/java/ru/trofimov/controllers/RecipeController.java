@@ -18,6 +18,8 @@ public class RecipeController {
 
     @GetMapping("/main")
     public String showMain() {
+        Recipe recipe = WorkWithDB.read(34);
+        recipe.showFields();
 
         return "recipe/recipes";
     }

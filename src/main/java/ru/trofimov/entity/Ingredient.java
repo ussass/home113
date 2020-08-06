@@ -11,10 +11,18 @@ public class Ingredient {
         this.measure = measure;
     }
 
+    public Ingredient(String allInOne) {
+        this.ingredientName = allInOne.split("&%&")[0];
+        this.quantity = Integer.parseInt(allInOne.split("&%&")[1]);
+        this.measure = Integer.parseInt(allInOne.split("&%&")[2]);
+    }
+
     @Override
     public String toString() {
         return ingredientName + "&%&" + quantity + "&%&" + measure;
     }
+
+
 
     String show(){
         return ingredientName + " " + quantity + " " + measure;

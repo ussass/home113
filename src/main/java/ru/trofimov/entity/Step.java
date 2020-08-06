@@ -10,6 +10,11 @@ public class Step {
         this.pathToImage = pathToImage;
     }
 
+    public Step(String allInOne) {
+        this.description = allInOne.split("&%&")[0];
+        this.pathToImage = allInOne.split("&%&")[1];
+    }
+
     @Override
     public String toString() {
         return description + "&%&" + pathToImage;
