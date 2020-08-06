@@ -22,25 +22,6 @@ public class Recipe {
         this.steps = steps;
     }
 
-    public Recipe(String recipeName, int category, int portion, int hour, int min) {
-        this.recipeName = recipeName;
-        this.category = category;
-        this.portion = portion;
-        this.time = hour * 60 + min;
-    }
-
-    public void setNamesMainImage(String[] namesMainImage) {
-        this.namesMainImage = namesMainImage;
-    }
-
-    public void setIngredients(Ingredient[] ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    public void setSteps(Step[] steps) {
-        this.steps = steps;
-    }
-
     public void showFields(){
         System.out.println("id: " + id);
         System.out.println("recipeName: " + recipeName);

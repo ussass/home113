@@ -20,9 +20,6 @@ public class CreateClassesForRecipe {
         Step[] stepsArray = new Step[steps.length];
         WorkWithMultipartFile work = new WorkWithMultipartFile(files, recipeName);
         String[] stepsImage = work.saveFiles(true);
-        for (String x : stepsImage){
-            System.out.println(x + "         CreateClassesForRecipe:24");
-        }
         for (int i = 0; i < stepsArray.length; i++){
             stepsArray[i] = new Step(Crutch.toUTF8(steps[i]), stepsImage[i]);
         }

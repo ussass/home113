@@ -44,14 +44,22 @@ public class RecipeController {
                           @RequestParam int[] measure,
                           @RequestParam MultipartFile[] photoStep,
                           @RequestParam String[] step
-                          ) throws UnsupportedEncodingException {
-
-        Recipe recipe = new Recipe(Crutch.toUTF8(recipeName), category, listportion, listhour, listminut);
+    ) throws UnsupportedEncodingException {
 
         WorkWithMultipartFile work = new WorkWithMultipartFile(photo, Crutch.toUTF8(recipeName));
-        recipe.setNamesMainImage(work.saveFiles(false));
-        recipe.setIngredients(CreateClassesForRecipe.createIngredients(ingName, quantity, measure));
-        recipe.setSteps(CreateClassesForRecipe.createSteps(photoStep, step, Crutch.toUTF8(recipeName)));
+        Recipe recipe = new Recipe(0,
+                Crutch.toUTF8(recipeName),
+                category,
+                listportion,
+                listhour,
+                listminut,
+                work.saveFiles(false),
+                CreateClassesForRecipe.createIngredients(ingName, quantity, measure),
+                CreateClassesForRecipe.createSteps(photoStep, step, Crutch.toUTF8(recipeName)));
+
+//        recipe.setNamesMainImage(work.saveFiles(false));
+//        recipe.setIngredients(CreateClassesForRecipe.createIngredients(ingName, quantity, measure));
+//        recipe.setSteps(CreateClassesForRecipe.createSteps(photoStep, step, Crutch.toUTF8(recipeName)));
 
         recipe.showFields();
 

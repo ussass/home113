@@ -6,14 +6,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class WorkWithMultipartFile {
-
-    public static String getFileNameOfMultipartFile(MultipartFile file, String recipeName){
-
-        return "";
-    }
 
     private MultipartFile[] multipartFile;
     private String recipeName;
@@ -55,8 +49,5 @@ public class WorkWithMultipartFile {
         Transliterator toLatinTrans = Transliterator.getInstance("Russian-Latin/BGN");
         return toLatinTrans.transliterate(ruText).replaceAll(" ", "-");
     }
-
-
-
 
 }
