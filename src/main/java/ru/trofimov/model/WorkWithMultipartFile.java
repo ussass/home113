@@ -21,7 +21,7 @@ public class WorkWithMultipartFile {
 
     public String[] saveFiles(boolean forSteps){
         for (int i = 0; i < multipartFile.length; i++){
-            if (multipartFile[i].getSize() == 0) continue;
+            if (multipartFile[i].getSize() == 0 && !forSteps) continue;
             try {
                 saveFile(i, forSteps);
 

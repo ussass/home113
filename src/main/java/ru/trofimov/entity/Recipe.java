@@ -38,9 +38,12 @@ public class Recipe {
             if (!x.equals("")) ing[i] = new Ingredient(x);
         }
         this.ingredients = ing;
+        System.out.println("steps:" + steps);
         Step[] st = new Step[steps.split("&\\*&").length];
+        System.out.println("st.length: " + st.length);
         for (int i = 0; i < st.length; i++){
             String x = steps.split("&\\*&")[i];
+            System.out.println(x);
             if (!x.equals("")) st[i] = new Step(x);
         }
         this.steps = st;

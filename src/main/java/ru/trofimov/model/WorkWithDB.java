@@ -44,18 +44,14 @@ public class WorkWithDB {
     public static int save(Recipe recipe) {
         int lastId = 0;
         try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-//            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             Statement statement = connection.createStatement();
             statement.execute("INSERT INTO recipes (recipeName, category, portion, cookingTime, ingredients, steps, photos) " + recipe.insertIntoDb());
-//                    "VALUES ('" + recipe.getRecipeName() + "', " + recipe.getCategory() + ", " + recipe.getPortion() + ", " + recipe.getTime() + ", '" + recipe.getIngredient() + "', '" + recipe.getQuantity() + "', '" + recipe.getMeasure() + "', '" + recipe.getSteps() + "', '" + recipe.getPhotoPath() + "');");
             ResultSet resultSet = statement.executeQuery("SELECT LAST_INSERT_ID()");
             while (resultSet.next()) {
                 lastId = resultSet.getInt(1);
             }
         } catch (SQLException e) {
             System.out.println("Неудалось загрузить класс драйвера!");
-//        }catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException | ClassNotFoundException e) {
-//            System.out.println("Кака-то херь попалась");
         }
         return lastId;
     }

@@ -26,7 +26,7 @@ public class RecipeController {
     public String showList() {
         List<Recipe> list = WorkWithDB.findAll(0);
         System.out.println(list.size() + "         RecipeController.showList");
-        list.get(3).showFields();
+//        list.get(3).showFields();
         return "recipe/list";
     }
 
@@ -43,12 +43,14 @@ public class RecipeController {
                           @RequestParam int listhour,
                           @RequestParam int listminut,
                           @RequestParam MultipartFile[] photo,
-                          @RequestParam String[] ingName,
-                          @RequestParam int[] quantity,
+                          @RequestParam (value = "ingName", required = false) String[] ingName,
+//                          @RequestParam (value = "quantity", required = false) int[] quantity,
+                          @RequestParam List<Integer>  quantity,
                           @RequestParam int[] measure,
                           @RequestParam MultipartFile[] photoStep,
                           @RequestParam String[] step
     ) throws UnsupportedEncodingException {
+
 
         WorkWithMultipartFile work = new WorkWithMultipartFile(photo, Crutch.toUTF8(recipeName));
         Recipe recipe = new Recipe(
@@ -58,7 +60,7 @@ public class RecipeController {
                 listhour,
                 listminut,
                 work.saveFiles(false),
-                CreateClassesForRecipe.createIngredients(ingName, quantity, measure),
+                CreateClassesForRecipe.createIngredients(ingName, quantity , measure),
                 CreateClassesForRecipe.createSteps(photoStep, step, Crutch.toUTF8(recipeName)));
 
 
