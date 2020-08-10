@@ -2,10 +2,7 @@ package ru.trofimov.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.trofimov.entity.Recipe;
 import ru.trofimov.model.*;
@@ -27,6 +24,20 @@ public class RecipeController {
         List<Recipe> list = WorkWithDB.findAll(0);
         model.addAttribute("list", list);
         return "recipe/list";
+    }
+
+//    @GetMapping("/main")
+    @GetMapping("/{linkName}")
+    public String showRecipe(@PathVariable(value = "linkName") String linkName, Model model) {
+        try {
+            int id = Integer.parseInt(linkName.split("-")[linkName.split("-").length - 1]);
+
+            return "recipe/list";
+
+        }catch (Exception e){
+            return "error404";
+        }
+
     }
 
     @GetMapping("/add")

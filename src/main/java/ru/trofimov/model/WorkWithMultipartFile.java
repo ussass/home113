@@ -21,7 +21,7 @@ public class WorkWithMultipartFile {
 
     public WorkWithMultipartFile(MultipartFile[] multipartFile, String recipeName) {
         this.multipartFile = multipartFile;
-        this.recipeName = toTranscript(recipeName);
+        this.recipeName = Crutch.toTranscript(recipeName);
     }
 
     public String[] saveFiles(boolean forSteps){
@@ -51,10 +51,7 @@ public class WorkWithMultipartFile {
         return recipeName + "-" + count + "." + multipartFile[count].getContentType().split("/")[1];
     }
 
-    private String toTranscript(String ruText){
-        Transliterator toLatinTrans = Transliterator.getInstance("Russian-Latin/BGN");
-        return toLatinTrans.transliterate(ruText).replaceAll(" ", "-");
-    }
+
 
     public boolean moveImg(int id){
 

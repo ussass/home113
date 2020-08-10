@@ -1,6 +1,8 @@
 package ru.trofimov.entity;
 
 
+import ru.trofimov.model.Crutch;
+
 import java.util.ArrayList;
 
 public class Recipe {
@@ -58,6 +60,10 @@ public class Recipe {
         else if (hour == 0 && min > 0) return min + " минут";
         else return hour + correctHour(hour) + min + " минут";
 
+    }
+
+    public String getLinkWithId(){
+        return Crutch.toTranscript(recipeName) + "-" + id;
     }
 
     public int getId() {

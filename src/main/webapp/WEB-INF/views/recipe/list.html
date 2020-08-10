@@ -21,7 +21,7 @@
     <ul class="w3-ul w3-card-4 w3-hoverable" style="cursor: pointer">
         <th:block th:each="item: ${list}">
             <li>
-                <a th:href="'recipe/' + ${item.getId()}">
+                <a th:href="'/recipe/' + ${item.getLinkWithId()}">
                     <div class="w3-bar">
                         <img src="/img/No-Image-Found.png" alt="123" class="w3-bar-item w3-circle w3-hide-small"
                              style="width:85px; box-sizing: content-box">

@@ -11,4 +11,9 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("error404")
+    public String show404(){
+        return "error404";
+    }
+
 }
