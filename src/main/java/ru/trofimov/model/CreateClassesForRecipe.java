@@ -1,6 +1,5 @@
 package ru.trofimov.model;
 
-import com.sun.istack.internal.NotNull;
 import org.springframework.web.multipart.MultipartFile;
 import ru.trofimov.entity.Ingredient;
 import ru.trofimov.entity.Step;

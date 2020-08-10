@@ -43,7 +43,7 @@ public class RecipeController {
                           @RequestParam int listhour,
                           @RequestParam int listminut,
                           @RequestParam MultipartFile[] photo,
-                          @RequestParam (value = "ingName", required = false) String[] ingName,
+                          @RequestParam String[] ingName,
 //                          @RequestParam (value = "quantity", required = false) int[] quantity,
                           @RequestParam List<Integer>  quantity,
                           @RequestParam int[] measure,
@@ -70,6 +70,7 @@ public class RecipeController {
 
         int id = WorkWithDB.save(recipe);
         System.out.println(id);
+        work.moveImg(id);
 
         return "redirect:/recipe/add";
     }
