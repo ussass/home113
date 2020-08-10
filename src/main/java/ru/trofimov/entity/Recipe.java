@@ -25,7 +25,6 @@ public class Recipe {
     }
 
     public Recipe(int id, String recipeName, int category, int portion, int time, String namesMainImage, String ingredients, String steps) {
-        System.out.println("recipe.id: " + id);
         this.id = id;
         this.recipeName = recipeName;
         this.category = category;
@@ -38,15 +37,24 @@ public class Recipe {
             if (!x.equals("")) ing[i] = new Ingredient(x);
         }
         this.ingredients = ing;
-        System.out.println("steps:" + steps);
         Step[] st = new Step[steps.split("&\\*&").length];
-        System.out.println("st.length: " + st.length);
         for (int i = 0; i < st.length; i++){
             String x = steps.split("&\\*&")[i];
-            System.out.println(x);
             if (!x.equals("")) st[i] = new Step(x);
         }
         this.steps = st;
+    }
+
+    public String getRecipeName() {
+        return recipeName;
+    }
+
+    public String getTime() {
+        return time + "";
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void showFields(){
@@ -72,6 +80,8 @@ public class Recipe {
             System.out.print("   ");
             System.out.print(x.show() + " ");
         }
+        System.out.println();
+        System.out.println("-------------------");
     }
 
     public String insertIntoDb(){
@@ -89,11 +99,9 @@ public class Recipe {
         for (String value : namesMainImage) {
             nameMainImage.append(value).append("&*&");
         }
-        System.out.println(nameMainImage.toString());
+        System.out.println("nameMainImage.toString: " + nameMainImage.toString());
 
         return "VALUES ('" + recipeName + "', " + category + ", " + portion + ", " + time + ", '" + ingredient.toString() + "', '" + step.toString() + "', '" + nameMainImage.toString() + "');";
-//  "VALUES ('хлеб', 2, 2, 300, 'хлеб!!!2!!!2', 'St&dfdf-0.jpg!!!равловпагвпал', 'dfdf-0.jpg');");  " +  + "
-//                          recipeName,           category,          portion,    cookingTime,        ingredients,                steps,                              photos
 
     }
 }

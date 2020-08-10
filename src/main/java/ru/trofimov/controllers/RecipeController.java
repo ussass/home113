@@ -23,10 +23,9 @@ public class RecipeController {
     }
 
     @GetMapping("/list")
-    public String showList() {
+    public String showList(Model model) {
         List<Recipe> list = WorkWithDB.findAll(0);
-        System.out.println(list.size() + "         RecipeController.showList");
-//        list.get(3).showFields();
+        model.addAttribute("list", list);
         return "recipe/list";
     }
 
