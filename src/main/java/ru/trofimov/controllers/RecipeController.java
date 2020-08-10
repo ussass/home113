@@ -4,10 +4,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ru.trofimov.entity.Ingredient;
 import ru.trofimov.entity.Recipe;
 import ru.trofimov.model.*;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -26,17 +28,19 @@ public class RecipeController {
         return "recipe/list";
     }
 
-//    @GetMapping("/main")
     @GetMapping("/{linkName}")
     public String showRecipe(@PathVariable(value = "linkName") String linkName, Model model) {
-        try {
+//        try {
             int id = Integer.parseInt(linkName.split("-")[linkName.split("-").length - 1]);
-
+            Recipe recipe = WorkWithDB.read(id);
+//            recipe.showFields();
+              System.out.println(recipe.getIngredients()[0].getQuantity());
             return "recipe/list";
 
-        }catch (Exception e){
-            return "error404";
-        }
+//        }catch (Exception e){
+//            System.out.println(Arrays.toString(e.getStackTrace()));
+//            return "error404";
+//        }
 
     }
 
