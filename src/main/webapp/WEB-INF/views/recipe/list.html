@@ -6,49 +6,34 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <header th:insert="template/header :: header"></header>
-    <div class="w3-container w3-padding">
+<header th:insert="template/header :: header"></header>
+<div class="w3-container w3-padding">
 
-        <div class="w3-card w3-light-grey">
-            <div class="w3-container w3-center w3-row w3-teal">
-                <div class="w3-third w3-container"></div>
-                <div class="w3-third w3-container w3-center">
-                    <h2>Все рецепты</h2>
-                </div>
-                <div class="w3-third w3-container"></div>
+    <div class="w3-card w3-light-grey">
+        <div class="w3-container w3-center w3-row w3-teal">
+            <div class="w3-third w3-container"></div>
+            <div class="w3-third w3-container w3-center">
+                <h2>Все рецепты</h2>
             </div>
+            <div class="w3-third w3-container"></div>
         </div>
-        <ul class="w3-ul w3-card-4 w3-hoverable" style="cursor: pointer">
-            <li class="w3-bar">
-<!--                <img src=/img" class=\"w3-bar-item w3-circle w3-hide-small\" style=\"width:85px\">-->
-<!--                <img src="" + photo + "" class=\"w3-bar-item w3-circle w3-hide-small\" style=\"width:85px\">-->
-                <img src="/img/No-Image-Found.png" alt="123" class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
-                <div class="w3-bar-item">
-                    <span class="w3-large">Тест</span><br>
-                    <span>20</span>
-                </div>
-            </li>
-        </ul>
-        <ul class="w3-ul w3-card-4 w3-hoverable" style="cursor: pointer">
-            <th:block th:each="item: ${list}">
-                <li>
-                    <a th:href="'recipe/' + ${item.getId()}">
-                        <div class="w3-bar">
-                            <img src="/img/No-Image-Found.png" alt="123" class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
-                            <div class="w3-bar-item">
-                                <span class="w3-large" th:text="${item.getRecipeName()}"></span><br>
-                                <span th:text="${item.getTime()}"></span>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-            </th:block>
-
-        </ul>
-<!--        <div th:each="el : ${posts}">-->
-<!--            <p th:text="${el.getDescription()}"/>-->
-<!--            <img th:src="'/upload/' + ${el.getFileName()}" th:alt="${el.getFileName()}" style="width: 50px"/>-->
-<!--        </div>-->
     </div>
+    <ul class="w3-ul w3-card-4 w3-hoverable" style="cursor: pointer">
+        <th:block th:each="item: ${list}">
+            <li>
+                <a th:href="'recipe/' + ${item.getId()}">
+                    <div class="w3-bar">
+                        <img src="/img/No-Image-Found.png" alt="123" class="w3-bar-item w3-circle w3-hide-small"
+                             style="width:85px; box-sizing: content-box">
+                        <div class="w3-bar-item">
+                            <span class="w3-large" th:text="${item.getRecipeName()}"></span><br>
+                            <span th:text="${item.getTime()}"></span>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </th:block>
+    </ul>
+</div>
 </body>
 </html>

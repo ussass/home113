@@ -50,7 +50,14 @@ public class Recipe {
     }
 
     public String getTime() {
-        return time + "";
+        int hour, min;
+        min = time % 60;
+        hour = (time - min) / 60;
+        if (hour == 0 && min == 0) return "---";
+        else if (hour > 0 && min == 0) return hour + correctHour(hour);
+        else if (hour == 0 && min > 0) return min + " минут";
+        else return hour + correctHour(hour) + min + " минут";
+
     }
 
     public int getId() {
@@ -103,5 +110,13 @@ public class Recipe {
 
         return "VALUES ('" + recipeName + "', " + category + ", " + portion + ", " + time + ", '" + ingredient.toString() + "', '" + step.toString() + "', '" + nameMainImage.toString() + "');";
 
+    }
+
+    private String correctHour(int hour){
+        int lastN = hour % 10;
+        int penultN = (hour % 100 - lastN) / 10;
+        if (lastN == 1 && penultN != 1) return " час ";
+        if ((lastN == 2 || lastN == 3 || lastN == 4) && penultN != 1) return " часа ";
+        else return " часов ";
     }
 }
