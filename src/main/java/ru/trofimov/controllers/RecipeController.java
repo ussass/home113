@@ -34,6 +34,9 @@ public class RecipeController {
             int id = Integer.parseInt(linkName.split("-")[linkName.split("-").length - 1]);
             Recipe recipe = WorkWithDB.read(id);
 //            recipe.showFields();
+            System.out.println(recipe.getNamesMainImage().length);
+            for (String x : recipe.getNamesMainImage())
+                System.out.println(x.equals(""));
             model.addAttribute("recipe", recipe);
             return "recipe/show";
 

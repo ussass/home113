@@ -85,6 +85,14 @@ public class Recipe {
         }
     }
 
+    public int getPortion() {
+        return portion;
+    }
+
+    public String[] getNamesMainImage() {
+        return namesMainImage;
+    }
+
     public void showFields(){
         System.out.println("id: " + id);
         System.out.println("recipeName: " + recipeName);
