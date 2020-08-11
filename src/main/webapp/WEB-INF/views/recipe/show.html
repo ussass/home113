@@ -2,11 +2,69 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>List</title>
+    <title th:text="${recipe.getRecipeName()}"></title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <header th:insert="template/header :: header"></header>
+<div class="w3-container w3-padding">
+
+    <div class="w3-card w3-light-grey">
+        <div class="w3-container w3-center w3-row w3-teal">
+            <div class="w3-third w3-container">
+                <h4 th:text="${recipe.getCategory()}"></h4>
+            </div>
+            <div class="w3-third w3-container w3-center">
+                <h2 th:text="${recipe.getRecipeName()}"></h2>
+            </div>
+            <div class="w3-third w3-container" style="vertical-align: middle">
+                <h4 style="vertical-align: middle" th:text="${recipe.getTime()}"></h4>
+            </div>
+        </div>
+        <br />
+        <div class="w3-panel  w3-center ">
+            recipe.getPhotoPath()
+        </div>
+        <div class="w3-panel  w3-center ">
+            <h4>Ингредиенты на
+                <select id="selectBox" onchange="changeFunc()" style="border: none; background-color: #f1f1f1">
+                    <option value="1">1 порцию</option>
+                    <option value="2">2 порции</option>
+                    <option value="3">3 порции</option>
+                    <option value="4">4 порции</option>
+                    <option value="5">5 порций</option>
+                    <option value="6">6 порций</option>
+                    <option value="7">7 порций</option>
+                    <option value="8">8 порций</option>
+                    <option value="9">9 порций</option>
+                    <option value="10">10 порций</option>
+                </select></h4>
+        </div>
+        <div class="w3-padding" id="formIng">
+            recipe.getIngredients()
+</div>
+<div class="w3-panel  w3-center ">
+    <h4>Инструкция</h4>
+</div>
+<div class="w3-padding" id="formStp">
+    <ul class="w3-ul">
+        recipe.getSteps()
+    </ul>
+</div>
+<br />
+<div class="w3-row w3-padding">
+    <div class="w3-container w3-quarter"></div>
+    <div class="w3-container w3-quarter">
+        <div class="w3-block w3-btn w3-deep-orange w3-round-large">Придумать назначение</div>
+    </div>
+    <div class="w3-container w3-quarter">
+        <div class="w3-block w3-btn  w3-round-large w3-teal" onclick="location.href='/recipe/edit?id=<%out.print(id);%>'">Редактировать</div>
+    </div>
+    <div class="w3-container w3-quarter"></div>
+</div>
+<br />
+</div>
+</div>
 
 </body>
 </html>
