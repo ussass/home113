@@ -98,12 +98,19 @@ public class Recipe {
             ingredients[0].toString();
             return ingredients;
         }catch (Exception e){
+            System.out.println("Отработал getIngredients.Exception");
             return new Ingredient[] {new Ingredient("",0,0)};
         }
     }
 
     public Step[] getSteps() {
-        return steps;
+        try{
+            steps[0].toString();
+            return steps;
+        }catch (Exception e){
+            System.out.println("Отработал getSteps.Exception");
+            return new Step[] {new Step("","")};
+        }
     }
 
     public void showFields(){

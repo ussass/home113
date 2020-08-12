@@ -61,12 +61,26 @@
                 </div>
             </th:block>
         </div>
-        <div class="w3-panel  w3-center ">
+        <div class="w3-panel  w3-center">
             <h4>Инструкция</h4>
         </div>
         <div class="w3-padding" id="formStp">
             <ul class="w3-ul">
-                recipe.getSteps()
+                <th:block th:each="item,inter : ${recipe.getSteps()}">
+                    <li class="w3-panel w3-border-bottom w3-row w3-border-teal" th:if="${item.getDescription() != ''}">
+                        <div class="w3-half w3-center" style="margin: 15px 0">
+                            <b th:text="${inter.index} + 1 + '. '"></b>
+                            <span th:text="${item.getDescription()}"></span>
+                        </div>
+                        <div class="w3-half w3-center">
+                            <img th:src="'/upload/' + ${recipe.getId()} + '/mini/' + ${item.getPathToImage()}"
+                                 th:alt="${item.getPathToImage()}"
+                                 class="w3-bar-item w3-hide-small"
+                                 style="width:270px; box-sizing: content-box"
+                                 th:if="${item.getPathToImage() != ''}">
+                        </div>
+                    </li>
+                </th:block>
 
             </ul>
         </div>

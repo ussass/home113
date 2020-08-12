@@ -1,7 +1,8 @@
 package ru.trofimov.model;
 
-import com.ibm.icu.text.Transliterator;
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
+import ru.trofimov.entity.Step;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -22,6 +23,9 @@ public class WorkWithMultipartFile {
     public WorkWithMultipartFile(MultipartFile[] multipartFile, String recipeName) {
         this.multipartFile = multipartFile;
         this.recipeName = Crutch.toTranscript(recipeName);
+    }
+
+    public WorkWithMultipartFile() {
     }
 
     public String[] saveFiles(boolean forSteps){
@@ -51,12 +55,21 @@ public class WorkWithMultipartFile {
         return recipeName + "-" + count + "." + multipartFile[count].getContentType().split("/")[1];
     }
 
+    public void moveImg(int id){
+        privateMoveImg(id, resultPhotoName);
+    }
 
+    public void moveImg(int id, Step[] steps){
+        String[] photoName = new String[steps.length];
+        for (int i = 0; i < steps.length; i ++)
+            photoName[i] = steps[i].getPathToImage();
+        privateMoveImg(id, photoName);
+    }
 
-    public boolean moveImg(int id){
+    private void privateMoveImg(int id, String[] photoName){
 
         System.out.println("moveImg.id: " + id);
-        for (String x : resultPhotoName)
+        for (String x : photoName)
             System.out.println("moveImg.x: " + x);
 
         File destFile = new File(directory + id);
@@ -64,21 +77,23 @@ public class WorkWithMultipartFile {
         File destFileMini = new File(directory + id + "/mini");
         destFileMini.mkdir();
 
-        for (int i = 0; i < resultPhotoName.length; i ++){
+        for (int i = 0; i < photoName.length; i ++){
             try{
-                File src = new File(directory + "temp/" + resultPhotoName[i]);
-                File target = new File(directory + id + "/" + resultPhotoName[i]);
+                File src = new File(directory + "temp/" + photoName[i]);
+                File target = new File(directory + id + "/" + photoName[i]);
                 Files.move(src.toPath(), target.toPath());
 
-                String format = resultPhotoName[i].split("\\.")[resultPhotoName[i].split("\\.").length-1];
-                resizeImg(target, new File(directory + id + "/mini/" + resultPhotoName[i]), 150, format);
+                String format = photoName[i].split("\\.")[photoName[i].split("\\.").length-1];
+                if (target.length() > 0){
+                    resizeImg(target, new File(directory + id + "/mini/" + photoName[i]), 150, format);
+                }
+                else target.delete();
 
             }catch (IOException e){
                 System.out.println("Exception: " + e);
-                return false;
+                return;
             }
         }
-        return true;
     }
 
     private void resizeImg(File originalImg, File resizeImg, int height, String format){

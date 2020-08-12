@@ -30,18 +30,17 @@ public class RecipeController {
 
     @GetMapping("/{linkName}")
     public String showRecipe(@PathVariable(value = "linkName") String linkName, Model model) {
-//        try {
+        try {
             int id = Integer.parseInt(linkName.split("-")[linkName.split("-").length - 1]);
             Recipe recipe = WorkWithDB.read(id);
 
-            System.out.println(recipe.getIngredients()[0].toString());
             model.addAttribute("recipe", recipe);
             return "recipe/show";
 
-//        }catch (Exception e){
-//            System.out.println(Arrays.toString(e.getStackTrace()));
-//            return "error404";
-//        }
+        }catch (Exception e){
+            System.out.println(Arrays.toString(e.getStackTrace()));
+            return "error404";
+        }
 
     }
 
@@ -79,13 +78,14 @@ public class RecipeController {
                 CreateClassesForRecipe.createSteps(photoStep, step, Crutch.toUTF8(recipeName)));
 
 
-        recipe.showFields();
-        System.out.println("-----------------");
-        System.out.println(recipe.insertIntoDb());
 
         int id = WorkWithDB.save(recipe);
         System.out.println(id);
         work.moveImg(id);
+        WorkWithMultipartFile workSteps = new WorkWithMultipartFile();
+        workSteps.moveImg(id, recipe.getSteps());
+
+
 
         return "redirect:/recipe/add";
     }

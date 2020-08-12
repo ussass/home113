@@ -15,6 +15,17 @@ public class Step {
         this.pathToImage = allInOne.split("&%&")[1];
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public String getPathToImage() {
+        if(pathToImage.contains("octet-stream"))
+            return "";
+
+        return pathToImage;
+    }
+
     @Override
     public String toString() {
         return description + "&%&" + pathToImage;
