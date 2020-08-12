@@ -65,7 +65,7 @@ public class SpringConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/images/");
 //        registry.addResourceHandler("/upload/**").addResourceLocations("file://" + System.getProperty("user.dir") + "/src/main/upload/");
 //        registry.addResourceHandler("/upload/**").addResourceLocations(System.getProperty("user.dir") + "\\");
-        registry.addResourceHandler("/upload/**").addResourceLocations("/upload/images/");
+        registry.addResourceHandler("/upload/**").addResourceLocations("/upload/");
 //        registry.addResourceHandler("/img/**").addResourceLocations("file:/tmp/images/").setCacheControl(CacheControl.noCache());
     }
 

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title th:text="${recipe.getRecipeName()}"></title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/lightbox.css"/>
+    <!--    <script src="/js/lightbox-plus-jquery.min.js"></script>-->
 </head>
 <body>
 <header th:insert="template/header :: header"></header>
@@ -21,9 +23,16 @@
                 <h4 style="vertical-align: middle" th:text="${recipe.getTime()}"></h4>
             </div>
         </div>
-        <br />
+        <br/>
         <div class="w3-panel  w3-center" th:if="${recipe.getNamesMainImage()[0] != ''}">
-            recipe.getPhotoPath()
+            <div>
+                <th:block th:each="item : ${recipe.getNamesMainImage()}">
+                    <a th:href="'/upload/' + ${recipe.getId()} + '/' + ${item}" data-lightbox="roadtrip">
+                        <img class="w3-border w3-hover-opacity" th:alt="${item}"
+                             th:src="'/upload/' + ${recipe.getId()} + '/mini/' + ${item}">
+                    </a>
+                </th:block>
+            </div>
         </div>
         <div class="w3-panel  w3-center ">
             <h4>Ингредиенты на
@@ -41,30 +50,40 @@
                 </select></h4>
         </div>
         <div class="w3-padding" id="formIng">
-            recipe.getIngredients()
-</div>
-<div class="w3-panel  w3-center ">
-    <h4>Инструкция</h4>
-</div>
-<div class="w3-padding" id="formStp">
-    <ul class="w3-ul">
-        recipe.getSteps()
-    </ul>
-</div>
-<br />
-<div class="w3-row w3-padding">
-    <div class="w3-container w3-quarter"></div>
-    <div class="w3-container w3-quarter">
-        <div class="w3-block w3-btn w3-deep-orange w3-round-large">Придумать назначение</div>
+            <th:block th:each="item : ${recipe.getIngredients()}">
+                <div class="w3-panel w3-border-bottom w3-row w3-border-teal">
+                    <div class="w3-half w3-center">
+                        <p th:text="${item.getIngredientName()}"></p>
+                    </div>
+                    <div class="w3-half w3-center">
+                        <p th:text="${item.getQuantity()} + ' ' + ${item.getMeasure()}"></p>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+        <div class="w3-panel  w3-center ">
+            <h4>Инструкция</h4>
+        </div>
+        <div class="w3-padding" id="formStp">
+            <ul class="w3-ul">
+                recipe.getSteps()
+            </ul>
+        </div>
+        <br/>
+        <div class="w3-row w3-padding">
+            <div class="w3-container w3-quarter"></div>
+            <div class="w3-container w3-quarter">
+                <div class="w3-block w3-btn w3-deep-orange w3-round-large">Придумать назначение</div>
+            </div>
+            <div class="w3-container w3-quarter">
+                <div class="w3-block w3-btn  w3-round-large w3-teal"
+                     onclick="location.href='/recipe/edit?id=<%out.print(id);%>'">Редактировать
+                </div>
+            </div>
+            <div class="w3-container w3-quarter"></div>
+        </div>
+        <br/>
     </div>
-    <div class="w3-container w3-quarter">
-        <div class="w3-block w3-btn  w3-round-large w3-teal" onclick="location.href='/recipe/edit?id=<%out.print(id);%>'">Редактировать</div>
-    </div>
-    <div class="w3-container w3-quarter"></div>
 </div>
-<br />
-</div>
-</div>
-
 </body>
 </html>

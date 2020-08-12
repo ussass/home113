@@ -93,6 +93,14 @@ public class Recipe {
         return namesMainImage;
     }
 
+    public Ingredient[] getIngredients() {
+        return ingredients;
+    }
+
+    public Step[] getSteps() {
+        return steps;
+    }
+
     public void showFields(){
         System.out.println("id: " + id);
         System.out.println("recipeName: " + recipeName);
