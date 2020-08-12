@@ -94,7 +94,12 @@ public class Recipe {
     }
 
     public Ingredient[] getIngredients() {
-        return ingredients;
+        try{
+            ingredients[0].toString();
+            return ingredients;
+        }catch (Exception e){
+            return new Ingredient[] {new Ingredient("",0,0)};
+        }
     }
 
     public Step[] getSteps() {

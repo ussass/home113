@@ -34,7 +34,7 @@
                 </th:block>
             </div>
         </div>
-        <div class="w3-panel  w3-center ">
+        <div class="w3-panel  w3-center">
             <h4>Ингредиенты на
                 <select id="selectBox" onchange="changeFunc()" style="border: none; background-color: #f1f1f1">
                     <option th:selected="${recipe.getPortion() == 1}" value="1">1 порцию</option>
@@ -51,7 +51,7 @@
         </div>
         <div class="w3-padding" id="formIng">
             <th:block th:each="item : ${recipe.getIngredients()}">
-                <div class="w3-panel w3-border-bottom w3-row w3-border-teal">
+                <div class="w3-panel w3-border-bottom w3-row w3-border-teal" th:if="${item.getIngredientName() != ''}">
                     <div class="w3-half w3-center">
                         <p th:text="${item.getIngredientName()}"></p>
                     </div>
@@ -67,6 +67,7 @@
         <div class="w3-padding" id="formStp">
             <ul class="w3-ul">
                 recipe.getSteps()
+
             </ul>
         </div>
         <br/>

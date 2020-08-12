@@ -30,20 +30,18 @@ public class RecipeController {
 
     @GetMapping("/{linkName}")
     public String showRecipe(@PathVariable(value = "linkName") String linkName, Model model) {
-        try {
+//        try {
             int id = Integer.parseInt(linkName.split("-")[linkName.split("-").length - 1]);
             Recipe recipe = WorkWithDB.read(id);
-//            recipe.showFields();
-            System.out.println(recipe.getNamesMainImage().length);
-            for (String x : recipe.getNamesMainImage())
-                System.out.println(x.equals(""));
+
+            System.out.println(recipe.getIngredients()[0].toString());
             model.addAttribute("recipe", recipe);
             return "recipe/show";
 
-        }catch (Exception e){
-            System.out.println(Arrays.toString(e.getStackTrace()));
-            return "error404";
-        }
+//        }catch (Exception e){
+//            System.out.println(Arrays.toString(e.getStackTrace()));
+//            return "error404";
+//        }
 
     }
 
