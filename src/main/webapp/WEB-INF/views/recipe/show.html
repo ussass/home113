@@ -37,16 +37,16 @@
         <div class="w3-panel  w3-center">
             <h4>Ингредиенты на
                 <select id="selectBox" onchange="changeFunc()" style="border: none; background-color: #f1f1f1">
-                    <option th:selected="${recipe.getPortion() == 1}" value="1">1 порцию</option>
-                    <option th:selected="${recipe.getPortion() == 2}" value="2">2 порции</option>
-                    <option th:selected="${recipe.getPortion() == 3}" value="3">3 порции</option>
-                    <option th:selected="${recipe.getPortion() == 4}" value="4">4 порции</option>
-                    <option th:selected="${recipe.getPortion() == 5}" value="5">5 порций</option>
-                    <option th:selected="${recipe.getPortion() == 6}" value="6">6 порций</option>
-                    <option th:selected="${recipe.getPortion() == 7}" value="7">7 порций</option>
-                    <option th:selected="${recipe.getPortion() == 8}" value="8">8 порций</option>
-                    <option th:selected="${recipe.getPortion() == 9}" value="9">9 порций</option>
-                    <option th:selected="${recipe.getPortion() == 10}" value="10">10 порций</option>
+                    <option th:selected="${recipe.getHour() == 1}" value="1">1 порцию</option>
+                    <option th:selected="${recipe.getHour() == 2}" value="2">2 порции</option>
+                    <option th:selected="${recipe.getHour() == 3}" value="3">3 порции</option>
+                    <option th:selected="${recipe.getHour() == 4}" value="4">4 порции</option>
+                    <option th:selected="${recipe.getHour() == 5}" value="5">5 порций</option>
+                    <option th:selected="${recipe.getHour() == 6}" value="6">6 порций</option>
+                    <option th:selected="${recipe.getHour() == 7}" value="7">7 порций</option>
+                    <option th:selected="${recipe.getHour() == 8}" value="8">8 порций</option>
+                    <option th:selected="${recipe.getHour() == 9}" value="9">9 порций</option>
+                    <option th:selected="${recipe.getHour() == 10}" value="10">10 порций</option>
                 </select></h4>
         </div>
         <div class="w3-padding" id="formIng">
@@ -56,7 +56,6 @@
                         <p th:text="${item.getIngredientName()}"></p>
                     </div>
                     <div class="w3-half w3-center" style="margin: 15px 0">
-<!--                        <p th:text="${item.getQuantity()} + ' ' + ${item.getMeasure()}"></p>-->
                         <span th:id="'quan' + ${inter.index}" th:text="${item.getQuantity()}"></span>
                         <span th:text="' ' + ${item.getMeasure()}"></span>
                     </div>
@@ -92,9 +91,10 @@
                 <div class="w3-block w3-btn w3-deep-orange w3-round-large">Придумать назначение</div>
             </div>
             <div class="w3-container w3-quarter">
-                <div class="w3-block w3-btn  w3-round-large w3-teal"
+                <a class="w3-block w3-btn  w3-round-large w3-teal"
+                    th:href="'/recipe/edit/' + ${recipe.getId()}"
                      onclick="location.href='/recipe/edit?id=<%out.print(id);%>'">Редактировать
-                </div>
+                </a>
             </div>
             <div class="w3-container w3-quarter"></div>
         </div>
@@ -102,7 +102,7 @@
     </div>
 </div>
 
-<div id="hideBlock">
+<div id="hideBlock" class="w3-hide">
     скрытый блок
     <p th:text="'length: ' + ${recipe.getIngredients().length}"></p>
     <p id="portOri" th:text="${recipe.getPortion()}"></p>

@@ -85,7 +85,6 @@ function sDel(whom) {
     document.getElementById("formStp").removeChild(document.getElementById("step" + whom));
 }
 
-
 function changeFunc() {
     var selectedValue = selectBox.options[selectBox.selectedIndex].value;
     var lastId = document.getElementById("hideBlock").lastElementChild.id;

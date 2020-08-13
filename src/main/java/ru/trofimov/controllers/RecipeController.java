@@ -53,7 +53,6 @@ public class RecipeController {
                           @RequestParam int listminut,
                           @RequestParam MultipartFile[] photo,
                           @RequestParam String[] ingName,
-//                          @RequestParam (value = "quantity", required = false) int[] quantity,
                           @RequestParam List<Integer>  quantity,
                           @RequestParam int[] measure,
                           @RequestParam MultipartFile[] photoStep,
@@ -75,13 +74,17 @@ public class RecipeController {
 
 
         int id = WorkWithDB.save(recipe);
-        System.out.println(id);
         work.moveImg(id);
         WorkWithMultipartFile workSteps = new WorkWithMultipartFile();
         workSteps.moveImg(id, recipe.getSteps());
+        System.out.println(Crutch.toTranscript(recipe.getRecipeName()) + "-" + id);
 
+        return "redirect:/recipe/" + Crutch.toTranscript(recipe.getRecipeName()) + "-" + id;
+    }
 
-
-        return "redirect:/recipe/add";
+    @GetMapping("/edit/{id}")
+    public String showEdit(@PathVariable(value = "id") int id, Model model) {
+        model.addAttribute("recipe", WorkWithDB.read(id));
+        return "recipe/edit";
     }
 }

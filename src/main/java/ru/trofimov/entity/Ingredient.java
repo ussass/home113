@@ -49,6 +49,10 @@ public class Ingredient {
         }
     }
 
+    public int getMeasureInt(){
+        return measure;
+    }
+
     String show(){
         return ingredientName + " " + quantity + " " + measure;
     }

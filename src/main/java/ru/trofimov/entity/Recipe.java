@@ -62,12 +62,24 @@ public class Recipe {
 
     }
 
+    public int getHour(){
+        return time / 60;
+    }
+
+    public int getMinute(){
+        return time % 60;
+    }
+
     public String getLinkWithId(){
         return Crutch.toTranscript(recipeName) + "-" + id;
     }
 
     public int getId() {
         return id;
+    }
+
+    public int getCategoryInt(){
+        return category;
     }
 
     public String getCategory() {
