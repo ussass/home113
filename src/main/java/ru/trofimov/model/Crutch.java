@@ -15,4 +15,19 @@ public class Crutch {
         Transliterator toLatinTrans = Transliterator.getInstance("Russian-Latin/BGN");
         return toLatinTrans.transliterate(ruText).replaceAll(" ", "-");
     }
+
+    public static int categoryStringToInt (String category){
+        switch (category){
+            case "breakfast": return 1;
+            case "soups": return 2;
+            case "main-dishes": return 3;
+            case "baking-and-Desserts": return 4;
+            case "sandwiches": return 5;
+            case "pasta-and-Pizza": return 6;
+            case "salads": return 7;
+            case "sauces": return 8;
+            case "beverages": return 9;
+            default: return  0;
+        }
+    }
 }

@@ -22,8 +22,8 @@ public class RecipeController {
     }
 
     @GetMapping("/list")
-    public String showList(Model model) {
-        List<Recipe> list = WorkWithDB.findAll(0);
+    public String showList(Model model, @RequestParam(defaultValue = "all") String category) {
+        List<Recipe> list = WorkWithDB.findAll(Crutch.categoryStringToInt(category));
         model.addAttribute("list", list);
         return "recipe/list";
     }
@@ -38,7 +38,6 @@ public class RecipeController {
             return "recipe/show";
 
         }catch (Exception e){
-            System.out.println(Arrays.toString(e.getStackTrace()));
             return "error404";
         }
 
