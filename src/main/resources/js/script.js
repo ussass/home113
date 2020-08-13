@@ -5,14 +5,14 @@ var Ix = 0;
 var Sx = 0;
 var Px = 0;
 
-function iAdd(){
-    while(document.getElementById('ingredient'+Ix) == null){
+function iAdd() {
+    while (document.getElementById('ingredient' + Ix) == null) {
         Ix--;
     }
     var newElement = document.createElement('div');
-    newElement.appendAfter(document.getElementById('ingredient'+ Ix));
+    newElement.appendAfter(document.getElementById('ingredient' + Ix));
     Ix++;
-    newElement.id = 'ingredient'+ Ix;
+    newElement.id = 'ingredient' + Ix;
 
     var inLabel = document.getElementById('ingredient' + Ix);
     inLabel.insertAdjacentHTML("beforeEnd", "<br /><div class=\"w3-row\">\n" +
@@ -49,19 +49,19 @@ function iAdd(){
         "                        </div><br /><br />\n")
 }
 
-function iDel(whom){
+function iDel(whom) {
     document.getElementById("formIng").removeChild(document.getElementById("ingredient" + whom));
 }
 
-function sAdd(){
+function sAdd() {
 
-    while(document.getElementById('step'+Sx) == null){
+    while (document.getElementById('step' + Sx) == null) {
         Sx--;
     }
     var newElement = document.createElement('div');
-    newElement.appendAfter(document.getElementById('step'+ Sx));
+    newElement.appendAfter(document.getElementById('step' + Sx));
     Sx++;
-    newElement.id = 'step'+ Sx;
+    newElement.id = 'step' + Sx;
 
     var inLabel = document.getElementById('step' + Sx);
 
@@ -81,6 +81,19 @@ function sAdd(){
         "                        <textarea name=\"step\" class=\"w3-input w3-border w3-round-large\" style=\"resize: vertical\" placeholder=\"Описание\"></textarea><br /><br />");
 }
 
-function sDel(whom){
+function sDel(whom) {
     document.getElementById("formStp").removeChild(document.getElementById("step" + whom));
+}
+
+
+function changeFunc() {
+    var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+    var lastId = document.getElementById("hideBlock").lastElementChild.id;
+    var lastNumid = parseInt(lastId.match(/\d+/))
+    for (var i = 0; i <= lastNumid; i++) {
+        var element = document.getElementById("quan" + i);
+        if (!element) continue;
+        document.getElementById("quan" + i).textContent = Math.round(document.getElementById("quanOri" + i).textContent / document.getElementById("portOri").textContent * selectedValue);
+    }
+
 }

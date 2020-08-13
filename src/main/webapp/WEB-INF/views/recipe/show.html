@@ -50,13 +50,15 @@
                 </select></h4>
         </div>
         <div class="w3-padding" id="formIng">
-            <th:block th:each="item : ${recipe.getIngredients()}">
+            <th:block th:each="item,inter : ${recipe.getIngredients()}">
                 <div class="w3-panel w3-border-bottom w3-row w3-border-teal" th:if="${item.getIngredientName() != ''}">
                     <div class="w3-half w3-center">
                         <p th:text="${item.getIngredientName()}"></p>
                     </div>
-                    <div class="w3-half w3-center">
-                        <p th:text="${item.getQuantity()} + ' ' + ${item.getMeasure()}"></p>
+                    <div class="w3-half w3-center" style="margin: 15px 0">
+<!--                        <p th:text="${item.getQuantity()} + ' ' + ${item.getMeasure()}"></p>-->
+                        <span th:id="'quan' + ${inter.index}" th:text="${item.getQuantity()}"></span>
+                        <span th:text="' ' + ${item.getMeasure()}"></span>
                     </div>
                 </div>
             </th:block>
@@ -81,7 +83,6 @@
                         </div>
                     </li>
                 </th:block>
-
             </ul>
         </div>
         <br/>
@@ -100,5 +101,16 @@
         <br/>
     </div>
 </div>
+
+<div id="hideBlock">
+    скрытый блок
+    <p th:text="'length: ' + ${recipe.getIngredients().length}"></p>
+    <p id="portOri" th:text="${recipe.getPortion()}"></p>
+    <th:block th:each="item,inter : ${recipe.getIngredients()}">
+        <p th:id="'quanOri' + ${inter.index}" th:text="${item.getQuantity()}"
+           th:if="${item.getIngredientName() != ''}"></p>
+    </th:block>
+</div>
+<script src="/js/script.js"></script>
 </body>
 </html>
