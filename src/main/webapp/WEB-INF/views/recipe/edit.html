@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <title>Редактировать рецепт</title>
     <link rel="stylesheet" href="/css/style.css">
-    <script src="/js/script.js"></script>
 </head>
-<body>
+<body onload="init()">
 <header th:insert="template/header :: header"></header>
 <div class="w3-container w3-padding">
     <div class="w3-card">
-        <div class="w3-container w3-center w3-teal">
+        <div class="w3-container w3-center w3-teal" id="getColor">
             <h2>Редактирование</h2>
         </div>
         <form method="post" action="/recipe/edit" class="w3-selection w3-light-grey" enctype="multipart/form-data">
@@ -111,12 +110,15 @@
 
             <div class="w3-padding" id="formIng">
                 <th:block th:each="item,inter : ${recipe.getIngredients()}">
-                    <div th:id="'ingredient' + ${inter.index}" class="ingredient0">
+                    <div th:id="'ingredient' + ${inter.index}" class="ingJS">
                         <div class="w3-row">
                             <div class="w3-half">
                                 <div style="padding: 8px 16px">Ингредиент</div>
                             </div>
-                            <div class="w3-half"></div>
+                            <div class="w3-half">
+                                <div th:onclick="'iDel(' + ${inter.index} + ')'" th:if="${inter.index != 0}"
+                                     class="w3-button w3-right w3-deep-orange w3-round-large">Удалить</div>
+                            </div>
                         </div>
                         <br/>
                         <input type="text" name="ingName" class="w3-input w3-border w3-round-large"
@@ -133,7 +135,8 @@
                                     <option th:selected="${item.getMeasureInt() == 2}" value="2">миллилитр</option>
                                     <option th:selected="${item.getMeasureInt() == 3}" value="3">литр</option>
                                     <option th:selected="${item.getMeasureInt() == 4}" value="4">по вкусу</option>
-                                    <option th:selected="${item.getMeasureInt() == 5}" value="5">на кончике ножа</option>
+                                    <option th:selected="${item.getMeasureInt() == 5}" value="5">на кончике ножа
+                                    </option>
                                     <option th:selected="${item.getMeasureInt() == 6}" value="6">защепотка</option>
                                     <option th:selected="${item.getMeasureInt() == 7}" value="7">чайная ложка</option>
                                     <option th:selected="${item.getMeasureInt() == 8}" value="8">столовая ложка</option>
@@ -155,25 +158,15 @@
             </div>
             <div class="w3-padding" id="formStp">
                 <th:block th:each="item,inter : ${recipe.getSteps()}">
-<!--                    <li class="w3-panel w3-border-bottom w3-row w3-border-teal" th:if="${item.getDescription() != ''}">-->
-<!--                        <div class="w3-half w3-center" style="margin: 15px 0">-->
-<!--                            <b th:text="${inter.index} + 1 + '. '"></b>-->
-<!--                            <span th:text="${item.getDescription()}"></span>-->
-<!--                        </div>-->
-<!--                        <div class="w3-half w3-center">-->
-<!--                            <img th:src="'/upload/' + ${recipe.getId()} + '/mini/' + ${item.getPathToImage()}"-->
-<!--                                 th:alt="${item.getPathToImage()}"-->
-<!--                                 class="w3-bar-item w3-hide-small"-->
-<!--                                 style="width:270px; box-sizing: content-box"-->
-<!--                                 th:if="${item.getPathToImage() != ''}">-->
-<!--                        </div>-->
-<!--                    </li>-->
-                    <div id="step0">
+                    <div th:id="'step' + ${inter.index}" class="stepJS">
                         <div class="w3-row">
                             <div class="w3-half">
                                 <div style="padding: 8px 16px">Для начала</div>
                             </div>
-                            <div class="w3-half"></div>
+                            <div class="w3-half">
+                                <div th:onclick="'sDel(' + ${inter.index} + ')'" th:if="${inter.index != 0}"
+                                     class="w3-button w3-right w3-deep-orange w3-round-large">Удалить</div>
+                            </div>
                         </div>
                         <div style="padding: 8px 16px">
                             <label for="photoStep">Добавить изображение к описанию</label>
@@ -189,21 +182,23 @@
                 <div onclick="sAdd()" class="w3-padding" style="cursor: pointer">Добавить шаг</div>
             </div>
             <br/>
+            <input type="number" name="id" th:value="${recipe.getId()}" class="w3-hide">
             <div class="w3-row w3-padding">
                 <div class="w3-container w3-quarter"></div>
-                <div class="w3-container w3-quarter">
-                    <div class="w3-block w3-btn w3-deep-orange w3-round-large" onclick="location.href='/recipe/main'">
-                        Отмена
-                    </div>
+                <div class="w3-container w3-quarter" id="leftButton">
+                    <div class="w3-block w3-btn w3-deep-orange w3-round-large" onclick="recipeDelCheck()">Удалить рецепт?</div>
                 </div>
-                <div class="w3-container w3-quarter">
-                    <button type="submit" class="w3-block w3-btn w3-teal w3-round-large">Добавить</button>
+                <div class="w3-container w3-quarter" id="RightButton">
+                    <button type="submit" class="w3-block w3-btn w3-teal w3-round-large" id="changeBtn">Внести изменения</button>
                 </div>
                 <div class="w3-container w3-quarter"></div>
             </div>
             <br/>
+
         </form>
     </div>
 </div>
+<script src="/js/script.js"></script>
+<!--<script src="/js/jquery-3.4.1.min.js"></script>-->
 </body>
 </html>

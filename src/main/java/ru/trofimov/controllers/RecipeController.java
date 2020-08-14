@@ -87,4 +87,16 @@ public class RecipeController {
         model.addAttribute("recipe", WorkWithDB.read(id));
         return "recipe/edit";
     }
+
+    @PostMapping("/edit")
+    public String postEdit(@RequestParam int id, Model model) {
+//        Recipe recipe = new Recipe();
+        return "redirect:/recipe/main";// + Crutch.toTranscript(recipe.getRecipeName()) + "-" + id;
+    }
+
+    @PostMapping("/del")
+    public String delete (@RequestParam int id, Model model) {
+        System.out.println(id);
+        return "redirect:/recipe/main";
+    }
 }

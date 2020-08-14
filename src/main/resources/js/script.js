@@ -3,7 +3,6 @@ Element.prototype.appendAfter = function (elemsd) {
 }, false;
 var Ix = 0;
 var Sx = 0;
-var Px = 0;
 
 function iAdd() {
     while (document.getElementById('ingredient' + Ix) == null) {
@@ -85,6 +84,15 @@ function sDel(whom) {
     document.getElementById("formStp").removeChild(document.getElementById("step" + whom));
 }
 
+function init() {
+    var ing = document.getElementById("formIng");
+    var lastIng = ing.getElementsByClassName("ingJS")[ing.getElementsByClassName("ingJS").length - 1].getAttribute("id");
+    Ix = parseInt(lastIng.match(/\d+/));
+    var stp = document.getElementById("formStp");
+    var lastStp = stp.getElementsByClassName("stepJS")[stp.getElementsByClassName("stepJS").length - 1].getAttribute("id");
+    Sx = parseInt(lastStp.match(/\d+/));
+}
+
 function changeFunc() {
     var selectedValue = selectBox.options[selectBox.selectedIndex].value;
     var lastId = document.getElementById("hideBlock").lastElementChild.id;
@@ -94,5 +102,32 @@ function changeFunc() {
         if (!element) continue;
         document.getElementById("quan" + i).textContent = Math.round(document.getElementById("quanOri" + i).textContent / document.getElementById("portOri").textContent * selectedValue);
     }
+}
 
+function recipeDelCheck() {
+    var left = document.getElementById("leftButton");
+    var right = document.getElementById("RightButton");
+
+    if (right.getElementsByTagName("button")[0].innerHTML === "Внести изменения") {
+        right.removeChild(right.getElementsByTagName("button")[0]);
+        right.insertAdjacentHTML("beforeEnd", "<button type=\"submit\" class=\"w3-block w3-btn w3-deep-orange w3-round-large\">Удалить</button>");
+
+        left.removeChild(left.getElementsByTagName("div")[0]);
+        left.insertAdjacentHTML("beforeEnd", "<div class=\"w3-block w3-btn " + color() + " w3-round-large\" onclick=\"recipeDelCheck()\">Отмена</div>");
+
+        document.getElementsByTagName("form")[0].action = "/recipe/del";
+    }
+    else {
+        right.removeChild(right.getElementsByTagName("button")[0]);
+        right.insertAdjacentHTML("beforeEnd", "<button type=\"submit\" class=\"w3-block w3-btn " + color() + " w3-round-large\">Внести изменения</button>");
+
+        left.removeChild(left.getElementsByTagName("div")[0]);
+        left.insertAdjacentHTML("beforeEnd", "<div class=\"w3-block w3-btn w3-deep-orange w3-round-large\" onclick=\"recipeDelCheck()\">Удалить рецепт?</div>");
+
+        document.getElementsByTagName("form")[0].action = "/recipe/edit";
+    }
+}
+
+function color() {
+    return document.getElementById("getColor").className.replace("w3-container w3-center ", "");
 }
