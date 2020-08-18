@@ -104,20 +104,23 @@ public class RecipeController {
                            @RequestParam MultipartFile[] photoStep,
                            @RequestParam String[] step,
                            @RequestParam int id,
-                           @RequestParam int[] delMainPhoto,
+                           @RequestParam String oldPhotoNames,
+                           @RequestParam (required = false) int[] delMainPhoto,
                            @RequestParam int[] delPhoto
     ) throws UnsupportedEncodingException {
 
+        Crutch.removeImage(oldPhotoNames, photo, delMainPhoto);
 
-        Recipe recipe = new Recipe(
-                recipeName,
-                category,
-                listportion,
-                listhour,
-                listminut,
-                new String[]{""},
-                CreateClassesForRecipe.createIngredients(ingName, quantity , measure),
-                new Step[]{new Step("")});
+
+//        Recipe recipe = new Recipe(
+//                recipeName,
+//                category,
+//                listportion,
+//                listhour,
+//                listminut,
+//                new String[]{""},
+//                CreateClassesForRecipe.createIngredients(ingName, quantity , measure),
+//                new Step[]{new Step("")});
 
 
 
@@ -127,8 +130,8 @@ public class RecipeController {
         System.out.println("listhour: " + listhour);
         System.out.println("listminut: " + listminut);
         System.out.println("photo: " + photo[0].getResource().getFilename());
-        System.out.println("delMainPhoto: " + delMainPhoto.length);
-        System.out.println("delPhoto: " + delPhoto.length);
+//        System.out.println("delMainPhoto: " + delMainPhoto.length);
+//        System.out.println("delPhoto: " + delPhoto.length);
 
 
 //        return "redirect:/recipe/main";// + Crutch.toTranscript(recipe.getRecipeName()) + "-" + id;

@@ -58,15 +58,8 @@ public class SpringConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/img/**").addResourceLocations("classpath:/img/");
         registry.addResourceHandler("/css/**").addResourceLocations("classpath:/css/");
         registry.addResourceHandler("/js/**").addResourceLocations("classpath:/js/");
-//        registry.addResourceHandler("/img/**").addResourceLocations("/img/");
-//        registry.addResourceHandler("images/**").addResourceLocations("classpath:/static/images/");
-//        registry.addResourceHandler("images/**").addResourceLocations("/WEB-INF/img/");
-//        registry.addResourceHandler("css/**").addResourceLocations("/WEB-INF/css/");
         registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/images/");
-//        registry.addResourceHandler("/upload/**").addResourceLocations("file://" + System.getProperty("user.dir") + "/src/main/upload/");
-//        registry.addResourceHandler("/upload/**").addResourceLocations(System.getProperty("user.dir") + "\\");
         registry.addResourceHandler("/upload/**").addResourceLocations("/upload/");
-//        registry.addResourceHandler("/img/**").addResourceLocations("file:/tmp/images/").setCacheControl(CacheControl.noCache());
     }
 
 //    New
@@ -77,11 +70,5 @@ public class SpringConfig implements WebMvcConfigurer {
         return multipartResolver;
     }
 
-//    @Bean
-//    public StandardServletMultipartResolver standardServletMultipartResolver() {
-//        return new StandardServletMultipartResolver();
-//    }
-
-//
 
 }

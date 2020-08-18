@@ -217,7 +217,11 @@
                 <div onclick="sAdd()" class="w3-padding" style="cursor: pointer">Добавить шаг</div>
             </div>
             <br/>
-            <input type="number" name="id" th:value="${recipe.getId()}" class="w3-hide">
+            <div>
+                <input type="number" name="id" th:value="${recipe.getId()}">
+                <br>
+                <input type="text" name="oldPhotoNames" th:value="${recipe.getNamesMainImageOneLine()}">
+            </div>
             <div class="w3-row w3-padding">
                 <div class="w3-container w3-quarter"></div>
                 <div class="w3-container w3-quarter" id="leftButton">

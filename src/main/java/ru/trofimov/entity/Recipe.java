@@ -105,6 +105,13 @@ public class Recipe {
         return namesMainImage;
     }
 
+    public String getNamesMainImageOneLine() {
+        StringBuilder sb = new StringBuilder();
+        for (String x : namesMainImage)
+            sb.append(x).append("!%!");
+        return sb.toString();
+    }
+
     public Ingredient[] getIngredients() {
         try{
             ingredients[0].toString();

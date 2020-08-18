@@ -1,10 +1,14 @@
 package ru.trofimov.model;
 
 import com.ibm.icu.text.Transliterator;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class Crutch {
 
@@ -46,5 +50,43 @@ public class Crutch {
         }
         // вызываем метод delete() для удаления файлов и пустых(!) папок
         file.delete();
+    }
+
+    public static void removeImage(String oldImage, MultipartFile[] newImage, int[] delMainPhoto){
+        String[] oldImagNames = oldImage.split("!%!");
+        if (oldImagNames.length == 0) return;
+        System.out.println("------ Crutch.removeImage ------");
+
+        int count = newImage.length;
+        if (Objects.equals(newImage[0].getResource().getFilename(), "")) count = 0;
+        System.out.println(count);
+
+        System.out.println(oldImage);
+        String[] split1 = oldImagNames[0].split("-");
+
+        String oldRecipeName = "";
+
+        for (int i = 0; i < split1.length - 1; i++){
+            oldRecipeName += split1[i];
+        }
+
+        List<String> list = new ArrayList<>();
+        List<String> listDel = new ArrayList<>();
+
+        for (int i = 0; i < oldImagNames.length; i++){
+            if (delMainPhoto[i] == 0) list.add(oldImagNames[i]);
+            else listDel.add(oldImagNames[i]);
+        }
+
+        for (String x : list)
+            System.out.println("move image: " + x);
+        for (String x : listDel)
+            System.out.println(" del image: " + x);
+
+
+
+
+
+        System.out.println("--------------------------------");
     }
 }
