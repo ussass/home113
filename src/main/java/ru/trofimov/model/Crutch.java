@@ -2,6 +2,7 @@ package ru.trofimov.model;
 
 import com.ibm.icu.text.Transliterator;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 
@@ -29,5 +30,21 @@ public class Crutch {
             case "beverages": return 9;
             default: return  0;
         }
+    }
+
+    public static void recursiveDelete(File file) {
+        // до конца рекурсивного цикла
+        if (!file.exists())
+            return;
+
+        //если это папка, то идем внутрь этой папки и вызываем рекурсивное удаление всего, что там есть
+        if (file.isDirectory()) {
+            for (File f : file.listFiles()) {
+                // рекурсивный вызов
+                recursiveDelete(f);
+            }
+        }
+        // вызываем метод delete() для удаления файлов и пустых(!) папок
+        file.delete();
     }
 }

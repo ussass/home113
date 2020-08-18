@@ -5,8 +5,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.trofimov.entity.Recipe;
+import ru.trofimov.entity.Step;
 import ru.trofimov.model.*;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -89,14 +91,54 @@ public class RecipeController {
     }
 
     @PostMapping("/edit")
-    public String postEdit(@RequestParam int id, Model model) {
-//        Recipe recipe = new Recipe();
-        return "redirect:/recipe/main";// + Crutch.toTranscript(recipe.getRecipeName()) + "-" + id;
+    public String postEdit(Model model,
+                           @RequestParam String recipeName,
+                           @RequestParam int category,
+                           @RequestParam int listportion,
+                           @RequestParam int listhour,
+                           @RequestParam int listminut,
+                           @RequestParam MultipartFile[] photo,
+                           @RequestParam String[] ingName,
+                           @RequestParam List<Integer>  quantity,
+                           @RequestParam int[] measure,
+                           @RequestParam MultipartFile[] photoStep,
+                           @RequestParam String[] step,
+                           @RequestParam int id,
+                           @RequestParam int[] delMainPhoto,
+                           @RequestParam int[] delPhoto
+    ) throws UnsupportedEncodingException {
+
+
+        Recipe recipe = new Recipe(
+                recipeName,
+                category,
+                listportion,
+                listhour,
+                listminut,
+                new String[]{""},
+                CreateClassesForRecipe.createIngredients(ingName, quantity , measure),
+                new Step[]{new Step("")});
+
+
+
+        System.out.println("recipeName: " + Crutch.toUTF8(recipeName));
+        System.out.println("category: " + category);
+        System.out.println("listportion: " + listportion);
+        System.out.println("listhour: " + listhour);
+        System.out.println("listminut: " + listminut);
+        System.out.println("photo: " + photo[0].getResource().getFilename());
+        System.out.println("delMainPhoto: " + delMainPhoto.length);
+        System.out.println("delPhoto: " + delPhoto.length);
+
+
+//        return "redirect:/recipe/main";// + Crutch.toTranscript(recipe.getRecipeName()) + "-" + id;
+        return "redirect:/recipe/edit/" + id;
     }
 
     @PostMapping("/del")
     public String delete (@RequestParam int id, Model model) {
-        System.out.println(id);
+        WorkWithDB.delete(id);
+        Crutch.recursiveDelete(new File("D:/Java Project/NewProjects/home113/target/home113/upload/" + id));
         return "redirect:/recipe/main";
     }
 }

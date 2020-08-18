@@ -131,3 +131,25 @@ function recipeDelCheck() {
 function color() {
     return document.getElementById("getColor").className.replace("w3-container w3-center ", "");
 }
+
+function chekingImg() {
+    var img = document.getElementsByClassName("cuting");
+    // img[0].tagName;
+    alert(img[0].textContent);
+}
+
+function photoEdit(num, type) {
+    var x;
+    if (type === 1) x = document.getElementById("photoEditMain" + num);
+    else x = document.getElementById("photoEdit" + num);
+
+    if (x.getElementsByTagName("img")[0].className.indexOf("w3-opacity") == -1) {
+        x.getElementsByTagName("img")[0].className += " w3-opacity";
+        x.getElementsByTagName("div")[0].className = x.getElementsByTagName("div")[0].className.replace(" w3-hide", "");
+        x.getElementsByTagName("input")[0].value = 1;
+    } else {
+        x.getElementsByTagName("img")[0].className = x.getElementsByTagName("img")[0].className.replace(" w3-opacity", "");
+        x.getElementsByTagName("div")[0].className += " w3-hide"
+        x.getElementsByTagName("input")[0].value = 0;
+    }
+}

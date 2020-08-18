@@ -6,7 +6,29 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/lightbox.css"/>
     <!--    <script src="/js/lightbox-plus-jquery.min.js"></script>-->
+    <style>
+        .cuting{
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            margin: 10px;
+            display: inline-block;
+            vertical-align: top;
+        }
+        .cuting img{
+            max-width: 100%;
+            height: auto;
+            width: auto;
+            /*margin-left: auto;*/
+            /*margin-right: auto;*/
+        }
+        .cuting img.landscape{
+            max-width: none;
+            max-height: 100%;
+        }
+    </style>
 </head>
+<!--<body onload="chekingImg()">-->
 <body>
 <header th:insert="template/header :: header"></header>
 <div class="w3-container w3-padding">
@@ -27,8 +49,8 @@
         <div class="w3-panel  w3-center" th:if="${recipe.getNamesMainImage()[0] != ''}">
             <div>
                 <th:block th:each="item : ${recipe.getNamesMainImage()}">
-                    <a th:href="'/upload/' + ${recipe.getId()} + '/' + ${item}" data-lightbox="roadtrip">
-                        <img class="w3-border w3-hover-opacity" th:alt="${item}"
+                    <a class="cuting" th:href="'/upload/' + ${recipe.getId()} + '/' + ${item}" data-lightbox="roadtrip">
+                        <img class="w3-border w3-hover-opacity landscape" th:alt="${item}"
                              th:src="'/upload/' + ${recipe.getId()} + '/mini/' + ${item}">
                     </a>
                 </th:block>

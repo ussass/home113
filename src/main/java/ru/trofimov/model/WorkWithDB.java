@@ -76,5 +76,14 @@ public class WorkWithDB {
 
         return recipe;
     }
+
+    public static void delete (int id){
+        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            Statement statement = connection.createStatement();
+            statement.execute("DELETE FROM recipes WHERE id=" + id + ";");
+        } catch (SQLException e) {
+            System.out.println("Неудалось загрузить класс драйвера!");
+        }
+    }
 }
 

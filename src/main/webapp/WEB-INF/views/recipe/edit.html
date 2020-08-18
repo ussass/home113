@@ -88,9 +88,15 @@
             <div class="w3-padding" id="formPhoto">
                 <div class="w3-panel  w3-center" th:if="${recipe.getNamesMainImage()[0] != ''}">
                     <div>
-                        <th:block th:each="item : ${recipe.getNamesMainImage()}">
-                            <img class="w3-border w3-hover-opacity" th:alt="${item}"
-                                 th:src="'/upload/' + ${recipe.getId()} + '/mini/' + ${item}">
+                        <th:block th:each="item,inter : ${recipe.getNamesMainImage()}">
+                            <span th:id="'photoEditMain' + ${inter.index}" th:onclick="'photoEdit(' + ${inter.index} + ', 1)'"
+                                  class="w3-display-container w3-text-red"
+                                  style="cursor: pointer">
+                                    <img class="w3-border w3-hover-opacity" th:alt="${item}"
+                                         th:src="'/upload/' + ${recipe.getId()} + '/mini/' + ${item}">
+                                    <div class="w3-display-middle w3-large w3-hide"><b>Будет удалено</b></div>
+                                    <input type="number" name="delMainPhoto" class="w3-hide" value="0">
+                                </span>
                         </th:block>
                     </div>
                 </div>
@@ -117,7 +123,8 @@
                             </div>
                             <div class="w3-half">
                                 <div th:onclick="'iDel(' + ${inter.index} + ')'" th:if="${inter.index != 0}"
-                                     class="w3-button w3-right w3-deep-orange w3-round-large">Удалить</div>
+                                     class="w3-button w3-right w3-deep-orange w3-round-large">Удалить
+                                </div>
                             </div>
                         </div>
                         <br/>
@@ -161,11 +168,13 @@
                     <div th:id="'step' + ${inter.index}" class="stepJS">
                         <div class="w3-row">
                             <div class="w3-half">
-                                <div style="padding: 8px 16px">Для начала</div>
+                                <div style="padding: 8px 16px" th:if="${inter.index == 0}">Для начала</div>
+                                <div style="padding: 8px 16px" th:if="${inter.index != 0}">Далее</div>
                             </div>
                             <div class="w3-half">
                                 <div th:onclick="'sDel(' + ${inter.index} + ')'" th:if="${inter.index != 0}"
-                                     class="w3-button w3-right w3-deep-orange w3-round-large">Удалить</div>
+                                     class="w3-button w3-right w3-deep-orange w3-round-large">Удалить
+                                </div>
                             </div>
                         </div>
                         <div style="padding: 8px 16px">
@@ -174,8 +183,34 @@
                                    accept=".jpg, .jpeg, .png, .gif">
                         </div>
                         <br/>
-                        <textarea name="step" class="w3-input w3-border w3-round-large" style="resize: vertical"
-                                  placeholder="Описание" th:text="${item.getDescription()}"></textarea>
+                        <div class="w3-row">
+                            <div class="w3-col w3-right w3-container" style="width:270px">
+<!--                                <img th:src="'/upload/' + ${recipe.getId()} + '/mini/' + ${item.getPathToImage()}"-->
+<!--                                     th:alt="${item.getPathToImage()}"-->
+<!--                                     class="w3-bar-item w3-hide-small"-->
+<!--                                     style="width:270px; box-sizing: content-box"-->
+<!--                                     th:if="${item.getPathToImage() != ''}">-->
+
+                                <span th:id="'photoEdit' + ${inter.index}" th:onclick="'photoEdit(' + ${inter.index} + ', 0)'"
+                                      class="w3-display-container w3-text-red"
+                                      style="cursor: pointer">
+                                    <img th:src="'/upload/' + ${recipe.getId()} + '/mini/' + ${item.getPathToImage()}"
+                                         th:alt="${item.getPathToImage()}"
+                                         class="w3-bar-item w3-hide-small"
+                                         style="width:270px; box-sizing: content-box"
+                                         th:if="${item.getPathToImage() != ''}">
+                                    <div class="w3-display-middle w3-large w3-hide"><b>Будет удалено</b></div>
+                                    <input type="number" name="delPhoto" value="0">
+                                </span>
+
+
+                            </div>
+                            <div class="w3-rest w3-container">
+                                <textarea name="step" class="w3-input w3-border w3-round-large" style="resize: vertical"
+                                          placeholder="Описание" th:text="${item.getDescription()}"></textarea>
+                            </div>
+                        </div>
+
                         <br/><br/>
                     </div>
                 </th:block>
@@ -186,10 +221,14 @@
             <div class="w3-row w3-padding">
                 <div class="w3-container w3-quarter"></div>
                 <div class="w3-container w3-quarter" id="leftButton">
-                    <div class="w3-block w3-btn w3-deep-orange w3-round-large" onclick="recipeDelCheck()">Удалить рецепт?</div>
+                    <div class="w3-block w3-btn w3-deep-orange w3-round-large" onclick="recipeDelCheck()">Удалить
+                        рецепт?
+                    </div>
                 </div>
                 <div class="w3-container w3-quarter" id="RightButton">
-                    <button type="submit" class="w3-block w3-btn w3-teal w3-round-large" id="changeBtn">Внести изменения</button>
+                    <button type="submit" class="w3-block w3-btn w3-teal w3-round-large" id="changeBtn">Внести
+                        изменения
+                    </button>
                 </div>
                 <div class="w3-container w3-quarter"></div>
             </div>
