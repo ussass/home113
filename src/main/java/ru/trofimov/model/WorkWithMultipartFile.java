@@ -2,6 +2,7 @@ package ru.trofimov.model;
 
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
+import ru.trofimov.config.AppConfig;
 import ru.trofimov.entity.Step;
 
 import javax.imageio.ImageIO;
@@ -16,7 +17,7 @@ public class WorkWithMultipartFile {
 
     private MultipartFile[] multipartFile;
     private String recipeName;
-    private String directory = "D:/Java Project/NewProjects/home113/target/home113/upload/";
+    private String directory = AppConfig.getDirectory();
     private ArrayList<String> list = new ArrayList<>();
     private String[] resultPhotoName;
 

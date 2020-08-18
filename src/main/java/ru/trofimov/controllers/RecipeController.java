@@ -109,32 +109,38 @@ public class RecipeController {
                            @RequestParam int[] delPhoto
     ) throws UnsupportedEncodingException {
 
-        Crutch.removeImage(oldPhotoNames, photo, delMainPhoto);
+        WorkWithMultipartFile work = new WorkWithMultipartFile(photo, Crutch.toUTF8(recipeName));
+        String[] firstMainImage = work.saveFiles(false);
+        String[] secondMainImage = Crutch.removeImage(oldPhotoNames, photo, delMainPhoto, id, Crutch.toUTF8(recipeName));
+
+        Recipe recipe = new Recipe(
+                Crutch.toUTF8(recipeName),
+                category,
+                listportion,
+                listhour,
+                listminut,
+                Crutch.twoArraysIntoOne(firstMainImage, secondMainImage),
+                CreateClassesForRecipe.createIngredients(ingName, quantity , measure),
+                new Step[]{new Step(" &%& ")});
 
 
-//        Recipe recipe = new Recipe(
-//                recipeName,
-//                category,
-//                listportion,
-//                listhour,
-//                listminut,
-//                new String[]{""},
-//                CreateClassesForRecipe.createIngredients(ingName, quantity , measure),
-//                new Step[]{new Step("")});
 
+//        System.out.println("recipeName: " + Crutch.toUTF8(recipeName));
+//        System.out.println("id: " + id);
+//        System.out.println("listportion: " + listportion);
+//        System.out.println("listhour: " + listhour);
+//        System.out.println("listminut: " + listminut);
+//        System.out.println("photo: " + photo[0].getResource().getFilename());
 
-
-        System.out.println("recipeName: " + Crutch.toUTF8(recipeName));
-        System.out.println("category: " + category);
-        System.out.println("listportion: " + listportion);
-        System.out.println("listhour: " + listhour);
-        System.out.println("listminut: " + listminut);
-        System.out.println("photo: " + photo[0].getResource().getFilename());
 //        System.out.println("delMainPhoto: " + delMainPhoto.length);
 //        System.out.println("delPhoto: " + delPhoto.length);
 
 
 //        return "redirect:/recipe/main";// + Crutch.toTranscript(recipe.getRecipeName()) + "-" + id;
+
+        recipe.showFields();
+
+
         return "redirect:/recipe/edit/" + id;
     }
 

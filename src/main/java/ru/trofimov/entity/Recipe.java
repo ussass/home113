@@ -147,7 +147,7 @@ public class Recipe {
         System.out.println("ingredients: " + ingredients.length);
         for (Ingredient x : ingredients) {
             System.out.print("   ");
-//            System.out.print(x.show() + " ");
+            System.out.print(x.show() + " ");
         }
         System.out.println();
         System.out.println("steps:");

@@ -2,10 +2,13 @@ package ru.trofimov.model;
 
 import com.ibm.icu.text.Transliterator;
 import org.springframework.web.multipart.MultipartFile;
+import ru.trofimov.config.AppConfig;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -52,23 +55,12 @@ public class Crutch {
         file.delete();
     }
 
-    public static void removeImage(String oldImage, MultipartFile[] newImage, int[] delMainPhoto){
+    public static String[] removeImage(String oldImage, MultipartFile[] newImage, int[] delMainPhoto, int id, String newName){
         String[] oldImagNames = oldImage.split("!%!");
-        if (oldImagNames.length == 0) return;
-        System.out.println("------ Crutch.removeImage ------");
+        if (oldImagNames.length == 0) return new String[]{};
 
         int count = newImage.length;
         if (Objects.equals(newImage[0].getResource().getFilename(), "")) count = 0;
-        System.out.println(count);
-
-        System.out.println(oldImage);
-        String[] split1 = oldImagNames[0].split("-");
-
-        String oldRecipeName = "";
-
-        for (int i = 0; i < split1.length - 1; i++){
-            oldRecipeName += split1[i];
-        }
 
         List<String> list = new ArrayList<>();
         List<String> listDel = new ArrayList<>();
@@ -78,15 +70,41 @@ public class Crutch {
             else listDel.add(oldImagNames[i]);
         }
 
-        for (String x : list)
-            System.out.println("move image: " + x);
-        for (String x : listDel)
-            System.out.println(" del image: " + x);
+        String directory = AppConfig.getDirectory();
+        newName = Crutch.toTranscript(newName);
+        String[] result = new String[list.size()];
 
 
+        for (int i = 0; i < list.size(); i ++){
+            try{
+                File src = new File(directory + id + "/" + list.get(i));
 
+                String format = "." + oldImagNames[i].split("\\.")[oldImagNames[i].split("\\.").length-1];
+                File target = new File(directory + "temp/" + newName + "-" + (i + count) + format);
+                result[i] = newName + "-" + (i + count) + format;
 
+                Files.move(src.toPath(), target.toPath());
 
-        System.out.println("--------------------------------");
+            }catch (IOException e){
+                System.out.println("Exception: " + e);
+                return new String[]{};
+            }
+        }
+
+        return result;
+    }
+
+    public static String[] twoArraysIntoOne (String[] one, String[] two){
+        String[] result = new String[one.length + two.length];
+
+        int count = 0;
+        for(int i = 0; i<one.length; i++) {
+            result[i] = one[i];
+            count++;
+        }
+        for(int j = 0;j<two.length;j++) {
+            result[count++] = two[j];
+        }
+        return result;
     }
 }
