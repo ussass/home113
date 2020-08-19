@@ -55,21 +55,18 @@ public class Crutch {
         file.delete();
     }
 
-    public static String[] removStepeImage(String[] oldImage, MultipartFile[] newImage, int[] delStepPhoto, int id, String newName, boolean forStep){
+    public static String[] removStepeImage(String[] oldImage, MultipartFile[] newImage, int[] delStepPhoto, int id, String newName, boolean forStep, int stepLength){
         String oldImageString = "";
         for (String s : oldImage) {
             oldImageString += s;
             oldImageString += "!%!";
         }
-        return removeImage(oldImageString, newImage, delStepPhoto, id, newName, forStep);
+        return removeImage(oldImageString, newImage, delStepPhoto, id, newName, forStep, stepLength);
     }
 
-    public static String[] removeImage(String oldImage, MultipartFile[] newImage, int[] delMainPhoto, int id, String newName, boolean forStep){
+    public static String[] removeImage(String oldImage, MultipartFile[] newImage, int[] delMainPhoto, int id, String newName, boolean forStep, int stepLength){
         String[] oldImagNames = oldImage.split("!%!");
         if (oldImagNames.length == 0) return new String[]{};
-
-        for (MultipartFile x : newImage)
-            System.out.println("newImage: " + x.getResource().getFilename());
 
         int count;
         if (Objects.equals(newImage[0].getResource().getFilename(), "") && !forStep) count = 0;
@@ -80,13 +77,6 @@ public class Crutch {
             }
         }
 
-        System.out.println("count: " + count);
-        System.out.println("oldImage: " + oldImage);
-        for (int i = 0; i < oldImagNames.length; i++) {
-            System.out.println("oldImagNames: " + oldImagNames[i]);
-            System.out.println("delMainPhoto: " + delMainPhoto[i]);
-        }
-
         List<String> list = new ArrayList<>();
         List<String> listDel = new ArrayList<>();
 
@@ -94,11 +84,6 @@ public class Crutch {
             if (delMainPhoto[i] == 0) list.add(oldImagNames[i]);
             else listDel.add(oldImagNames[i]);
         }
-
-        for (String x : list)
-            System.out.println("save: " + x);
-        for (String x : listDel)
-            System.out.println(" del: " + x);
 
         String directory = AppConfig.getDirectory();
         newName = Crutch.toTranscript(newName);
@@ -119,11 +104,56 @@ public class Crutch {
 
             }catch (IOException e){
                 System.out.println("Exception: " + e);
-                return new String[]{};
             }
         }
 
-        return result;
+        if (!forStep) return result;
+        else {
+            String[] stepResult = new String[stepLength];
+            System.out.println("result.length: " + result.length);
+            for (String x : result)
+                System.out.println("result: " + x);
+            for (int i = 0, j = 0; i < stepResult.length; i ++){
+                if (result.length == 0) {
+                    stepResult[i] = "0";
+                    continue;
+                }
+                String lastPart = list.get(j).split("-")[list.get(j).split("-").length - 1];
+                int num = Integer.parseInt(lastPart.split("\\.")[0]);
+                if (num == i) {
+                    stepResult[i] = result[j];
+                    if (j < result.length - 1) j++;
+                }
+                else stepResult[i] = "0";
+
+            }
+            String[] tempName = new String[stepResult.length];
+            for (int i = 0; i < stepResult.length; i ++){
+                if (stepResult[i].equals("0")) {
+//                    tempName[i] = "0";
+                    continue;
+                }
+                String format = "." + stepResult[i].split("\\.")[stepResult[i].split("\\.").length-1];
+                File oldfile =new File(directory + "temp/" + stepResult[i]);
+                File newfile =new File(directory + "temp/-" + i + format);
+                oldfile.renameTo(newfile);
+                tempName[i] = "-" + i + format;
+            }
+
+            for (String x : tempName)
+                System.out.println(x);
+
+            for (int i = 0; i < tempName.length; i ++){
+                if (stepResult[i].equals("0")) continue;
+                File oldfile =new File(directory + "temp/" + tempName[i]);
+                File newfile =new File(directory + "temp/St&" + newName + tempName[i]);
+                oldfile.renameTo(newfile);
+                stepResult[i] = "St&" + newName + tempName[i];
+            }
+
+
+            return stepResult;
+        }
     }
 
     public static String[] twoArraysIntoOne (String[] one, String[] two){

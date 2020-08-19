@@ -112,15 +112,18 @@ public class RecipeController {
                            @RequestParam (required = false) String[] oldStepPhotoNames
     ) throws UnsupportedEncodingException {
         System.out.println("-------------------------");
+        System.out.println("step.length: " + step.length);
 
 //        WorkWithMultipartFile work = new WorkWithMultipartFile(photo, Crutch.toUTF8(recipeName));
 //        String[] firstMainImage = work.saveFiles(false);
-//        String[] secondMainImage = Crutch.removeImage(oldPhotoNames, photo, delMainPhoto, id, Crutch.toUTF8(recipeName), false);
+//        String[] secondMainImage = Crutch.removeImage(oldPhotoNames, photo, delMainPhoto, id, Crutch.toUTF8(recipeName), false, 0);
 //        String[] resultMainImage = Crutch.twoArraysIntoOne(firstMainImage, secondMainImage);
 //        work.setResultPhotoName(resultMainImage);
 //        work.moveImg(id);
 
-        String[] secondStepImage = Crutch.removStepeImage(oldStepPhotoNames, photoStep, delStepPhoto, id, Crutch.toUTF8(recipeName), true);
+        String[] secondStepImage = Crutch.removStepeImage(oldStepPhotoNames, photoStep, delStepPhoto, id, Crutch.toUTF8(recipeName), true, step.length);
+
+
 
         for (String x: secondStepImage)
             System.out.println("secondStepImage: " + x);
