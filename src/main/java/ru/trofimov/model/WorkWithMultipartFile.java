@@ -29,6 +29,10 @@ public class WorkWithMultipartFile {
     public WorkWithMultipartFile() {
     }
 
+    public void setResultPhotoName(String[] resultPhotoName) {
+        this.resultPhotoName = resultPhotoName;
+    }
+
     public String[] saveFiles(boolean forSteps){
         for (int i = 0; i < multipartFile.length; i++){
             if (multipartFile[i].getSize() == 0 && !forSteps) continue;
@@ -92,7 +96,6 @@ public class WorkWithMultipartFile {
 
             }catch (IOException e){
                 System.out.println("Exception: " + e);
-                return;
             }
         }
     }

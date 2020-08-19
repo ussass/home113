@@ -9,6 +9,8 @@ import ru.trofimov.entity.Step;
 import ru.trofimov.model.*;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -106,22 +108,33 @@ public class RecipeController {
                            @RequestParam int id,
                            @RequestParam String oldPhotoNames,
                            @RequestParam (required = false) int[] delMainPhoto,
-                           @RequestParam int[] delPhoto
+                           @RequestParam (required = false) int[] delStepPhoto,
+                           @RequestParam (required = false) String[] oldStepPhotoNames
     ) throws UnsupportedEncodingException {
+        System.out.println("-------------------------");
 
-        WorkWithMultipartFile work = new WorkWithMultipartFile(photo, Crutch.toUTF8(recipeName));
-        String[] firstMainImage = work.saveFiles(false);
-        String[] secondMainImage = Crutch.removeImage(oldPhotoNames, photo, delMainPhoto, id, Crutch.toUTF8(recipeName));
+//        WorkWithMultipartFile work = new WorkWithMultipartFile(photo, Crutch.toUTF8(recipeName));
+//        String[] firstMainImage = work.saveFiles(false);
+//        String[] secondMainImage = Crutch.removeImage(oldPhotoNames, photo, delMainPhoto, id, Crutch.toUTF8(recipeName), false);
+//        String[] resultMainImage = Crutch.twoArraysIntoOne(firstMainImage, secondMainImage);
+//        work.setResultPhotoName(resultMainImage);
+//        work.moveImg(id);
 
-        Recipe recipe = new Recipe(
-                Crutch.toUTF8(recipeName),
-                category,
-                listportion,
-                listhour,
-                listminut,
-                Crutch.twoArraysIntoOne(firstMainImage, secondMainImage),
-                CreateClassesForRecipe.createIngredients(ingName, quantity , measure),
-                new Step[]{new Step(" &%& ")});
+        String[] secondStepImage = Crutch.removStepeImage(oldStepPhotoNames, photoStep, delStepPhoto, id, Crutch.toUTF8(recipeName), true);
+
+        for (String x: secondStepImage)
+            System.out.println("secondStepImage: " + x);
+
+
+//        Recipe recipe = new Recipe(
+//                Crutch.toUTF8(recipeName),
+//                category,
+//                listportion,
+//                listhour,
+//                listminut,
+//                resultMainImage,
+//                CreateClassesForRecipe.createIngredients(ingName, quantity , measure),
+//                new Step[]{new Step(" &%& ")});
 
 
 
@@ -138,7 +151,8 @@ public class RecipeController {
 
 //        return "redirect:/recipe/main";// + Crutch.toTranscript(recipe.getRecipeName()) + "-" + id;
 
-        recipe.showFields();
+//        recipe.showFields();
+
 
 
         return "redirect:/recipe/edit/" + id;

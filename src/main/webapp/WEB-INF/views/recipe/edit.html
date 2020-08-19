@@ -200,9 +200,9 @@
                                          style="width:270px; box-sizing: content-box"
                                          th:if="${item.getPathToImage() != ''}">
                                     <div class="w3-display-middle w3-large w3-hide"><b>Будет удалено</b></div>
-                                    <input type="number" name="delPhoto" value="0">
+                                    <input type="number" name="delStepPhoto" value="0">
                                 </span>
-
+                                <input type="text" name="oldStepPhotoNames" th:value="${item.getPathToImage()}">
 
                             </div>
                             <div class="w3-rest w3-container">
