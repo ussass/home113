@@ -34,13 +34,13 @@ public class Recipe {
         this.time = time;
         this.namesMainImage = namesMainImage.split("&\\*&");
         Ingredient[] ing = new Ingredient[ingredients.split("&\\*&").length];
-        for (int i = 0; i < ing.length; i++){
+        for (int i = 0; i < ing.length; i++) {
             String x = ingredients.split("&\\*&")[i];
             if (!x.equals("")) ing[i] = new Ingredient(x);
         }
         this.ingredients = ing;
         Step[] st = new Step[steps.split("&\\*&").length];
-        for (int i = 0; i < st.length; i++){
+        for (int i = 0; i < st.length; i++) {
             String x = steps.split("&\\*&")[i];
             if (!x.equals("")) st[i] = new Step(x);
         }
@@ -62,15 +62,15 @@ public class Recipe {
 
     }
 
-    public int getHour(){
+    public int getHour() {
         return time / 60;
     }
 
-    public int getMinute(){
+    public int getMinute() {
         return time % 60;
     }
 
-    public String getLinkWithId(){
+    public String getLinkWithId() {
         return Crutch.toTranscript(recipeName) + "-" + id;
     }
 
@@ -78,22 +78,32 @@ public class Recipe {
         return id;
     }
 
-    public int getCategoryInt(){
+    public int getCategoryInt() {
         return category;
     }
 
     public String getCategory() {
-        switch (category){
-            case 1: return "Завтраки";
-            case 2: return "Супы";
-            case 3: return "Основные блюда";
-            case 4: return "Выпечка и десерты";
-            case 5: return "Сэндвичи";
-            case 6: return "Паста и пицца";
-            case 7: return "Салаты";
-            case 8: return "Соусы";
-            case 9: return "Напитки";
-            default: return "Нет данных";
+        switch (category) {
+            case 1:
+                return "Завтраки";
+            case 2:
+                return "Супы";
+            case 3:
+                return "Основные блюда";
+            case 4:
+                return "Выпечка и десерты";
+            case 5:
+                return "Сэндвичи";
+            case 6:
+                return "Паста и пицца";
+            case 7:
+                return "Салаты";
+            case 8:
+                return "Соусы";
+            case 9:
+                return "Напитки";
+            default:
+                return "Нет данных";
         }
     }
 
@@ -113,26 +123,26 @@ public class Recipe {
     }
 
     public Ingredient[] getIngredients() {
-        try{
+        try {
             ingredients[0].toString();
             return ingredients;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Отработал getIngredients.Exception");
-            return new Ingredient[] {new Ingredient("",0,0)};
+            return new Ingredient[]{new Ingredient("", 0, 0)};
         }
     }
 
     public Step[] getSteps() {
-        try{
+        try {
             steps[0].toString();
             return steps;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Отработал getSteps.Exception");
-            return new Step[] {new Step("","")};
+            return new Step[]{new Step("", "")};
         }
     }
 
-    public void showFields(){
+    public void showFields() {
         System.out.println("id: " + id);
         System.out.println("recipeName: " + recipeName);
         System.out.println("category: " + category);
@@ -147,19 +157,27 @@ public class Recipe {
         System.out.println("ingredients: " + ingredients.length);
         for (Ingredient x : ingredients) {
             System.out.print("   ");
-//            System.out.print(x.show() + " ");
+            try {
+                System.out.print(x.show() + " ");
+            } catch (Exception e) {
+                System.out.println("Exception: " + e.toString());
+            }
         }
         System.out.println();
         System.out.println("steps:");
         for (Step x : steps) {
             System.out.print("   ");
-//            System.out.print(x.show() + " ");
+            try {
+                System.out.print(x.show() + " ");
+            } catch (Exception e) {
+                System.out.println("Exception: " + e.toString());
+            }
         }
         System.out.println();
         System.out.println("-------------------");
     }
 
-    public String insertIntoDb(){
+    public String insertIntoDb(boolean add) {
         StringBuilder ingredient = new StringBuilder();
         for (Ingredient value : ingredients) {
             ingredient.append(value.toString()).append("&*&");
@@ -174,13 +192,14 @@ public class Recipe {
         for (String value : namesMainImage) {
             nameMainImage.append(value).append("&*&");
         }
-        System.out.println("nameMainImage.toString: " + nameMainImage.toString());
-
-        return "VALUES ('" + recipeName + "', " + category + ", " + portion + ", " + time + ", '" + ingredient.toString() + "', '" + step.toString() + "', '" + nameMainImage.toString() + "');";
-
+        if (add)
+            return "VALUES ('" + recipeName + "', " + category + ", " + portion + ", " + time + ", '" + ingredient.toString() + "', '" + step.toString() + "', '" + nameMainImage.toString() + "');";
+        else
+            return "recipeName = '" + recipeName + "', category = " + category + ", portion = " + portion + " , cookingTime = " + time + " , " +
+                    "ingredients = '" + ingredient.toString() + "', steps = '" + step.toString() + "', photos = '" + nameMainImage.toString() + "'";
     }
 
-    private String correctHour(int hour){
+    private String correctHour(int hour) {
         int lastN = hour % 10;
         int penultN = (hour % 100 - lastN) / 10;
         if (lastN == 1 && penultN != 1) return " час ";

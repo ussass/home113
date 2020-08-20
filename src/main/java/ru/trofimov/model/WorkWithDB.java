@@ -45,7 +45,7 @@ public class WorkWithDB {
         int lastId = 0;
         try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             Statement statement = connection.createStatement();
-            statement.execute("INSERT INTO recipes (recipeName, category, portion, cookingTime, ingredients, steps, photos) " + recipe.insertIntoDb());
+            statement.execute("INSERT INTO recipes (recipeName, category, portion, cookingTime, ingredients, steps, photos) " + recipe.insertIntoDb(true));
             ResultSet resultSet = statement.executeQuery("SELECT LAST_INSERT_ID()");
             while (resultSet.next()) {
                 lastId = resultSet.getInt(1);
@@ -81,6 +81,15 @@ public class WorkWithDB {
         try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
             Statement statement = connection.createStatement();
             statement.execute("DELETE FROM recipes WHERE id=" + id + ";");
+        } catch (SQLException e) {
+            System.out.println("Неудалось загрузить класс драйвера!");
+        }
+    }
+
+    public static void update(int id ,Recipe recipe){
+        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            Statement statement = connection.createStatement();
+            statement.execute("UPDATE recipes SET " + recipe.insertIntoDb(false) + " WHERE id = " + id + ";");
         } catch (SQLException e) {
             System.out.println("Неудалось загрузить класс драйвера!");
         }

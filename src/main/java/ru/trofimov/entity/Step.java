@@ -20,7 +20,7 @@ public class Step {
     }
 
     public String getPathToImage() {
-        if(pathToImage.contains("octet-stream"))
+        if(pathToImage.contains("octet-stream") || pathToImage.equals("0"))
             return "";
 
         return pathToImage;

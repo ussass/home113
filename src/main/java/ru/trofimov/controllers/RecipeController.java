@@ -38,7 +38,7 @@ public class RecipeController {
             model.addAttribute("recipe", recipe);
             return "recipe/show";
 
-        }catch (Exception e){
+        } catch (Exception e) {
             return "error404";
         }
     }
@@ -57,7 +57,7 @@ public class RecipeController {
                           @RequestParam int listminut,
                           @RequestParam MultipartFile[] photo,
                           @RequestParam String[] ingName,
-                          @RequestParam List<Integer>  quantity,
+                          @RequestParam List<Integer> quantity,
                           @RequestParam int[] measure,
                           @RequestParam MultipartFile[] photoStep,
                           @RequestParam String[] step
@@ -72,9 +72,8 @@ public class RecipeController {
                 listhour,
                 listminut,
                 work.saveFiles(false),
-                CreateClassesForRecipe.createIngredients(ingName, quantity , measure),
+                CreateClassesForRecipe.createIngredients(ingName, quantity, measure),
                 CreateClassesForRecipe.createSteps(photoStep, step, Crutch.toUTF8(recipeName)));
-
 
 
         int id = WorkWithDB.save(recipe);
@@ -101,44 +100,48 @@ public class RecipeController {
                            @RequestParam int listminut,
                            @RequestParam MultipartFile[] photo,
                            @RequestParam String[] ingName,
-                           @RequestParam List<Integer>  quantity,
+                           @RequestParam List<Integer> quantity,
                            @RequestParam int[] measure,
                            @RequestParam MultipartFile[] photoStep,
                            @RequestParam String[] step,
                            @RequestParam int id,
                            @RequestParam String oldPhotoNames,
-                           @RequestParam (required = false) int[] delMainPhoto,
-                           @RequestParam (required = false) int[] delStepPhoto,
-                           @RequestParam (required = false) String[] oldStepPhotoNames
+                           @RequestParam(required = false) int[] delMainPhoto,
+                           @RequestParam(required = false) int[] delStepPhoto,
+                           @RequestParam(required = false) String[] oldStepPhotoNames
     ) throws UnsupportedEncodingException {
         System.out.println("-------------------------");
         System.out.println("step.length: " + step.length);
 
-//        WorkWithMultipartFile work = new WorkWithMultipartFile(photo, Crutch.toUTF8(recipeName));
-//        String[] firstMainImage = work.saveFiles(false);
-//        String[] secondMainImage = Crutch.removeImage(oldPhotoNames, photo, delMainPhoto, id, Crutch.toUTF8(recipeName), false, 0);
-//        String[] resultMainImage = Crutch.twoArraysIntoOne(firstMainImage, secondMainImage);
-//        work.setResultPhotoName(resultMainImage);
-//        work.moveImg(id);
+        WorkWithMultipartFile work = new WorkWithMultipartFile(photo, Crutch.toUTF8(recipeName));
+        String[] firstMainImage = work.saveFiles(false);
+        String[] secondMainImage = Crutch.removeImage(oldPhotoNames, photo, delMainPhoto, id, Crutch.toUTF8(recipeName), false, 0);
+        String[] resultMainImage = Crutch.twoArraysIntoOne(firstMainImage, secondMainImage);
+        work.setResultPhotoName(resultMainImage);
 
         String[] secondStepImage = Crutch.removStepeImage(oldStepPhotoNames, photoStep, delStepPhoto, id, Crutch.toUTF8(recipeName), true, step.length);
+        WorkWithMultipartFile stepWork = new WorkWithMultipartFile(photoStep, Crutch.toUTF8(recipeName));
+        String[] resultStepImage = Crutch.twoArraysIntoOne2(stepWork.saveFiles(true), secondStepImage);
+        stepWork.setResultPhotoName(resultStepImage);
+
+        Crutch.deleteAllFilesFolder(id);
+        work.moveImg(id);
+        stepWork.moveImg(id);
+        Crutch.deleteAllFilesFolder(-1);
+
+        System.out.println("step.length: " + step.length);
+        System.out.println("resultStepImage.length: " + resultStepImage.length);
 
 
-
-        for (String x: secondStepImage)
-            System.out.println("secondStepImage: " + x);
-
-
-//        Recipe recipe = new Recipe(
-//                Crutch.toUTF8(recipeName),
-//                category,
-//                listportion,
-//                listhour,
-//                listminut,
-//                resultMainImage,
-//                CreateClassesForRecipe.createIngredients(ingName, quantity , measure),
-//                new Step[]{new Step(" &%& ")});
-
+        Recipe recipe = new Recipe(
+                Crutch.toUTF8(recipeName),
+                category,
+                listportion,
+                listhour,
+                listminut,
+                resultMainImage,
+                CreateClassesForRecipe.createIngredients(ingName, quantity , measure),
+                CreateClassesForRecipe.createSteps(step, resultStepImage));
 
 
 //        System.out.println("recipeName: " + Crutch.toUTF8(recipeName));
@@ -155,14 +158,16 @@ public class RecipeController {
 //        return "redirect:/recipe/main";// + Crutch.toTranscript(recipe.getRecipeName()) + "-" + id;
 
 //        recipe.showFields();
+        WorkWithDB.update(id, recipe);
 
+        System.out.println(recipe.insertIntoDb(false));
 
 
         return "redirect:/recipe/edit/" + id;
     }
 
     @PostMapping("/del")
-    public String delete (@RequestParam int id, Model model) {
+    public String delete(@RequestParam int id, Model model) {
         WorkWithDB.delete(id);
         Crutch.recursiveDelete(new File("D:/Java Project/NewProjects/home113/target/home113/upload/" + id));
         return "redirect:/recipe/main";
