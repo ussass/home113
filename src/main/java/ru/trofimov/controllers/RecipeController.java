@@ -110,9 +110,6 @@ public class RecipeController {
                            @RequestParam(required = false) int[] delStepPhoto,
                            @RequestParam(required = false) String[] oldStepPhotoNames
     ) throws UnsupportedEncodingException {
-        System.out.println("-------------------------");
-        System.out.println("step.length: " + step.length);
-
         WorkWithMultipartFile work = new WorkWithMultipartFile(photo, Crutch.toUTF8(recipeName));
         String[] firstMainImage = work.saveFiles(false);
         String[] secondMainImage = Crutch.removeImage(oldPhotoNames, photo, delMainPhoto, id, Crutch.toUTF8(recipeName), false, 0);
@@ -144,23 +141,8 @@ public class RecipeController {
                 CreateClassesForRecipe.createSteps(step, resultStepImage));
 
 
-//        System.out.println("recipeName: " + Crutch.toUTF8(recipeName));
-//        System.out.println("id: " + id);
-//        System.out.println("listportion: " + listportion);
-//        System.out.println("listhour: " + listhour);
-//        System.out.println("listminut: " + listminut);
-//        System.out.println("photo: " + photo[0].getResource().getFilename());
-
-//        System.out.println("delMainPhoto: " + delMainPhoto.length);
-//        System.out.println("delPhoto: " + delPhoto.length);
-
-
-//        return "redirect:/recipe/main";// + Crutch.toTranscript(recipe.getRecipeName()) + "-" + id;
-
-//        recipe.showFields();
         WorkWithDB.update(id, recipe);
 
-        System.out.println(recipe.insertIntoDb(false));
 
 
         return "redirect:/recipe/edit/" + id;

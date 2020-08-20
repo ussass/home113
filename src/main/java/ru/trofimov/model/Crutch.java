@@ -134,9 +134,12 @@ public class Crutch {
                 System.out.println("list.size: " + list.size());
                 for (String x: list)
                     System.out.println("list: " + x);
-//                if ()
+//                if (list.get(0).equals(""))
                 String lastPart = list.get(j).split("-")[list.get(j).split("-").length - 1];
-//                if (lastPart.equals("")) continue;
+                if (lastPart.equals("")) {
+                    stepResult[i] = "0";
+                    continue;
+                }
                 int num = Integer.parseInt(lastPart.split("\\.")[0]);
                 if (num == i) {
                     stepResult[i] = result[j];
@@ -201,11 +204,16 @@ public class Crutch {
         if (id == -1) path = AppConfig.getDirectory() + "temp";
         else path = AppConfig.getDirectory() + id;
 
-        for (File myFile : new File(path).listFiles()) {
-            if (myFile.isFile()) myFile.delete();
-            if (myFile.isDirectory())
-                for (File myFileInside : new File(myFile.getAbsolutePath()).listFiles())
-                    if (myFileInside.isFile()) myFileInside.delete();
+        System.out.println("path: " + path);
+        try{
+            for (File myFile : new File(path).listFiles()) {
+                if (myFile.isFile()) myFile.delete();
+                if (myFile.isDirectory())
+                    for (File myFileInside : new File(myFile.getAbsolutePath()).listFiles())
+                        if (myFileInside.isFile()) myFileInside.delete();
+            }
+        }catch (Exception e){
+            System.out.println("Exception: " + e.toString());
         }
     }
 }
