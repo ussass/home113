@@ -7,7 +7,7 @@ public class AppConfig {
     }
 
     public static String getColor(){
-        return "teal";
+        return "green";
     }
 
 

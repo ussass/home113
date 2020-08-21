@@ -34,7 +34,7 @@
 <div class="w3-container w3-padding">
 
     <div class="w3-card w3-light-grey">
-        <div class="w3-container w3-center w3-row w3-teal">
+        <div th:class="'w3-container w3-center w3-row w3-' + ${color}">
             <div class="w3-third w3-container">
                 <h4 th:text="${recipe.getCategory()}"></h4>
             </div>
@@ -73,7 +73,7 @@
         </div>
         <div class="w3-padding" id="formIng">
             <th:block th:each="item,inter : ${recipe.getIngredients()}">
-                <div class="w3-panel w3-border-bottom w3-row w3-border-teal" th:if="${item.getIngredientName() != ''}">
+                <div th:class="'w3-panel w3-border-bottom w3-row w3-border-' + ${color}" th:if="${item.getIngredientName() != ''}">
                     <div class="w3-half w3-center">
                         <p th:text="${item.getIngredientName()}"></p>
                     </div>
@@ -90,7 +90,7 @@
         <div class="w3-padding" id="formStp">
             <ul class="w3-ul">
                 <th:block th:each="item,inter : ${recipe.getSteps()}">
-                    <li class="w3-panel w3-border-bottom w3-row w3-border-teal" th:if="${item.getDescription() != ''}">
+                    <li th:class="'w3-panel w3-border-bottom w3-row w3-border-' + ${color}" th:if="${item.getDescription() != ''}">
                         <div class="w3-half w3-center" style="margin: 15px 0">
                             <b th:text="${inter.index} + 1 + '. '"></b>
                             <span th:text="${item.getDescription()}"></span>
@@ -113,7 +113,7 @@
                 <div class="w3-block w3-btn w3-deep-orange w3-round-large">Придумать назначение</div>
             </div>
             <div class="w3-container w3-quarter">
-                <a class="w3-block w3-btn  w3-round-large w3-teal"
+                <a th:class="'w3-block w3-btn  w3-round-large w3-' + ${color}"
                     th:href="'/recipe/edit/' + ${recipe.getId()}"
                      onclick="location.href='/recipe/edit?id=<%out.print(id);%>'">Редактировать
                 </a>

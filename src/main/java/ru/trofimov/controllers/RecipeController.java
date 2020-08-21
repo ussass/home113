@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ru.trofimov.config.AppConfig;
 import ru.trofimov.entity.Recipe;
 import ru.trofimov.entity.Step;
 import ru.trofimov.model.*;
@@ -19,13 +20,15 @@ import java.util.List;
 public class RecipeController {
 
     @GetMapping("/main")
-    public String showMain() {
+    public String showMain(Model model) {
+        model.addAttribute("color", AppConfig.getColor());
         return "recipe/recipes";
     }
 
     @GetMapping("/list")
     public String showList(Model model, @RequestParam(defaultValue = "all") String category) {
         List<Recipe> list = WorkWithDB.findAll(Crutch.categoryStringToInt(category));
+        model.addAttribute("color", AppConfig.getColor());
         model.addAttribute("list", list);
         return "recipe/list";
     }
@@ -35,6 +38,7 @@ public class RecipeController {
         try {
             int id = Integer.parseInt(linkName.split("-")[linkName.split("-").length - 1]);
             Recipe recipe = WorkWithDB.read(id);
+            model.addAttribute("color", AppConfig.getColor());
             model.addAttribute("recipe", recipe);
             return "recipe/show";
 
@@ -44,7 +48,8 @@ public class RecipeController {
     }
 
     @GetMapping("/add")
-    public String showAdd() {
+    public String showAdd(Model model) {
+        model.addAttribute("color", AppConfig.getColor());
         return "recipe/add";
     }
 
@@ -87,6 +92,7 @@ public class RecipeController {
 
     @GetMapping("/edit/{id}")
     public String showEdit(@PathVariable(value = "id") int id, Model model) {
+        model.addAttribute("color", AppConfig.getColor());
         model.addAttribute("recipe", WorkWithDB.read(id));
         return "recipe/edit";
     }
