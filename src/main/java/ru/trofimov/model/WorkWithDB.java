@@ -17,7 +17,7 @@ public class WorkWithDB {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException | ClassNotFoundException e) {
-            System.out.println("Кака-то херь попалась: " + e);
+            System.out.println(e);
         }
     }
 
