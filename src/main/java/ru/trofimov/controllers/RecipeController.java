@@ -151,7 +151,7 @@ public class RecipeController {
 
 
 
-        return "redirect:/recipe/edit/" + id;
+        return "redirect:/recipe/" + Crutch.toTranscript(recipe.getRecipeName()) + "-" + id;
     }
 
     @PostMapping("/del")

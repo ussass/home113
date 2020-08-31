@@ -42,10 +42,10 @@ public class CreateClassesForRecipe {
         return stepsArray;
     }
 
-    public static Step[] createSteps(String[] steps, String[] photoSteps){
+    public static Step[] createSteps(String[] steps, String[] photoSteps) throws UnsupportedEncodingException {
         Step[] stepsArray = new Step[steps.length];
         for (int i = 0; i < stepsArray.length; i++){
-            stepsArray[i] = new Step(steps[i], photoSteps[i]);
+            stepsArray[i] = new Step(Crutch.toUTF8(steps[i]), photoSteps[i]);
         }
         return stepsArray;
     }
