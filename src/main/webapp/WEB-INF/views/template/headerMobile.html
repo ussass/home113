@@ -1,0 +1,27 @@
+<div th:fragment="headerMobile">
+    <nav class="w3-sidebar w3-bar-block w3-card w3-teal" id="mySidebar">
+        <div class="w3-container w3-theme-d2">
+            <button onclick="closeSidebar()" class="w3-bar-item w3-button w3-xlarge w3-hover-theme" style="margin: 15px 0; padding: 0">X</button>
+            <br>
+        </div>
+        <a class="w3-bar-item w3-button" href="/">Главная</a>
+        <a class="w3-bar-item w3-button" href="/recipe/main">Рецепты</a>
+        <a class="w3-bar-item w3-button" href="#">Messages</a>
+    </nav>
+
+    <header th:class="'w3-bar w3-card w3-theme w3-' + ${color}">
+        <button class="w3-bar-item w3-button w3-xlarge w3-hover-theme" onclick="openSidebar()" style="margin: 15px 0; padding: 0 15px">&#9776;</button>
+        <h2 class="w3-bar-item" style="margin: 10px 0; padding: 0 5px" th:text="${pageName}"></h2>
+    </header>
+
+    <script>
+        closeSidebar();
+        function openSidebar() {
+            document.getElementById("mySidebar").style.display = "block";
+        }
+
+        function closeSidebar() {
+            document.getElementById("mySidebar").style.display = "none";
+        }
+    </script>
+</div>

@@ -13,12 +13,13 @@ public class MainController {
     @GetMapping("/")
     public String showIndex(@RequestHeader("User-Agent") String userAgent, Model model){
         model.addAttribute("color", AppConfig.getColor());
+        model.addAttribute("pageName", "Главная");
         return DirtyJob.isMobile(userAgent) ? "indexMobile" : "index";
     }
 
     @GetMapping("error404")
-    public String show404(){
-        return "error404";
+    public String show404(@RequestHeader("User-Agent") String userAgent){
+        return DirtyJob.isMobile(userAgent) ? "error404Mobile" :  "error404";
     }
 
 }
