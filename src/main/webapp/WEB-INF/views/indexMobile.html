@@ -4,60 +4,29 @@
 <!--    <title th:text="${title}"/>-->
     <title>Главная</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body style="max-width:600px">
 
-<nav class="w3-sidebar w3-bar-block w3-card" id="mySidebar">
+<nav class="w3-sidebar w3-bar-block w3-card w3-teal" id="mySidebar">
     <div class="w3-container w3-theme-d2">
-        <span onclick="closeSidebar()" class="w3-button w3-display-topright w3-large">X</span>
+        <button onclick="closeSidebar()" class="w3-bar-item w3-button w3-xlarge w3-hover-theme" style="margin: 15px 0; padding: 0">X</button>
         <br>
-        <div class="w3-padding w3-center">
-            <img class="w3-circle" src="img_avatar.jpg" alt="avatar" style="width:75%">
-        </div>
     </div>
-    <a class="w3-bar-item w3-button" href="#">Movies</a>
-    <a class="w3-bar-item w3-button" href="#">Friends</a>
+    <a class="w3-bar-item w3-button" href="/">Главная</a>
+    <a class="w3-bar-item w3-button" href="/recipe/main">Рецепты</a>
     <a class="w3-bar-item w3-button" href="#">Messages</a>
 </nav>
 
-<header class="w3-bar w3-card w3-theme">
-    <button class="w3-bar-item w3-button w3-xxxlarge w3-hover-theme" onclick="openSidebar()">&#9776;</button>
-    <h1 class="w3-bar-item">Movies</h1>
+<header th:class="'w3-bar w3-card w3-theme w3-' + ${color}">
+    <button class="w3-bar-item w3-button w3-xlarge w3-hover-theme" onclick="openSidebar()" style="margin: 15px 0; padding: 0 15px">&#9776;</button>
+    <h2 class="w3-bar-item" style="margin: 10px 0; padding: 0 5px">Movies</h2>
 </header>
 
 <div class="w3-container">
-    <hr>
-    <div class="w3-cell-row">
-        <div class="w3-cell" style="width:30%">
-            <img class="w3-circle" src="img_avatar.jpg" style="width:100%">
-        </div>
-        <div class="w3-cell w3-container">
-            <h3>Frozen</h3>
-            <p>The response to the animations was ridiculous.</p>
-        </div>
-    </div>
-    <hr>
-    <div class="w3-cell-row">
-        <div class="w3-cell" style="width:30%">
-            <img class="w3-circle" src="img_avatar.jpg" style="width:100%">
-        </div>
-        <div class="w3-cell w3-container">
-            <h3>The Fault in Our Stars</h3>
-            <p>Touching, gripping and genuinely well made.</p>
-        </div>
-    </div>
-    <hr>
-    <div class="w3-cell-row">
-        <div class="w3-cell" style="width:30%">
-            <img class="w3-circle" src="img_avatar.jpg" style="width:100%">
-        </div>
-        <div class="w3-cell w3-container">
-            <h3>The Avengers</h3>
-            <p>A huge success for Marvel and Disney.</p>
-        </div>
-    </div>
-    <hr>
+    <br>
+    <h3>index mobile</h3>
 </div>
 
 <footer class="w3-container w3-theme w3-margin-top">
