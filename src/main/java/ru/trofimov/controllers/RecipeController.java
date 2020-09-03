@@ -38,13 +38,16 @@ public class RecipeController {
     }
 
     @GetMapping("/{linkName}")
-    public String showRecipe(@PathVariable(value = "linkName") String linkName, Model model) {
+    public String showRecipe(Model model,
+                             @PathVariable(value = "linkName") String linkName,
+                             @RequestHeader("User-Agent") String userAgent) {
         try {
             int id = Integer.parseInt(linkName.split("-")[linkName.split("-").length - 1]);
             Recipe recipe = WorkWithDB.read(id);
             model.addAttribute("color", AppConfig.getColor());
             model.addAttribute("recipe", recipe);
-            return "recipe/show";
+            model.addAttribute("pageName", recipe.getCategory());
+            return DirtyJob.isMobile(userAgent) ? "recipe/showMobile" : "recipe/show";
 
         } catch (Exception e) {
             return "error404";

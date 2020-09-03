@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${recipe.getRecipeName()}"></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/lightbox.css"/>
+    <!--    <script src="/js/lightbox-plus-jquery.min.js"></script>-->
+    <style>
+        .cuting{
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            margin: 10px;
+            display: inline-block;
+            vertical-align: top;
+        }
+        .cuting img{
+            max-width: 100%;
+            height: auto;
+            width: auto;
+            /*margin-left: auto;*/
+            /*margin-right: auto;*/
+        }
+        .cuting img.landscape{
+            max-width: none;
+            max-height: 100%;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="max-width:600px">
+<div th:insert="template/headerMobile :: headerMobile"></div>
+<div class="w3-center">
+    <h2 th:text="${recipe.getRecipeName()}"></h2>
+    <h4 style="vertical-align: middle" th:text="${recipe.getTime()}"></h4>
+    <div>
+        <th:block th:each="item : ${recipe.getNamesMainImage()}">
+            <a class="cuting" th:href="'/upload/' + ${recipe.getId()} + '/' + ${item}" data-lightbox="roadtrip">
+                <img class="w3-border w3-hover-opacity landscape" th:alt="${item}"
+                     th:src="'/upload/' + ${recipe.getId()} + '/mini/' + ${item}">
+            </a>
+        </th:block>
+    </div>
+    <h4>Ингредиенты на
+        <select id="selectBox" onchange="changeFunc()" style="border: none; background-color: white">
+            <option th:selected="${recipe.getHour() == 1}" value="1">1 порцию</option>
+            <option th:selected="${recipe.getHour() == 2}" value="2">2 порции</option>
+            <option th:selected="${recipe.getHour() == 3}" value="3">3 порции</option>
+            <option th:selected="${recipe.getHour() == 4}" value="4">4 порции</option>
+            <option th:selected="${recipe.getHour() == 5}" value="5">5 порций</option>
+            <option th:selected="${recipe.getHour() == 6}" value="6">6 порций</option>
+            <option th:selected="${recipe.getHour() == 7}" value="7">7 порций</option>
+            <option th:selected="${recipe.getHour() == 8}" value="8">8 порций</option>
+            <option th:selected="${recipe.getHour() == 9}" value="9">9 порций</option>
+            <option th:selected="${recipe.getHour() == 10}" value="10">10 порций</option>
+        </select></h4>
+    <div class="w3-padding" id="formIng">
+        <th:block th:each="item,inter : ${recipe.getIngredients()}">
+            <div th:class="'w3-panel w3-border-bottom w3-row w3-border-' + ${color}" th:if="${item.getIngredientName() != ''}">
+                <div class="w3-half w3-center">
+                    <p th:text="${item.getIngredientName()}"></p>
+                </div>
+                <div class="w3-half w3-center" style="margin: 15px 0">
+                    <span th:id="'quan' + ${inter.index}" th:text="${item.getQuantity()}"></span>
+                    <span th:text="' ' + ${item.getMeasure()}"></span>
+                </div>
+            </div>
+        </th:block>
+    </div>
+    <div class="w3-panel  w3-center">
+        <h4>Инструкция</h4>
+    </div>
+    <div class="w3-padding" id="formStp">
+        <ul class="w3-ul">
+            <th:block th:each="item,inter : ${recipe.getSteps()}">
+                <li th:class="'w3-panel w3-border-bottom w3-row w3-border-' + ${color}" th:if="${item.getDescription() != ''}">
+                    <div class="w3-half w3-center" style="margin: 15px 0">
+                        <b th:text="${inter.index} + 1 + '. '"></b>
+                        <span th:text="${item.getDescription()}"></span>
+                    </div>
+                    <div class="w3-half w3-center">
+                        <img th:src="'/upload/' + ${recipe.getId()} + '/mini/' + ${item.getPathToImage()}"
+                             th:alt="${item.getPathToImage()}"
+                             class="w3-bar-item w3-hide-small"
+                             style="width:270px; box-sizing: content-box"
+                             th:if="${item.getPathToImage() != ''}">
+                    </div>
+                </li>
+            </th:block>
+        </ul>
+    </div>
+    <br/>
+    <div class="w3-row w3-padding">
+        <div class="w3-container w3-quarter"></div>
+        <div class="w3-container w3-quarter">
+            <div class="w3-block w3-btn w3-deep-orange w3-round-large">Придумать назначение</div>
+        </div>
+        <div class="w3-container w3-quarter">
+            <a th:class="'w3-block w3-btn  w3-round-large w3-' + ${color}"
+               th:href="'/recipe/edit/' + ${recipe.getId()}"
+               onclick="location.href='/recipe/edit?id=<%out.print(id);%>'">Редактировать
+            </a>
+        </div>
+        <div class="w3-container w3-quarter"></div>
+    </div>
+</div>  
+
+<div id="hideBlock" class="w3-hide">
+    скрытый блок
+    <p th:text="'length: ' + ${recipe.getIngredients().length}"></p>
+    <p id="portOri" th:text="${recipe.getPortion()}"></p>
+    <th:block th:each="item,inter : ${recipe.getIngredients()}">
+        <p th:id="'quanOri' + ${inter.index}" th:text="${item.getQuantity()}"
+           th:if="${item.getIngredientName() != ''}"></p>
+    </th:block>
+</div>
+<script src="/js/script.js"></script>
+</body>
+</html>
