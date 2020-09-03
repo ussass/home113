@@ -20,9 +20,10 @@ import java.util.List;
 public class RecipeController {
 
     @GetMapping("/main")
-    public String showMain(Model model) {
+    public String showMain(@RequestHeader("User-Agent") String userAgent, Model model) {
         model.addAttribute("color", AppConfig.getColor());
-        return "recipe/recipes";
+        model.addAttribute("pageName", "Рецепты");
+        return DirtyJob.isMobile(userAgent) ? "recipe/recipesMobile" : "recipe/recipes";
     }
 
     @GetMapping("/list")
@@ -30,6 +31,7 @@ public class RecipeController {
         List<Recipe> list = WorkWithDB.findAll(Crutch.categoryStringToInt(category));
         model.addAttribute("color", AppConfig.getColor());
         model.addAttribute("list", list);
+        model.addAttribute("pageName", DirtyJob.intCategoryToString(Crutch.categoryStringToInt(category)));
         return "recipe/list";
     }
 

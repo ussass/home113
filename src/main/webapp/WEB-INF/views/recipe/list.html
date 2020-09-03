@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>List</title>
+    <title th:text="${pageName}"></title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
         <div th:class="'w3-container w3-center w3-row w3-' + ${color}">
             <div class="w3-third w3-container"></div>
             <div class="w3-third w3-container w3-center">
-                <h2>Все рецепты</h2>
+                <h2 th:text="${pageName}"></h2>
             </div>
             <div class="w3-third w3-container"></div>
         </div>

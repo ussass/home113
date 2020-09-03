@@ -2,6 +2,7 @@ package ru.trofimov.entity;
 
 
 import ru.trofimov.model.Crutch;
+import ru.trofimov.model.DirtyJob;
 
 import java.util.ArrayList;
 
@@ -83,28 +84,7 @@ public class Recipe {
     }
 
     public String getCategory() {
-        switch (category) {
-            case 1:
-                return "Завтраки";
-            case 2:
-                return "Супы";
-            case 3:
-                return "Основные блюда";
-            case 4:
-                return "Выпечка и десерты";
-            case 5:
-                return "Сэндвичи";
-            case 6:
-                return "Паста и пицца";
-            case 7:
-                return "Салаты";
-            case 8:
-                return "Соусы";
-            case 9:
-                return "Напитки";
-            default:
-                return "Нет данных";
-        }
+         return DirtyJob.intCategoryToString(category);
     }
 
     public int getPortion() {
