@@ -55,9 +55,10 @@ public class RecipeController {
     }
 
     @GetMapping("/add")
-    public String showAdd(Model model) {
+    public String showAdd(Model model, @RequestHeader("User-Agent") String userAgent) {
         model.addAttribute("color", AppConfig.getColor());
-        return "recipe/add";
+        model.addAttribute("pageName", "Добавить рецепт");
+        return DirtyJob.isMobile(userAgent) ? "recipe/addMobile" : "recipe/add";
     }
 
     @PostMapping("/add")
