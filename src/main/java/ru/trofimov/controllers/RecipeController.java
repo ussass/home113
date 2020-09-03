@@ -27,12 +27,14 @@ public class RecipeController {
     }
 
     @GetMapping("/list")
-    public String showList(Model model, @RequestParam(defaultValue = "all") String category) {
+    public String showList(Model model,
+                           @RequestHeader("User-Agent") String userAgent,
+                           @RequestParam(defaultValue = "all") String category) {
         List<Recipe> list = WorkWithDB.findAll(Crutch.categoryStringToInt(category));
         model.addAttribute("color", AppConfig.getColor());
         model.addAttribute("list", list);
         model.addAttribute("pageName", DirtyJob.intCategoryToString(Crutch.categoryStringToInt(category)));
-        return "recipe/list";
+        return DirtyJob.isMobile(userAgent) ? "recipe/listMobile" : "recipe/list";
     }
 
     @GetMapping("/{linkName}")

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageName}"></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="max-width:600px">
+<div th:insert="template/headerMobile :: headerMobile"></div>
+<ul class="w3-ul w3-card-4 w3-hoverable" style="cursor: pointer">
+    <th:block th:each="item: ${list}">
+        <li>
+            <a th:href="'/recipe/' + ${item.getLinkWithId()}">
+                <div class="w3-bar">
+                    <img src="/img/No-Image-Found.png" alt="123" class="w3-bar-item w3-circle w3-hide-small"
+                         style="width:85px; box-sizing: content-box" th:if="${item.getNamesMainImage()[0] == ''}">
+                    <img th:src="'/upload/' + ${item.getId()} + '/mini/' + ${item.getNamesMainImage()[0]}" alt="123"
+                         class="w3-bar-item w3-circle w3-hide-small" style="width:85px; box-sizing: content-box"
+                         th:if="${item.getNamesMainImage()[0] != ''}">
+                    <div class="w3-bar-item">
+                        <span class="w3-large" th:text="${item.getRecipeName()}"></span><br>
+                        <span th:text="${item.getTime()}"></span>
+                    </div>
+                </div>
+            </a>
+        </li>
+    </th:block>
+</ul>
+</body>
+</html>
