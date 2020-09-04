@@ -91,9 +91,9 @@
                     <div>
                         <th:block th:each="item,inter : ${recipe.getNamesMainImage()}">
                             <span th:id="'photoEditMain' + ${inter.index}" th:onclick="'photoEdit(' + ${inter.index} + ', 1)'"
-                                  class="w3-display-container w3-text-red"
+                                  class="w3-display-container w3-text-red cuting"
                                   style="cursor: pointer">
-                                    <img class="w3-border w3-hover-opacity" th:alt="${item}"
+                                    <img class="w3-border w3-hover-opacity landscape" th:alt="${item}"
                                          th:src="'/upload/' + ${recipe.getId()} + '/mini/' + ${item}">
                                     <div class="w3-display-middle w3-large w3-hide"><b>Будет удалено</b></div>
                                     <input type="number" name="delMainPhoto" class="w3-hide" value="0">

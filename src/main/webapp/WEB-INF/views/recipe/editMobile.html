@@ -86,10 +86,11 @@
         <div class="w3-panel  w3-center" th:if="${recipe.getNamesMainImage()[0] != ''}">
             <div>
                 <th:block th:each="item,inter : ${recipe.getNamesMainImage()}">
-                            <span th:id="'photoEditMain' + ${inter.index}" th:onclick="'photoEdit(' + ${inter.index} + ', 1)'"
-                                  class="w3-display-container w3-text-red"
+                            <span th:id="'photoEditMain' + ${inter.index}"
+                                  th:onclick="'photoEdit(' + ${inter.index} + ', 1)'"
+                                  class="w3-display-container w3-text-red cuting"
                                   style="cursor: pointer">
-                                    <img class="w3-border w3-hover-opacity" th:alt="${item}"
+                                    <img class="w3-border w3-hover-opacity landscape" th:alt="${item}"
                                          th:src="'/upload/' + ${recipe.getId()} + '/mini/' + ${item}">
                                     <div class="w3-display-middle w3-large w3-hide"><b>Будет удалено</b></div>
                                     <input type="number" name="delMainPhoto" class="w3-hide" value="0">
@@ -179,26 +180,25 @@
                            accept=".jpg, .jpeg, .png, .gif">
                 </div>
                 <br/>
-                <div class="w3-row">
-                    <div class="w3-col w3-right w3-container" style="width:270px">
-                                <span th:id="'photoEdit' + ${inter.index}" th:onclick="'photoEdit(' + ${inter.index} + ', 0)'"
+                <div class="w3-col w3-right w3-container w3-center" style="margin-bottom: 10px">
+                                <span th:id="'photoEdit' + ${inter.index}"
+                                      th:onclick="'photoEdit(' + ${inter.index} + ', 0)'"
                                       class="w3-display-container w3-text-red"
                                       style="cursor: pointer">
                                     <img th:src="'/upload/' + ${recipe.getId()} + '/mini/' + ${item.getPathToImage()}"
                                          th:alt="${item.getPathToImage()}"
-                                         class="w3-bar-item w3-hide-small"
+                                         class="w3-bar-item"
                                          style="width:270px; box-sizing: content-box"
                                          th:if="${item.getPathToImage() != ''}">
                                     <div class="w3-display-middle w3-large w3-hide"><b>Будет удалено</b></div>
                                     <input type="number" name="delStepPhoto" value="0" class="w3-hide">
                                 </span>
-                        <input type="text" name="oldStepPhotoNames" th:value="${item.getPathToImage()}" class="w3-hide">
+                    <input type="text" name="oldStepPhotoNames" th:value="${item.getPathToImage()}" class="w3-hide">
 
-                    </div>
-                    <div class="w3-rest w3-container">
+                </div>
+                <div class="w3-rest w3-container">
                                 <textarea name="step" class="w3-input w3-border w3-round-large" style="resize: vertical"
                                           placeholder="Описание" th:text="${item.getDescription()}"></textarea>
-                    </div>
                 </div>
 
                 <br/><br/>
