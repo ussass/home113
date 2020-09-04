@@ -130,10 +130,8 @@ function recipeDelCheck() {
 }
 
 function color() {
-    color = document.getElementById("getColor").className.replace("w3-container w3-center ", "");
-    // return document.getElementById("getColor").className.replace("w3-container w3-center ", "");
-    // alert(color)
-
+    color = document.getElementById("changeBtn").className.replace("w3-block w3-btn w3-round-large ", "");
+    // alert(color);
 }
 
 function chekingImg() {

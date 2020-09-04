@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать рецепт</title>
+    <link rel="stylesheet" href="/css/w3.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="max-width:600px" onload="init(), color()">
+<div th:insert="template/headerMobile :: headerMobile"></div>
+<form method="post" action="/recipe/edit" class="w3-selection w3-light-grey" enctype="multipart/form-data">
+    <div class="w3-padding">
+        <label>Название рецепта
+            <input type="text" name="recipeName" placeholder="Название рецепта"
+                   class="w3-input w3-border w3-round-large" autofocus
+                   th:value="${recipe.getRecipeName()}"><br/>
+        </label>
+        <label>Категория
+            <select name="category" class="w3-select w3-border w3-round-large">
+                <option th:selected="${recipe.getCategoryInt() == 1}" value="1">Завтраки</option>
+                <option th:selected="${recipe.getCategoryInt() == 2}" value="2">Супы</option>
+                <option th:selected="${recipe.getCategoryInt() == 3}" value="3">Основные блюда</option>
+                <option th:selected="${recipe.getCategoryInt() == 4}" value="4">Выпечка и десерты</option>
+                <option th:selected="${recipe.getCategoryInt() == 5}" value="5">Сэндвичи</option>
+                <option th:selected="${recipe.getCategoryInt() == 6}" value="6">Паста и пицца</option>
+                <option th:selected="${recipe.getCategoryInt() == 7}" value="7">Салаты</option>
+                <option th:selected="${recipe.getCategoryInt() == 8}" value="8">Соусы</option>
+                <option th:selected="${recipe.getCategoryInt() == 9}" value="9">Напитки</option>
+            </select><br/><br/>
+        </label>
+        <label>Количество порций
+            <select name="listportion" class="w3-select w3-border w3-round-large">
+                <option th:selected="${recipe.getPortion() == 1}" value="1">1 порция</option>
+                <option th:selected="${recipe.getPortion() == 2}" value="2">2 порции</option>
+                <option th:selected="${recipe.getPortion() == 3}" value="3">3 порции</option>
+                <option th:selected="${recipe.getPortion() == 4}" value="4">4 порции</option>
+                <option th:selected="${recipe.getPortion() == 5}" value="5">5 порций</option>
+                <option th:selected="${recipe.getPortion() == 6}" value="6">6 порций</option>
+                <option th:selected="${recipe.getPortion() == 7}" value="7">7 порций</option>
+                <option th:selected="${recipe.getPortion() == 8}" value="8">8 порций</option>
+                <option th:selected="${recipe.getPortion() == 9}" value="9">9 порций</option>
+                <option th:selected="${recipe.getPortion() == 10}" value="10">10 порций</option>
+            </select><br/><br/>
+        </label>
+        <label>Время приготовления
+            <br/>
+            <select name="listhour" class="w3-border w3-round-large"
+                    style="padding:9px 0;width:15%;border:none;border-bottom:1px solid #ccc">
+                <option th:selected="${recipe.getPortion() == 0}" value="0">0</option>
+                <option th:selected="${recipe.getPortion() == 1}" value="1">1</option>
+                <option th:selected="${recipe.getPortion() == 2}" value="2">2</option>
+                <option th:selected="${recipe.getPortion() == 3}" value="3">3</option>
+                <option th:selected="${recipe.getPortion() == 4}" value="4">4</option>
+                <option th:selected="${recipe.getPortion() == 5}" value="5">5</option>
+                <option th:selected="${recipe.getPortion() == 6}" value="6">6</option>
+                <option th:selected="${recipe.getPortion() == 7}" value="7">7</option>
+                <option th:selected="${recipe.getPortion() == 8}" value="8">8</option>
+                <option th:selected="${recipe.getPortion() == 9}" value="9">9</option>
+                <option th:selected="${recipe.getPortion() == 10}" value="10">10</option>
+            </select>
+            часов
+            <select name="listminut" class="w3-border w3-round-large"
+                    style="padding:9px 0;width:15%;border:none;border-bottom:1px solid #ccc">
+                <option th:selected="${recipe.getMinute() == 0}" value="0">0</option>
+                <option th:selected="${recipe.getMinute() == 5}" value="5">5</option>
+                <option th:selected="${recipe.getMinute() == 10}" value="10">10</option>
+                <option th:selected="${recipe.getMinute() == 15}" value="15">15</option>
+                <option th:selected="${recipe.getMinute() == 20}" value="20">20</option>
+                <option th:selected="${recipe.getMinute() == 25}" value="25">25</option>
+                <option th:selected="${recipe.getMinute() == 30}" value="30">30</option>
+                <option th:selected="${recipe.getMinute() == 35}" value="35">35</option>
+                <option th:selected="${recipe.getMinute() == 40}" value="40">40</option>
+                <option th:selected="${recipe.getMinute() == 45}" value="45">45</option>
+                <option th:selected="${recipe.getMinute() == 50}" value="50">50</option>
+                <option th:selected="${recipe.getMinute() == 55}" value="55">55</option>
+            </select>
+            минут
+            <br/><br/>
+        </label>
+    </div>
+    <div th:class="'w3-panel  w3-center w3-' + ${color}">
+        <h4>Фотографии</h4>
+    </div>
+    <div class="w3-padding" id="formPhoto">
+        <div class="w3-panel  w3-center" th:if="${recipe.getNamesMainImage()[0] != ''}">
+            <div>
+                <th:block th:each="item,inter : ${recipe.getNamesMainImage()}">
+                            <span th:id="'photoEditMain' + ${inter.index}" th:onclick="'photoEdit(' + ${inter.index} + ', 1)'"
+                                  class="w3-display-container w3-text-red"
+                                  style="cursor: pointer">
+                                    <img class="w3-border w3-hover-opacity" th:alt="${item}"
+                                         th:src="'/upload/' + ${recipe.getId()} + '/mini/' + ${item}">
+                                    <div class="w3-display-middle w3-large w3-hide"><b>Будет удалено</b></div>
+                                    <input type="number" name="delMainPhoto" class="w3-hide" value="0">
+                                </span>
+                </th:block>
+            </div>
+        </div>
+        <label id="photo0">
+            <br>
+            <div style="padding: 8px 16px">
+                <label for="photo">Добавить изображения к рецепту</label>
+                <input type="file" name="photo" id="photo" class="w3-center" accept=".jpg, .jpeg, .png, .gif"
+                       multiple>
+            </div>
+            <br>
+        </label>
+    </div>
+    <div th:class="'w3-panel  w3-center w3-' + ${color}">
+        <h4>Ингредиенты</h4>
+    </div>
+
+    <div class="w3-padding" id="formIng">
+        <th:block th:each="item,inter : ${recipe.getIngredients()}">
+            <div th:id="'ingredient' + ${inter.index}" class="ingJS">
+                <div class="w3-row">
+                    <div class="w3-half">
+                        <div style="padding: 8px 16px">Ингредиент</div>
+                    </div>
+                    <div class="w3-half">
+                        <div th:onclick="'iDel(' + ${inter.index} + ')'" th:if="${inter.index != 0}"
+                             class="w3-button w3-right w3-deep-orange w3-round-large">Удалить
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <input type="text" name="ingName" class="w3-input w3-border w3-round-large"
+                       placeholder="Название ингредиента" th:value="${item.getIngredientName()}"><br/>
+                <div class="w3-row">
+                    <div class="w3-half">
+                        <input type="number" name="quantity" placeholder="0"
+                               class="w3-input w3-border w3-round-large" th:value="${item.getQuantity()}">
+                    </div>
+                    <div class="w3-half">
+                        <select name="measure" class="w3-select w3-border w3-round-large">
+                            <option th:selected="${item.getMeasureInt() == 0}" value="0">грамм</option>
+                            <option th:selected="${item.getMeasureInt() == 1}" value="1">килограмм</option>
+                            <option th:selected="${item.getMeasureInt() == 2}" value="2">миллилитр</option>
+                            <option th:selected="${item.getMeasureInt() == 3}" value="3">литр</option>
+                            <option th:selected="${item.getMeasureInt() == 4}" value="4">по вкусу</option>
+                            <option th:selected="${item.getMeasureInt() == 5}" value="5">на кончике ножа
+                            </option>
+                            <option th:selected="${item.getMeasureInt() == 6}" value="6">защепотка</option>
+                            <option th:selected="${item.getMeasureInt() == 7}" value="7">чайная ложка</option>
+                            <option th:selected="${item.getMeasureInt() == 8}" value="8">столовая ложка</option>
+                            <option th:selected="${item.getMeasureInt() == 9}" value="9">стакан</option>
+                            <option th:selected="${item.getMeasureInt() == 10}" value="10">головка</option>
+                            <option th:selected="${item.getMeasureInt() == 11}" value="11">штука</option>
+                            <option th:selected="${item.getMeasureInt() == 12}" value="12">кусок</option>
+                        </select>
+                    </div>
+                </div>
+                <br/><br/>
+            </div>
+        </th:block>
+        <div onclick="iAdd()" class="w3-padding" style="cursor: pointer">Добавить ингредиент</div>
+    </div>
+    <div th:class="'w3-panel  w3-center w3-' + ${color}">
+        <h4>Инструкция</h4>
+    </div>
+    <div class="w3-padding" id="formStp">
+        <th:block th:each="item,inter : ${recipe.getSteps()}">
+            <div th:id="'step' + ${inter.index}" class="stepJS">
+                <div class="w3-row">
+                    <div class="w3-half">
+                        <div style="padding: 8px 16px" th:if="${inter.index == 0}">Для начала</div>
+                        <div style="padding: 8px 16px" th:if="${inter.index != 0}">Далее</div>
+                    </div>
+                    <div class="w3-half">
+                        <div th:onclick="'sDel(' + ${inter.index} + ')'" th:if="${inter.index != 0}"
+                             class="w3-button w3-right w3-deep-orange w3-round-large">Удалить
+                        </div>
+                    </div>
+                </div>
+                <div style="padding: 8px 16px">
+                    <label for="photoStep">Добавить изображение к описанию</label>
+                    <input type="file" name="photoStep" id="photoStep" class="w3-center"
+                           accept=".jpg, .jpeg, .png, .gif">
+                </div>
+                <br/>
+                <div class="w3-row">
+                    <div class="w3-col w3-right w3-container" style="width:270px">
+                                <span th:id="'photoEdit' + ${inter.index}" th:onclick="'photoEdit(' + ${inter.index} + ', 0)'"
+                                      class="w3-display-container w3-text-red"
+                                      style="cursor: pointer">
+                                    <img th:src="'/upload/' + ${recipe.getId()} + '/mini/' + ${item.getPathToImage()}"
+                                         th:alt="${item.getPathToImage()}"
+                                         class="w3-bar-item w3-hide-small"
+                                         style="width:270px; box-sizing: content-box"
+                                         th:if="${item.getPathToImage() != ''}">
+                                    <div class="w3-display-middle w3-large w3-hide"><b>Будет удалено</b></div>
+                                    <input type="number" name="delStepPhoto" value="0" class="w3-hide">
+                                </span>
+                        <input type="text" name="oldStepPhotoNames" th:value="${item.getPathToImage()}" class="w3-hide">
+
+                    </div>
+                    <div class="w3-rest w3-container">
+                                <textarea name="step" class="w3-input w3-border w3-round-large" style="resize: vertical"
+                                          placeholder="Описание" th:text="${item.getDescription()}"></textarea>
+                    </div>
+                </div>
+
+                <br/><br/>
+            </div>
+        </th:block>
+        <div onclick="sAdd()" class="w3-padding" style="cursor: pointer">Добавить шаг</div>
+    </div>
+    <br/>
+    <div>
+        <input type="number" name="id" th:value="${recipe.getId()}" class="w3-hide">
+        <br>
+        <input type="text" name="oldPhotoNames" th:value="${recipe.getNamesMainImageOneLine()}" class="w3-hide">
+    </div>
+    <div class="w3-row w3-padding">
+        <div class="w3-container w3-quarter"></div>
+        <div class="w3-container w3-quarter" id="leftButton">
+            <div class="w3-block w3-btn w3-deep-orange w3-round-large" onclick="recipeDelCheck()">Удалить
+                рецепт?
+            </div>
+        </div>
+        <div class="w3-container w3-quarter" id="RightButton">
+            <button type="submit" th:class="'w3-block w3-btn w3-round-large w3-' + ${color}" id="changeBtn">Внести
+                изменения
+            </button>
+        </div>
+        <div class="w3-container w3-quarter"></div>
+    </div>
+    <br/>
+
+</form>
+<script src="/js/script.js"></script>
+<!--<script src="/js/jquery-3.4.1.min.js"></script>-->
+</body>
+</html>

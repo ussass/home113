@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Редактировать рецепт</title>
+    <link rel="stylesheet" href="/css/w3.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body onload="init(), color()">
@@ -193,9 +194,9 @@
                                          style="width:270px; box-sizing: content-box"
                                          th:if="${item.getPathToImage() != ''}">
                                     <div class="w3-display-middle w3-large w3-hide"><b>Будет удалено</b></div>
-                                    <input type="number" name="delStepPhoto" value="0">
+                                    <input type="number" name="delStepPhoto" value="0" class="w3-hide">
                                 </span>
-                                <input type="text" name="oldStepPhotoNames" th:value="${item.getPathToImage()}">
+                                <input type="text" name="oldStepPhotoNames" th:value="${item.getPathToImage()}" class="w3-hide">
 
                             </div>
                             <div class="w3-rest w3-container">
@@ -211,9 +212,9 @@
             </div>
             <br/>
             <div>
-                <input type="number" name="id" th:value="${recipe.getId()}">
+                <input type="number" name="id" th:value="${recipe.getId()}" class="w3-hide">
                 <br>
-                <input type="text" name="oldPhotoNames" th:value="${recipe.getNamesMainImageOneLine()}">
+                <input type="text" name="oldPhotoNames" th:value="${recipe.getNamesMainImageOneLine()}" class="w3-hide">
             </div>
             <div class="w3-row w3-padding">
                 <div class="w3-container w3-quarter"></div>

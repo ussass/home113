@@ -99,10 +99,12 @@ public class RecipeController {
     }
 
     @GetMapping("/edit/{id}")
-    public String showEdit(@PathVariable(value = "id") int id, Model model) {
+    public String showEdit(Model model,
+                           @RequestHeader("User-Agent") String userAgent,
+                           @PathVariable(value = "id") int id) {
         model.addAttribute("color", AppConfig.getColor());
         model.addAttribute("recipe", WorkWithDB.read(id));
-        return "recipe/edit";
+        return DirtyJob.isMobile(userAgent) ? "recipe/editMobile" : "recipe/edit";
     }
 
     @PostMapping("/edit")
