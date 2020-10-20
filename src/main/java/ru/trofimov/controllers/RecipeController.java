@@ -8,6 +8,8 @@ import ru.trofimov.config.AppConfig;
 import ru.trofimov.entity.Recipe;
 import ru.trofimov.entity.Step;
 import ru.trofimov.model.*;
+import ru.trofimov.service.RecipeService;
+import ru.trofimov.service.RecipeServiceImp;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,9 +46,13 @@ public class RecipeController {
         try {
             int id = Integer.parseInt(linkName.split("-")[linkName.split("-").length - 1]);
             Recipe recipe = WorkWithDB.read(id);
+            RecipeService service = new RecipeServiceImp();
+            ru.trofimov.model.Recipe recipe1 = service.findById(id);
+            recipe1.initializationOfDependentClasses();
+            System.out.println(recipe1.toString());
             model.addAttribute("color", AppConfig.getColor());
-            model.addAttribute("recipe", recipe);
-            model.addAttribute("pageName", recipe.getCategory());
+            model.addAttribute("recipe", recipe1);
+            model.addAttribute("pageName", recipe1.getCategory());
             return DirtyJob.isMobile(userAgent) ? "recipe/showMobile" : "recipe/show";
 
         } catch (Exception e) {

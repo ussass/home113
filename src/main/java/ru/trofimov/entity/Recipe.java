@@ -83,7 +83,8 @@ public class Recipe {
         return category;
     }
 
-    public String getCategory() {
+    public String getCategoryString
+            () {
          return DirtyJob.intCategoryToString(category);
     }
 

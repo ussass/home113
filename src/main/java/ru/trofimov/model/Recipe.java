@@ -36,6 +36,9 @@ public class Recipe {
     @Transient
     private Step[] steps;
 
+    @Transient
+    private String[] namesMainImage;
+
     public Recipe() {
     }
 
@@ -52,6 +55,7 @@ public class Recipe {
             if (!x.equals("")) st[i] = new Step(x);
         }
         this.steps = st;
+        namesMainImage = photosString.split("&\\*&");
     }
 
     public int getId() {
@@ -124,5 +128,49 @@ public class Recipe {
 
     public Step[] getSteps() {
         return steps;
+    }
+
+    public String[] getNamesMainImage() {
+        return namesMainImage;
+    }
+
+    public String getCategoryString(){
+        return DirtyJob.intCategoryToString(category);
+    }
+
+    public int getHour() {
+        return cookingTime / 60;
+    }
+
+    public String getTime() {
+        int hour, min;
+        min = cookingTime % 60;
+        hour = (cookingTime - min) / 60;
+        if (hour == 0 && min == 0) return "---";
+        else if (hour > 0 && min == 0) return hour + correctHour(hour);
+        else if (hour == 0 && min > 0) return min + " минут";
+        else return hour + correctHour(hour) + min + " минут";
+    }
+
+    private String correctHour(int hour) {
+        int lastN = hour % 10;
+        int penultN = (hour % 100 - lastN) / 10;
+        if (lastN == 1 && penultN != 1) return " час ";
+        if ((lastN == 2 || lastN == 3 || lastN == 4) && penultN != 1) return " часа ";
+        else return " часов ";
+    }
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id=" + id +
+                ", recipeName='" + recipeName + '\'' +
+                ", category=" + category +
+                ", portion=" + portion +
+                ", cookingTime=" + cookingTime +
+                ", ingredientsString='" + ingredientsString + '\'' +
+                ", stepsString='" + stepsString + '\'' +
+                ", photosString='" + photosString + '\'' +
+                '}';
     }
 }
