@@ -3,8 +3,8 @@ package ru.trofimov.entity;
 
 import ru.trofimov.model.Crutch;
 import ru.trofimov.model.DirtyJob;
-
-import java.util.ArrayList;
+import ru.trofimov.model.Ingredient;
+import ru.trofimov.model.Step;
 
 public class Recipe {
 

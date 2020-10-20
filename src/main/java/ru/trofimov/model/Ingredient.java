@@ -1,4 +1,4 @@
-package ru.trofimov.entity;
+package ru.trofimov.model;
 
 public class Ingredient {
     private String ingredientName;
@@ -53,7 +53,7 @@ public class Ingredient {
         return measure;
     }
 
-    String show(){
+    public String show(){
         return ingredientName + " " + quantity + " " + measure;
     }
 }

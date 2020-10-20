@@ -1,9 +1,7 @@
 package ru.trofimov.model;
 
-import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 import ru.trofimov.config.AppConfig;
-import ru.trofimov.entity.Step;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

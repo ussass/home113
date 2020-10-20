@@ -24,10 +24,10 @@
                 <a th:href="'/recipe/' + ${item.getLinkWithId()}">
                     <div class="w3-bar">
                         <img src="/img/No-Image-Found.png" alt="123" class="w3-bar-item w3-circle w3-hide-small"
-                             style="width:85px; box-sizing: content-box" th:if="${item.getNamesMainImage()[0] == ''}">
-                        <img th:src="'/upload/' + ${item.getId()} + '/mini/' + ${item.getNamesMainImage()[0]}" alt="123"
+                             style="width:85px; box-sizing: content-box" th:if="${item.getPhotosString() == ''}">
+                        <img th:src="'/upload/' + ${item.getId()} + '/mini/' + ${item.getMainImage()}" alt="123"
                              class="w3-bar-item w3-circle w3-hide-small" style="width:85px; box-sizing: content-box"
-                             th:if="${item.getNamesMainImage()[0] != ''}">
+                             th:if="${item.getPhotosString() != ''}">
                         <div class="w3-bar-item">
                             <span class="w3-large" th:text="${item.getRecipeName()}"></span><br>
                             <span th:text="${item.getTime()}"></span>

@@ -1,8 +1,6 @@
 package ru.trofimov.model;
 
 import org.springframework.web.multipart.MultipartFile;
-import ru.trofimov.entity.Ingredient;
-import ru.trofimov.entity.Step;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;

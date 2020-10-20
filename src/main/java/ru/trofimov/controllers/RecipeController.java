@@ -6,14 +6,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.trofimov.config.AppConfig;
 import ru.trofimov.entity.Recipe;
-import ru.trofimov.entity.Step;
 import ru.trofimov.model.*;
 import ru.trofimov.service.RecipeService;
 import ru.trofimov.service.RecipeServiceImp;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -32,9 +29,11 @@ public class RecipeController {
     public String showList(Model model,
                            @RequestHeader("User-Agent") String userAgent,
                            @RequestParam(defaultValue = "all") String category) {
-        List<Recipe> list = WorkWithDB.findAll(Crutch.categoryStringToInt(category));
+//        List<Recipe> list = WorkWithDB.findAll(Crutch.categoryStringToInt(category));
+        RecipeService service = new RecipeServiceImp();
+        List<ru.trofimov.model.Recipe> list1 = service.findAll(Crutch.categoryStringToInt(category));
         model.addAttribute("color", AppConfig.getColor());
-        model.addAttribute("list", list);
+        model.addAttribute("list", list1);
         model.addAttribute("pageName", DirtyJob.intCategoryToString(Crutch.categoryStringToInt(category)));
         return DirtyJob.isMobile(userAgent) ? "recipe/listMobile" : "recipe/list";
     }
@@ -45,11 +44,10 @@ public class RecipeController {
                              @RequestHeader("User-Agent") String userAgent) {
         try {
             int id = Integer.parseInt(linkName.split("-")[linkName.split("-").length - 1]);
-            Recipe recipe = WorkWithDB.read(id);
+//            Recipe recipe = WorkWithDB.read(id);
             RecipeService service = new RecipeServiceImp();
             ru.trofimov.model.Recipe recipe1 = service.findById(id);
             recipe1.initializationOfDependentClasses();
-            System.out.println(recipe1.toString());
             model.addAttribute("color", AppConfig.getColor());
             model.addAttribute("recipe", recipe1);
             model.addAttribute("pageName", recipe1.getCategory());

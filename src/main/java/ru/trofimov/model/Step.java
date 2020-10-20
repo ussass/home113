@@ -1,4 +1,4 @@
-package ru.trofimov.entity;
+package ru.trofimov.model;
 
 public class Step {
 
@@ -31,7 +31,7 @@ public class Step {
         return description + "&%&" + pathToImage;
     }
 
-    String show() {
+    public String show() {
         return description + " " + pathToImage;
     }
 }

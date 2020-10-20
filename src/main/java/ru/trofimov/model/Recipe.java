@@ -1,8 +1,5 @@
 package ru.trofimov.model;
 
-import ru.trofimov.entity.Ingredient;
-import ru.trofimov.entity.Step;
-
 import javax.persistence.*;
 
 @Entity
@@ -134,8 +131,18 @@ public class Recipe {
         return namesMainImage;
     }
 
+//    -------------------- Лишние? --------------------
+
     public String getCategoryString(){
         return DirtyJob.intCategoryToString(category);
+    }
+
+    public String getLinkWithId() {
+        return Crutch.toTranscript(recipeName) + "-" + id;
+    }
+
+    public String getMainImage() {
+        return photosString.split("&\\*&")[0];
     }
 
     public int getHour() {
