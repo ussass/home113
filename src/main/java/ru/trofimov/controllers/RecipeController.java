@@ -50,7 +50,7 @@ public class RecipeController {
             recipe1.initializationOfDependentClasses();
             model.addAttribute("color", AppConfig.getColor());
             model.addAttribute("recipe", recipe1);
-            model.addAttribute("pageName", recipe1.getCategory());
+            model.addAttribute("pageName", recipe1.getCategoryString());
             return DirtyJob.isMobile(userAgent) ? "recipe/showMobile" : "recipe/show";
 
         } catch (Exception e) {

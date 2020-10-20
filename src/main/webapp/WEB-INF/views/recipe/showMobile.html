@@ -35,7 +35,7 @@
 <div class="w3-center">
     <h2 th:text="${recipe.getRecipeName()}"></h2>
     <h4 style="vertical-align: middle" th:text="${recipe.getTime()}"></h4>
-    <div>
+    <div th:if="${recipe.getPhotosString() != ''}">
         <th:block th:each="item : ${recipe.getNamesMainImage()}">
             <a class="cuting" th:href="'/upload/' + ${recipe.getId()} + '/' + ${item}" data-lightbox="roadtrip">
                 <img class="w3-border w3-hover-opacity landscape" th:alt="${item}"
