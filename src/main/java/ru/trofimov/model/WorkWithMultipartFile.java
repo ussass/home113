@@ -46,6 +46,15 @@ public class WorkWithMultipartFile {
         return this.resultPhotoName;
     }
 
+    public String saveFilesString(boolean forSteps){
+        String[] strings = saveFiles(forSteps);
+        StringBuilder builder = new StringBuilder();
+        for (String value : strings) {
+            builder.append(value).append("&*&");
+        }
+        return builder.toString();
+    }
+
     private void saveFile(int count, boolean forSteps) throws IOException {
         String imageName = changeName(count);
         if (forSteps) imageName = "St&" + imageName;
@@ -66,6 +75,12 @@ public class WorkWithMultipartFile {
         String[] photoName = new String[steps.length];
         for (int i = 0; i < steps.length; i ++)
             photoName[i] = steps[i].getPathToImage();
+        privateMoveImg(id, photoName);
+    }
+    public void moveImg(int id, String steps){
+        String[] photoName = steps.split("&\\*&");
+        for (int i = 0; i < photoName.length; i++)
+            photoName[i] = photoName[i].split("&%&")[1];
         privateMoveImg(id, photoName);
     }
 

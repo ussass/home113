@@ -30,7 +30,11 @@ public class Ingredient {
         return quantity;
     }
 
-    public String getMeasure() {
+    public int getMeasure() {
+        return measure;
+    }
+
+    public String getMeasureString() {
         switch (measure){
             case 0: return "грамм";
             case 1: return "килограмм";

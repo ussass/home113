@@ -82,24 +82,31 @@ public class RecipeController {
 
 
         WorkWithMultipartFile work = new WorkWithMultipartFile(photo, Crutch.toUTF8(recipeName));
-        Recipe recipe = new Recipe(
+
+        ru.trofimov.model.Recipe recipe1 = new ru.trofimov.model.Recipe(
                 Crutch.toUTF8(recipeName),
                 category,
                 listportion,
                 listhour,
                 listminut,
-                work.saveFiles(false),
-                CreateClassesForRecipe.createIngredients(ingName, quantity, measure),
-                CreateClassesForRecipe.createSteps(photoStep, step, Crutch.toUTF8(recipeName)));
+                work.saveFilesString(false),
+                CreateClassesForRecipe.createIngredientsString(ingName, quantity, measure),
+                CreateClassesForRecipe.createStepsString(photoStep, step, Crutch.toUTF8(recipeName)));
 
 
-        int id = WorkWithDB.save(recipe);
+        RecipeService service = new RecipeServiceImp();
+        service.save(recipe1);
+        System.out.println(recipe1.toString());
+
+
+        int id = recipe1.getId();
         work.moveImg(id);
         WorkWithMultipartFile workSteps = new WorkWithMultipartFile();
-        workSteps.moveImg(id, recipe.getSteps());
-        System.out.println(Crutch.toTranscript(recipe.getRecipeName()) + "-" + id);
+        System.out.println("recipe1.getStepsString() = " + recipe1.getStepsString());
+        workSteps.moveImg(id, recipe1.getStepsString());
+        System.out.println(Crutch.toTranscript(recipe1.getRecipeName()) + "-" + id);
 
-        return "redirect:/recipe/" + Crutch.toTranscript(recipe.getRecipeName()) + "-" + id;
+        return "redirect:/recipe/" + Crutch.toTranscript(recipe1.getRecipeName()) + "-" + id;
     }
 
     @GetMapping("/edit/{id}")

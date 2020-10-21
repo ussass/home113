@@ -1,6 +1,7 @@
 package ru.trofimov.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "recipes")
@@ -27,6 +28,8 @@ public class Recipe {
     @Column(name = "photos")
     private String photosString;
 
+    private int datecreate;
+
     @Transient
     private Ingredient[] ingredients;
 
@@ -39,13 +42,26 @@ public class Recipe {
     public Recipe() {
     }
 
+    public Recipe(String recipeName, int category, int portion, int hour, int min, String photosString, String ingredientsString, String stepsString) {
+        this.recipeName = recipeName;
+        this.category = category;
+        this.portion = portion;
+        this.cookingTime = hour * 60 + min;
+        this.photosString = photosString;
+        this.ingredientsString = ingredientsString;
+        this.stepsString = stepsString;
+        this.datecreate = (int)(new Date().getTime()/1000/60);
+    }
+
     public void initializationOfDependentClasses(){
+        if (ingredientsString.equals("")) ingredientsString = "&%&0&%&0&*&";
         Ingredient[] ing = new Ingredient[ingredientsString.split("&\\*&").length];
         for (int i = 0; i < ing.length; i++) {
             String x = ingredientsString.split("&\\*&")[i];
             if (!x.equals("")) ing[i] = new Ingredient(x);
         }
         this.ingredients = ing;
+        if (stepsString.equals("")) stepsString = "&%&0&*&";
         Step[] st = new Step[stepsString.split("&\\*&").length];
         for (int i = 0; i < st.length; i++) {
             String x = stepsString.split("&\\*&")[i];

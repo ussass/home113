@@ -47,4 +47,27 @@ public class CreateClassesForRecipe {
         }
         return stepsArray;
     }
+
+    public static String createIngredientsString(String[] ingredient, List<Integer> quantity, int[] measure) throws UnsupportedEncodingException {
+        Ingredient[] ingredients = createIngredients(ingredient, quantity, measure);
+        StringBuilder builder = new StringBuilder();
+        for (Ingredient value : ingredients) {
+            builder.append(value.getIngredientName()).append("&%&");
+            builder.append(value.getQuantity()).append("&%&");
+            builder.append(value.getMeasure()).append("&*&");
+        }
+        return builder.toString();
+    }
+
+    public static String createStepsString(MultipartFile[] files, String[] steps, String recipeName) throws UnsupportedEncodingException {
+        Step[] stepsArray = createSteps(files, steps, recipeName);
+        StringBuilder builder = new StringBuilder();
+        for (Step value : stepsArray) {
+            builder.append(value.getDescription()).append("&%&");
+            System.out.println("value.getPathToImage() = " + value.getPathToImage());
+            builder.append(value.getPathToImage()).append("&*&");
+        }
+        return builder.toString();
+    }
+
 }

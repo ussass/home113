@@ -20,6 +20,10 @@ public class Step {
     }
 
     public String getPathToImage() {
+        return pathToImage;
+    }
+
+    public String getPathToImageOrEmpty() {
         if(pathToImage.contains("octet-stream") || pathToImage.equals("0"))
             return "";
 

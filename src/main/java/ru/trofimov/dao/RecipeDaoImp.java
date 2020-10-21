@@ -1,6 +1,7 @@
 package ru.trofimov.dao;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import ru.trofimov.model.Recipe;
 import ru.trofimov.utils.HibernateSessionFactoryUtil;
 
@@ -18,17 +19,29 @@ public class RecipeDaoImp implements RecipeDao{
 
     @Override
     public void save(Recipe recipe) {
-
+        try(Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()){
+            Transaction transaction = session.beginTransaction();
+            session.save(recipe);
+            transaction.commit();
+        }
     }
 
     @Override
     public void update(Recipe recipe) {
-
+        try(Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()){
+            Transaction transaction = session.beginTransaction();
+            session.update(recipe);
+            transaction.commit();
+        }
     }
 
     @Override
     public void delete(Recipe recipe) {
-
+        try(Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()){
+            Transaction transaction = session.beginTransaction();
+            session.delete(recipe);
+            transaction.commit();
+        }
     }
 
     @Override

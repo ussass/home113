@@ -59,7 +59,7 @@
                     </div>
                     <div class="w3-half w3-center" style="margin: 15px 0">
                         <span th:id="'quan' + ${inter.index}" th:text="${item.getQuantity()}"></span>
-                        <span th:text="' ' + ${item.getMeasure()}"></span>
+                        <span th:text="' ' + ${item.getMeasureString()}"></span>
                     </div>
                 </div>
             </th:block>
@@ -80,7 +80,7 @@
                                  th:alt="${item.getPathToImage()}"
                                  class="w3-bar-item w3-hide-small"
                                  style="width:270px; box-sizing: content-box"
-                                 th:if="${item.getPathToImage() != ''}">
+                                 th:if="${item.getPathToImageOrEmpty() != ''}">
                         </div>
                     </li>
                 </th:block>
