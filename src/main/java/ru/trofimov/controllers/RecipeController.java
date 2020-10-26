@@ -9,6 +9,7 @@ import ru.trofimov.entity.Recipe;
 import ru.trofimov.model.*;
 import ru.trofimov.service.RecipeService;
 import ru.trofimov.service.RecipeServiceImp;
+import ru.trofimov.utils.HibernateSessionFactoryUtil;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -48,12 +49,16 @@ public class RecipeController {
             RecipeService service = new RecipeServiceImp();
             ru.trofimov.model.Recipe recipe1 = service.findById(id);
             recipe1.initializationOfDependentClasses();
+//            System.out.println("recipe1.toString() = " + recipe1.toString());
+            System.out.println(11);
+            System.out.println("recipe1.arrayLength() = " + recipe1.arrayLength());
             model.addAttribute("color", AppConfig.getColor());
             model.addAttribute("recipe", recipe1);
             model.addAttribute("pageName", recipe1.getCategoryString());
             return DirtyJob.isMobile(userAgent) ? "recipe/showMobile" : "recipe/show";
 
         } catch (Exception e) {
+            System.out.println("Exception: " + e);
             return "error404";
         }
     }
@@ -113,8 +118,15 @@ public class RecipeController {
     public String showEdit(Model model,
                            @RequestHeader("User-Agent") String userAgent,
                            @PathVariable(value = "id") int id) {
+        RecipeService service = new RecipeServiceImp();
+        ru.trofimov.model.Recipe recipe = service.findById(id);
+        recipe.initializationOfDependentClasses();
+        System.out.println("recipe.toString() = " + recipe.toString());
+        System.out.println("recipe.arrayLength() = " + recipe.arrayLength());
         model.addAttribute("color", AppConfig.getColor());
-        model.addAttribute("recipe", WorkWithDB.read(id));
+//        model.addAttribute("recipe", WorkWithDB.read(id));
+        model.addAttribute("recipe", recipe);
+
         return DirtyJob.isMobile(userAgent) ? "recipe/editMobile" : "recipe/edit";
     }
 

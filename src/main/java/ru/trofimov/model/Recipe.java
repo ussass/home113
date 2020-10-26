@@ -68,7 +68,8 @@ public class Recipe {
             if (!x.equals("")) st[i] = new Step(x);
         }
         this.steps = st;
-        namesMainImage = photosString.split("&\\*&");
+        if (photosString.equals("")) namesMainImage = new String[]{""};
+        else namesMainImage = photosString.split("&\\*&");
     }
 
     public int getId() {
@@ -165,6 +166,10 @@ public class Recipe {
         return cookingTime / 60;
     }
 
+    public int getMinute() {
+        return cookingTime % 60;
+    }
+
     public String getTime() {
         int hour, min;
         min = cookingTime % 60;
@@ -186,14 +191,24 @@ public class Recipe {
     @Override
     public String toString() {
         return "Recipe{" +
-                "id=" + id +
-                ", recipeName='" + recipeName + '\'' +
-                ", category=" + category +
-                ", portion=" + portion +
-                ", cookingTime=" + cookingTime +
-                ", ingredientsString='" + ingredientsString + '\'' +
-                ", stepsString='" + stepsString + '\'' +
-                ", photosString='" + photosString + '\'' +
-                '}';
+                "\nid=" + id +
+                ", \nrecipeName='" + recipeName + '\'' +
+                ", \ncategory=" + category +
+                ", \nportion=" + portion +
+                ", \ncookingTime=" + cookingTime +
+                ", \ningredientsString='" + ingredientsString + '\'' +
+                ", \nstepsString='" + stepsString + '\'' +
+                ", \nphotosString='" + photosString + '\'' +
+                "\n}";
+    }
+
+    public String arrayLength(){
+//        ingredients = new Ingredient[0];
+//        steps = new Step[0];
+//        namesMainImage = new String[0];
+        return "ingredients.length: " + ingredients.length +
+                ", \nsteps.length: " + steps.length +
+                ", \nnamesMainImage.length: " + namesMainImage.length +
+                "";
     }
 }

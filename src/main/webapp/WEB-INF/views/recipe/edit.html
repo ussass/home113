@@ -22,15 +22,15 @@
                 </label>
                 <label>Категория
                     <select name="category" class="w3-select w3-border w3-round-large">
-                        <option th:selected="${recipe.getCategoryInt() == 1}" value="1">Завтраки</option>
-                        <option th:selected="${recipe.getCategoryInt() == 2}" value="2">Супы</option>
-                        <option th:selected="${recipe.getCategoryInt() == 3}" value="3">Основные блюда</option>
-                        <option th:selected="${recipe.getCategoryInt() == 4}" value="4">Выпечка и десерты</option>
-                        <option th:selected="${recipe.getCategoryInt() == 5}" value="5">Сэндвичи</option>
-                        <option th:selected="${recipe.getCategoryInt() == 6}" value="6">Паста и пицца</option>
-                        <option th:selected="${recipe.getCategoryInt() == 7}" value="7">Салаты</option>
-                        <option th:selected="${recipe.getCategoryInt() == 8}" value="8">Соусы</option>
-                        <option th:selected="${recipe.getCategoryInt() == 9}" value="9">Напитки</option>
+                        <option th:selected="${recipe.getCategory() == 1}" value="1">Завтраки</option>
+                        <option th:selected="${recipe.getCategory() == 2}" value="2">Супы</option>
+                        <option th:selected="${recipe.getCategory() == 3}" value="3">Основные блюда</option>
+                        <option th:selected="${recipe.getCategory() == 4}" value="4">Выпечка и десерты</option>
+                        <option th:selected="${recipe.getCategory() == 5}" value="5">Сэндвичи</option>
+                        <option th:selected="${recipe.getCategory() == 6}" value="6">Паста и пицца</option>
+                        <option th:selected="${recipe.getCategory() == 7}" value="7">Салаты</option>
+                        <option th:selected="${recipe.getCategory() == 8}" value="8">Соусы</option>
+                        <option th:selected="${recipe.getCategory() == 9}" value="9">Напитки</option>
                     </select><br/><br/>
                 </label>
                 <label>Количество порций
@@ -90,7 +90,8 @@
                 <div class="w3-panel  w3-center" th:if="${recipe.getNamesMainImage()[0] != ''}">
                     <div>
                         <th:block th:each="item,inter : ${recipe.getNamesMainImage()}">
-                            <span th:id="'photoEditMain' + ${inter.index}" th:onclick="'photoEdit(' + ${inter.index} + ', 1)'"
+                            <span th:id="'photoEditMain' + ${inter.index}"
+                                  th:onclick="'photoEdit(' + ${inter.index} + ', 1)'"
                                   class="w3-display-container w3-text-red cuting"
                                   style="cursor: pointer">
                                     <img class="w3-border w3-hover-opacity landscape" th:alt="${item}"
@@ -138,20 +139,20 @@
                             </div>
                             <div class="w3-half">
                                 <select name="measure" class="w3-select w3-border w3-round-large">
-                                    <option th:selected="${item.getMeasureInt() == 0}" value="0">грамм</option>
-                                    <option th:selected="${item.getMeasureInt() == 1}" value="1">килограмм</option>
-                                    <option th:selected="${item.getMeasureInt() == 2}" value="2">миллилитр</option>
-                                    <option th:selected="${item.getMeasureInt() == 3}" value="3">литр</option>
-                                    <option th:selected="${item.getMeasureInt() == 4}" value="4">по вкусу</option>
-                                    <option th:selected="${item.getMeasureInt() == 5}" value="5">на кончике ножа
+                                    <option th:selected="${item.getMeasure() == 0}" value="0">грамм</option>
+                                    <option th:selected="${item.getMeasure() == 1}" value="1">килограмм</option>
+                                    <option th:selected="${item.getMeasure() == 2}" value="2">миллилитр</option>
+                                    <option th:selected="${item.getMeasure() == 3}" value="3">литр</option>
+                                    <option th:selected="${item.getMeasure() == 4}" value="4">по вкусу</option>
+                                    <option th:selected="${item.getMeasure() == 5}" value="5">на кончике ножа
                                     </option>
-                                    <option th:selected="${item.getMeasureInt() == 6}" value="6">защепотка</option>
-                                    <option th:selected="${item.getMeasureInt() == 7}" value="7">чайная ложка</option>
-                                    <option th:selected="${item.getMeasureInt() == 8}" value="8">столовая ложка</option>
-                                    <option th:selected="${item.getMeasureInt() == 9}" value="9">стакан</option>
-                                    <option th:selected="${item.getMeasureInt() == 10}" value="10">головка</option>
-                                    <option th:selected="${item.getMeasureInt() == 11}" value="11">штука</option>
-                                    <option th:selected="${item.getMeasureInt() == 12}" value="12">кусок</option>
+                                    <option th:selected="${item.getMeasure() == 6}" value="6">защепотка</option>
+                                    <option th:selected="${item.getMeasure() == 7}" value="7">чайная ложка</option>
+                                    <option th:selected="${item.getMeasure() == 8}" value="8">столовая ложка</option>
+                                    <option th:selected="${item.getMeasure() == 9}" value="9">стакан</option>
+                                    <option th:selected="${item.getMeasure() == 10}" value="10">головка</option>
+                                    <option th:selected="${item.getMeasure() == 11}" value="11">штука</option>
+                                    <option th:selected="${item.getMeasure() == 12}" value="12">кусок</option>
                                 </select>
                             </div>
                         </div>
@@ -185,7 +186,8 @@
                         <br/>
                         <div class="w3-row">
                             <div class="w3-col w3-right w3-container" style="width:270px">
-                                <span th:id="'photoEdit' + ${inter.index}" th:onclick="'photoEdit(' + ${inter.index} + ', 0)'"
+                                <span th:id="'photoEdit' + ${inter.index}"
+                                      th:onclick="'photoEdit(' + ${inter.index} + ', 0)'"
                                       class="w3-display-container w3-text-red"
                                       style="cursor: pointer">
                                     <img th:src="'/upload/' + ${recipe.getId()} + '/mini/' + ${item.getPathToImage()}"
@@ -196,7 +198,8 @@
                                     <div class="w3-display-middle w3-large w3-hide"><b>Будет удалено</b></div>
                                     <input type="number" name="delStepPhoto" value="0" class="w3-hide">
                                 </span>
-                                <input type="text" name="oldStepPhotoNames" th:value="${item.getPathToImage()}" class="w3-hide">
+                                <input type="text" name="oldStepPhotoNames" th:value="${item.getPathToImage()}"
+                                       class="w3-hide">
 
                             </div>
                             <div class="w3-rest w3-container">
@@ -224,7 +227,8 @@
                     </div>
                 </div>
                 <div class="w3-container w3-quarter" id="RightButton">
-                    <button type="submit" th:class="'w3-block w3-btn w3-round-large w3-' + ${color}" id="changeBtn">Внести
+                    <button type="submit" th:class="'w3-block w3-btn w3-round-large w3-' + ${color}" id="changeBtn">
+                        Внести
                         изменения
                     </button>
                 </div>

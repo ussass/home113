@@ -79,7 +79,7 @@ public class Recipe {
         return id;
     }
 
-    public int getCategoryInt() {
+    public int getCategory() {
         return category;
     }
 
