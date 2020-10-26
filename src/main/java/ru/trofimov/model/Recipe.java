@@ -188,6 +188,13 @@ public class Recipe {
         else return " часов ";
     }
 
+    public String getNamesMainImageOneLine() {
+        StringBuilder sb = new StringBuilder();
+        for (String x : namesMainImage)
+            sb.append(x).append("!%!");
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         return "Recipe{" +

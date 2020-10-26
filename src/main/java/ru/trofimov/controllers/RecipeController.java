@@ -49,9 +49,6 @@ public class RecipeController {
             RecipeService service = new RecipeServiceImp();
             ru.trofimov.model.Recipe recipe1 = service.findById(id);
             recipe1.initializationOfDependentClasses();
-//            System.out.println("recipe1.toString() = " + recipe1.toString());
-            System.out.println(11);
-            System.out.println("recipe1.arrayLength() = " + recipe1.arrayLength());
             model.addAttribute("color", AppConfig.getColor());
             model.addAttribute("recipe", recipe1);
             model.addAttribute("pageName", recipe1.getCategoryString());

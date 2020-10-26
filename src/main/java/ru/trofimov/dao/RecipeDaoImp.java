@@ -46,7 +46,7 @@ public class RecipeDaoImp implements RecipeDao{
 
     @Override
     public List<Recipe> findAll(int category) {
-        String sql = category == 0? "FROM Recipe" : "FROM Recipe where category = " + category;
+        String sql = category == 0? "FROM Recipe ORDER BY id desc" : "FROM Recipe where category = " + category + " ORDER BY id desc";
         return (List<Recipe>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery(sql).list();
     }
 }
