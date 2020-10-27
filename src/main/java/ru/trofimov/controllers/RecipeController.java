@@ -176,6 +176,17 @@ public class RecipeController {
                 CreateClassesForRecipe.createIngredients(ingName, quantity , measure),
                 CreateClassesForRecipe.createSteps(step, resultStepImage));
 
+        ru.trofimov.model.Recipe recipe1 = new ru.trofimov.model.Recipe(
+                Crutch.toUTF8(recipeName),
+                category,
+                listportion,
+                listhour,
+                listminut,
+                "photoString",
+                "ingString",
+                "stepString"
+        );
+
 
         WorkWithDB.update(id, recipe);
 
