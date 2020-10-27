@@ -82,6 +82,7 @@ public class Crutch {
             Arrays.fill(notImg, "0");
             return notImg;
         }
+        System.out.println(21);
 
         int count;
         if (Objects.equals(newImage[0].getResource().getFilename(), "") && !forStep) count = 0;
@@ -91,6 +92,7 @@ public class Crutch {
                 if (!Objects.equals(file.getResource().getFilename(), "")) count++;
             }
         }
+        System.out.println(22);
 
         List<String> list = new ArrayList<>();
         List<String> listDel = new ArrayList<>();
@@ -99,10 +101,12 @@ public class Crutch {
             if (delMainPhoto[i] == 0) list.add(oldImagNames[i]);
             else listDel.add(oldImagNames[i]);
         }
+        System.out.println(23);
 
         String directory = AppConfig.getDirectory();
         newName = Crutch.toTranscript(newName);
         String[] result = new String[list.size()];
+        System.out.println(24);
 
 
         for (int i = 0; i < list.size(); i++) {
@@ -121,11 +125,13 @@ public class Crutch {
                 System.out.println("Exception: " + e);
             }
         }
+        System.out.println(25 + " forStep: " + forStep);
 
         if (!forStep) return result;
         else {
             String[] stepResult = new String[stepLength];
             System.out.println("stepResult.length: " + stepResult.length);
+            System.out.println(251);
             for (int i = 0, j = 0; i < stepResult.length; i++) {
                 if (result.length == 0) {
                     stepResult[i] = "0";
@@ -140,13 +146,15 @@ public class Crutch {
                     stepResult[i] = "0";
                     continue;
                 }
-                int num = Integer.parseInt(lastPart.split("\\.")[0]);
+                String lastButOne = list.get(j).split("\\.")[list.get(j).split("\\.").length - 2];
+                int num = Integer.parseInt(lastButOne.split("-")[lastButOne.split("-").length - 1]);  //NumberFormatException
                 if (num == i) {
                     stepResult[i] = result[j];
                     if (j < result.length - 1) j++;
                 } else stepResult[i] = "0";
 
             }
+            System.out.println(26);
             String[] tempName = new String[stepResult.length];
             for (int i = 0; i < stepResult.length; i++) {
                 if (stepResult[i].equals("0")) continue;
@@ -156,6 +164,7 @@ public class Crutch {
                 oldfile.renameTo(newfile);
                 tempName[i] = "-" + i + format;
             }
+            System.out.println(27);
 
             for (int i = 0; i < tempName.length; i++) {
                 if (stepResult[i].equals("0")) continue;

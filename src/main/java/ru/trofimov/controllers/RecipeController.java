@@ -10,6 +10,7 @@ import ru.trofimov.model.*;
 import ru.trofimov.service.RecipeService;
 import ru.trofimov.service.RecipeServiceImp;
 import ru.trofimov.utils.HibernateSessionFactoryUtil;
+import ru.trofimov.utils.Utils;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -151,19 +152,26 @@ public class RecipeController {
         String[] secondMainImage = Crutch.removeImage(oldPhotoNames, photo, delMainPhoto, id, Crutch.toUTF8(recipeName), false, 0);
         String[] resultMainImage = Crutch.twoArraysIntoOne(firstMainImage, secondMainImage);
         work.setResultPhotoName(resultMainImage);
+        System.out.println(1);
 
         String[] secondStepImage = Crutch.removStepeImage(oldStepPhotoNames, photoStep, delStepPhoto, id, Crutch.toUTF8(recipeName), true, step.length);
+        System.out.println(11);
         WorkWithMultipartFile stepWork = new WorkWithMultipartFile(photoStep, Crutch.toUTF8(recipeName));
+        System.out.println(12);
         String[] resultStepImage = Crutch.twoArraysIntoOne2(stepWork.saveFiles(true), secondStepImage);
+        System.out.println(13        );
         stepWork.setResultPhotoName(resultStepImage);
+        System.out.println(2);
 
         Crutch.deleteAllFilesFolder(id);
         work.moveImg(id);
         stepWork.moveImg(id);
         Crutch.deleteAllFilesFolder(-1);
+        System.out.println(3);
 
         System.out.println("step.length: " + step.length);
         System.out.println("resultStepImage.length: " + resultStepImage.length);
+        System.out.println(4);
 
 
         Recipe recipe = new Recipe(
@@ -182,13 +190,18 @@ public class RecipeController {
                 listportion,
                 listhour,
                 listminut,
-                "photoString",
-                "ingString",
+                Utils.ArrayStringToString(resultMainImage),
+                CreateClassesForRecipe.createIngredientsString(ingName, quantity , measure),
                 "stepString"
         );
+        recipe1.setId(id);
+
+        System.out.println("---------");
+        System.out.println("recipe1.toString() = " + recipe1.toString());
+        System.out.println("---------");
 
 
-        WorkWithDB.update(id, recipe);
+//        WorkWithDB.update(id, recipe);
 
 
 

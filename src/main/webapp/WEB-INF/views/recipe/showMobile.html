@@ -45,16 +45,16 @@
     </div>
     <h4>Ингредиенты на
         <select id="selectBox" onchange="changeFunc()" style="border: none; background-color: white">
-            <option th:selected="${recipe.getHour() == 1}" value="1">1 порцию</option>
-            <option th:selected="${recipe.getHour() == 2}" value="2">2 порции</option>
-            <option th:selected="${recipe.getHour() == 3}" value="3">3 порции</option>
-            <option th:selected="${recipe.getHour() == 4}" value="4">4 порции</option>
-            <option th:selected="${recipe.getHour() == 5}" value="5">5 порций</option>
-            <option th:selected="${recipe.getHour() == 6}" value="6">6 порций</option>
-            <option th:selected="${recipe.getHour() == 7}" value="7">7 порций</option>
-            <option th:selected="${recipe.getHour() == 8}" value="8">8 порций</option>
-            <option th:selected="${recipe.getHour() == 9}" value="9">9 порций</option>
-            <option th:selected="${recipe.getHour() == 10}" value="10">10 порций</option>
+            <option th:selected="${recipe.getPortion() == 1}" value="1">1 порцию</option>
+            <option th:selected="${recipe.getPortion() == 2}" value="2">2 порции</option>
+            <option th:selected="${recipe.getPortion() == 3}" value="3">3 порции</option>
+            <option th:selected="${recipe.getPortion() == 4}" value="4">4 порции</option>
+            <option th:selected="${recipe.getPortion() == 5}" value="5">5 порций</option>
+            <option th:selected="${recipe.getPortion() == 6}" value="6">6 порций</option>
+            <option th:selected="${recipe.getPortion() == 7}" value="7">7 порций</option>
+            <option th:selected="${recipe.getPortion() == 8}" value="8">8 порций</option>
+            <option th:selected="${recipe.getPortion() == 9}" value="9">9 порций</option>
+            <option th:selected="${recipe.getPortion() == 10}" value="10">10 порций</option>
         </select></h4>
     <div class="w3-padding" id="formIng">
         <th:block th:each="item,inter : ${recipe.getIngredients()}">
