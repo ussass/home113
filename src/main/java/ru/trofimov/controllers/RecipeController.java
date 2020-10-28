@@ -1,15 +1,13 @@
 package ru.trofimov.controllers;
 
-import  org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.trofimov.config.AppConfig;
-import ru.trofimov.entity.Recipe;
 import ru.trofimov.model.*;
 import ru.trofimov.service.RecipeService;
 import ru.trofimov.service.RecipeServiceImp;
-import ru.trofimov.utils.HibernateSessionFactoryUtil;
 import ru.trofimov.utils.Utils;
 
 import java.io.File;
@@ -31,9 +29,8 @@ public class RecipeController {
     public String showList(Model model,
                            @RequestHeader("User-Agent") String userAgent,
                            @RequestParam(defaultValue = "all") String category) {
-//        List<Recipe> list = WorkWithDB.findAll(Crutch.categoryStringToInt(category));
         RecipeService service = new RecipeServiceImp();
-        List<ru.trofimov.model.Recipe> list1 = service.findAll(Crutch.categoryStringToInt(category));
+        List<Recipe> list1 = service.findAll(Crutch.categoryStringToInt(category));
         model.addAttribute("color", AppConfig.getColor());
         model.addAttribute("list", list1);
         model.addAttribute("pageName", DirtyJob.intCategoryToString(Crutch.categoryStringToInt(category)));
@@ -46,13 +43,12 @@ public class RecipeController {
                              @RequestHeader("User-Agent") String userAgent) {
         try {
             int id = Integer.parseInt(linkName.split("-")[linkName.split("-").length - 1]);
-//            Recipe recipe = WorkWithDB.read(id);
             RecipeService service = new RecipeServiceImp();
-            ru.trofimov.model.Recipe recipe1 = service.findById(id);
-            recipe1.initializationOfDependentClasses();
+            Recipe recipe = service.findById(id);
+            recipe.initializationOfDependentClasses();
             model.addAttribute("color", AppConfig.getColor());
-            model.addAttribute("recipe", recipe1);
-            model.addAttribute("pageName", recipe1.getCategoryString());
+            model.addAttribute("recipe", recipe);
+            model.addAttribute("pageName", recipe.getCategoryString());
             return DirtyJob.isMobile(userAgent) ? "recipe/showMobile" : "recipe/show";
 
         } catch (Exception e) {
@@ -86,7 +82,7 @@ public class RecipeController {
 
         WorkWithMultipartFile work = new WorkWithMultipartFile(photo, Crutch.toUTF8(recipeName));
 
-        ru.trofimov.model.Recipe recipe1 = new ru.trofimov.model.Recipe(
+        Recipe recipe = new Recipe(
                 Crutch.toUTF8(recipeName),
                 category,
                 listportion,
@@ -98,18 +94,15 @@ public class RecipeController {
 
 
         RecipeService service = new RecipeServiceImp();
-        service.save(recipe1);
-        System.out.println(recipe1.toString());
+        service.save(recipe);
 
 
-        int id = recipe1.getId();
+        int id = recipe.getId();
         work.moveImg(id);
         WorkWithMultipartFile workSteps = new WorkWithMultipartFile();
-        System.out.println("recipe1.getStepsString() = " + recipe1.getStepsString());
-        workSteps.moveImg(id, recipe1.getStepsString());
-        System.out.println(Crutch.toTranscript(recipe1.getRecipeName()) + "-" + id);
+        workSteps.moveImg(id, recipe.getStepsString());
 
-        return "redirect:/recipe/" + Crutch.toTranscript(recipe1.getRecipeName()) + "-" + id;
+        return "redirect:/recipe/" + Crutch.toTranscript(recipe.getRecipeName()) + "-" + id;
     }
 
     @GetMapping("/edit/{id}")
@@ -117,12 +110,9 @@ public class RecipeController {
                            @RequestHeader("User-Agent") String userAgent,
                            @PathVariable(value = "id") int id) {
         RecipeService service = new RecipeServiceImp();
-        ru.trofimov.model.Recipe recipe = service.findById(id);
+        Recipe recipe = service.findById(id);
         recipe.initializationOfDependentClasses();
-        System.out.println("recipe.toString() = " + recipe.toString());
-        System.out.println("recipe.arrayLength() = " + recipe.arrayLength());
         model.addAttribute("color", AppConfig.getColor());
-//        model.addAttribute("recipe", WorkWithDB.read(id));
         model.addAttribute("recipe", recipe);
 
         return DirtyJob.isMobile(userAgent) ? "recipe/editMobile" : "recipe/edit";
@@ -152,39 +142,18 @@ public class RecipeController {
         String[] secondMainImage = Crutch.removeImage(oldPhotoNames, photo, delMainPhoto, id, Crutch.toUTF8(recipeName), false, 0);
         String[] resultMainImage = Crutch.twoArraysIntoOne(firstMainImage, secondMainImage);
         work.setResultPhotoName(resultMainImage);
-        System.out.println(1);
 
         String[] secondStepImage = Crutch.removStepeImage(oldStepPhotoNames, photoStep, delStepPhoto, id, Crutch.toUTF8(recipeName), true, step.length);
-        System.out.println(11);
         WorkWithMultipartFile stepWork = new WorkWithMultipartFile(photoStep, Crutch.toUTF8(recipeName));
-        System.out.println(12);
         String[] resultStepImage = Crutch.twoArraysIntoOne2(stepWork.saveFiles(true), secondStepImage);
-        System.out.println(13        );
-        stepWork.setResultPhotoName(resultStepImage);
-        System.out.println(2);
+       stepWork.setResultPhotoName(resultStepImage);
 
         Crutch.deleteAllFilesFolder(id);
         work.moveImg(id);
         stepWork.moveImg(id);
         Crutch.deleteAllFilesFolder(-1);
-        System.out.println(3);
-
-        System.out.println("step.length: " + step.length);
-        System.out.println("resultStepImage.length: " + resultStepImage.length);
-        System.out.println(4);
-
 
         Recipe recipe = new Recipe(
-                Crutch.toUTF8(recipeName),
-                category,
-                listportion,
-                listhour,
-                listminut,
-                resultMainImage,
-                CreateClassesForRecipe.createIngredients(ingName, quantity , measure),
-                CreateClassesForRecipe.createSteps(step, resultStepImage));
-
-        ru.trofimov.model.Recipe recipe1 = new ru.trofimov.model.Recipe(
                 Crutch.toUTF8(recipeName),
                 category,
                 listportion,
@@ -193,22 +162,20 @@ public class RecipeController {
                 Utils.ArrayStringToString(resultMainImage),
                 CreateClassesForRecipe.createIngredientsString(ingName, quantity , measure),
                 CreateClassesForRecipe.createStepsString(step, resultStepImage));
-        recipe1.setId(id);
+        recipe.setId(id);
 
-        System.out.println("---------");
-        System.out.println("recipe1.toString() = " + recipe1.toString());
-        System.out.println("---------");
-
-//        WorkWithDB.update(id, recipe);
         RecipeService service = new RecipeServiceImp();
-        service.update(recipe1);
+        service.update(recipe);
 
         return "redirect:/recipe/" + Crutch.toTranscript(recipe.getRecipeName()) + "-" + id;
     }
 
     @PostMapping("/del")
     public String delete(@RequestParam int id, Model model) {
-        WorkWithDB.delete(id);
+        RecipeService service = new RecipeServiceImp();
+        Recipe recipe = new Recipe();
+        recipe.setId(id);
+        service.delete(recipe);
         Crutch.recursiveDelete(new File("D:/Java Project/NewProjects/home113/target/home113/upload/" + id));
         return "redirect:/recipe/main";
     }
