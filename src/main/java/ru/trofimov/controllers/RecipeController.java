@@ -22,7 +22,7 @@ public class RecipeController {
     public String showMain(@RequestHeader("User-Agent") String userAgent, Model model) {
         model.addAttribute("color", AppConfig.getColor());
         model.addAttribute("pageName", "Рецепты");
-        return DirtyJob.isMobile(userAgent) ? "recipe/recipesMobile" : "recipe/recipes";
+        return Utils.isMobile(userAgent) ? "recipe/recipesMobile" : "recipe/recipes";
     }
 
     @GetMapping("/list")
@@ -33,8 +33,8 @@ public class RecipeController {
         List<Recipe> list1 = service.findAll(Crutch.categoryStringToInt(category));
         model.addAttribute("color", AppConfig.getColor());
         model.addAttribute("list", list1);
-        model.addAttribute("pageName", DirtyJob.intCategoryToString(Crutch.categoryStringToInt(category)));
-        return DirtyJob.isMobile(userAgent) ? "recipe/listMobile" : "recipe/list";
+        model.addAttribute("pageName", Utils.intCategoryToString(Crutch.categoryStringToInt(category)));
+        return Utils.isMobile(userAgent) ? "recipe/listMobile" : "recipe/list";
     }
 
     @GetMapping("/{linkName}")
@@ -49,7 +49,7 @@ public class RecipeController {
             model.addAttribute("color", AppConfig.getColor());
             model.addAttribute("recipe", recipe);
             model.addAttribute("pageName", recipe.getCategoryString());
-            return DirtyJob.isMobile(userAgent) ? "recipe/showMobile" : "recipe/show";
+            return Utils.isMobile(userAgent) ? "recipe/showMobile" : "recipe/show";
 
         } catch (Exception e) {
             System.out.println("Exception: " + e);
@@ -61,7 +61,7 @@ public class RecipeController {
     public String showAdd(Model model, @RequestHeader("User-Agent") String userAgent) {
         model.addAttribute("color", AppConfig.getColor());
         model.addAttribute("pageName", "Добавить рецепт");
-        return DirtyJob.isMobile(userAgent) ? "recipe/addMobile" : "recipe/add";
+        return Utils.isMobile(userAgent) ? "recipe/addMobile" : "recipe/add";
     }
 
     @PostMapping("/add")
@@ -115,7 +115,7 @@ public class RecipeController {
         model.addAttribute("color", AppConfig.getColor());
         model.addAttribute("recipe", recipe);
 
-        return DirtyJob.isMobile(userAgent) ? "recipe/editMobile" : "recipe/edit";
+        return Utils.isMobile(userAgent) ? "recipe/editMobile" : "recipe/edit";
     }
 
     @PostMapping("/edit")

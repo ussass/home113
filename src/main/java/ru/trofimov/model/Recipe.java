@@ -1,5 +1,7 @@
 package ru.trofimov.model;
 
+import ru.trofimov.utils.Utils;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -151,7 +153,7 @@ public class Recipe {
 //    -------------------- Лишние? --------------------
 
     public String getCategoryString(){
-        return DirtyJob.intCategoryToString(category);
+        return Utils.intCategoryToString(category);
     }
 
     public String getLinkWithId() {
