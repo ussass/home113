@@ -192,18 +192,16 @@ public class RecipeController {
                 listminut,
                 Utils.ArrayStringToString(resultMainImage),
                 CreateClassesForRecipe.createIngredientsString(ingName, quantity , measure),
-                "stepString"
-        );
+                CreateClassesForRecipe.createStepsString(step, resultStepImage));
         recipe1.setId(id);
 
         System.out.println("---------");
         System.out.println("recipe1.toString() = " + recipe1.toString());
         System.out.println("---------");
 
-
 //        WorkWithDB.update(id, recipe);
-
-
+        RecipeService service = new RecipeServiceImp();
+        service.update(recipe1);
 
         return "redirect:/recipe/" + Crutch.toTranscript(recipe.getRecipeName()) + "-" + id;
     }

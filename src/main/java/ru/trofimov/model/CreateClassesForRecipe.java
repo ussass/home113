@@ -60,11 +60,17 @@ public class CreateClassesForRecipe {
     }
 
     public static String createStepsString(MultipartFile[] files, String[] steps, String recipeName) throws UnsupportedEncodingException {
-        Step[] stepsArray = createSteps(files, steps, recipeName);
+        return stepArrayToString(createSteps(files, steps, recipeName));
+    }
+
+    public static String createStepsString (String[] steps, String[] photoSteps) throws UnsupportedEncodingException {
+        return stepArrayToString(createSteps(steps, photoSteps));
+    }
+
+    private static String stepArrayToString(Step[] array){
         StringBuilder builder = new StringBuilder();
-        for (Step value : stepsArray) {
+        for (Step value : array) {
             builder.append(value.getDescription()).append("&%&");
-            System.out.println("value.getPathToImage() = " + value.getPathToImage());
             builder.append(value.getPathToImage()).append("&*&");
         }
         return builder.toString();
