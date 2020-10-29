@@ -1,7 +1,8 @@
-package ru.trofimov.model;
+package ru.trofimov.utils;
 
 import org.springframework.web.multipart.MultipartFile;
 import ru.trofimov.config.AppConfig;
+import ru.trofimov.model.Step;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -85,10 +86,6 @@ public class WorkWithMultipartFile {
     }
 
     private void privateMoveImg(int id, String[] photoName){
-
-        System.out.println("moveImg.id: " + id);
-        for (String x : photoName)
-            System.out.println("moveImg.x: " + x);
 
         File destFile = new File(directory + id);
         destFile.mkdir();

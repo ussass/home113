@@ -1,5 +1,6 @@
 package ru.trofimov.model;
 
+import ru.trofimov.utils.Crutch;
 import ru.trofimov.utils.Utils;
 
 import javax.persistence.*;
@@ -209,15 +210,5 @@ public class Recipe {
                 ", \nstepsString='" + stepsString + '\'' +
                 ", \nphotosString='" + photosString + '\'' +
                 "\n}";
-    }
-
-    public String arrayLength(){
-//        ingredients = new Ingredient[0];
-//        steps = new Step[0];
-//        namesMainImage = new String[0];
-        return "ingredients.length: " + ingredients.length +
-                ", \nsteps.length: " + steps.length +
-                ", \nnamesMainImage.length: " + namesMainImage.length +
-                "";
     }
 }

@@ -1,4 +1,4 @@
-package ru.trofimov.model;
+package ru.trofimov.utils;
 
 import com.ibm.icu.text.Transliterator;
 import org.springframework.web.multipart.MultipartFile;
@@ -51,18 +51,14 @@ public class Crutch {
     }
 
     public static void recursiveDelete(File file) {
-        // до конца рекурсивного цикла
         if (!file.exists())
             return;
 
-        //если это папка, то идем внутрь этой папки и вызываем рекурсивное удаление всего, что там есть
         if (file.isDirectory()) {
             for (File f : file.listFiles()) {
-                // рекурсивный вызов
                 recursiveDelete(f);
             }
         }
-        // вызываем метод delete() для удаления файлов и пустых(!) папок
         file.delete();
     }
 
@@ -82,7 +78,6 @@ public class Crutch {
             Arrays.fill(notImg, "0");
             return notImg;
         }
-        System.out.println(21);
 
         int count;
         if (Objects.equals(newImage[0].getResource().getFilename(), "") && !forStep) count = 0;
@@ -92,7 +87,6 @@ public class Crutch {
                 if (!Objects.equals(file.getResource().getFilename(), "")) count++;
             }
         }
-        System.out.println(22);
 
         List<String> list = new ArrayList<>();
         List<String> listDel = new ArrayList<>();
@@ -101,12 +95,10 @@ public class Crutch {
             if (delMainPhoto[i] == 0) list.add(oldImagNames[i]);
             else listDel.add(oldImagNames[i]);
         }
-        System.out.println(23);
 
         String directory = AppConfig.getDirectory();
         newName = Crutch.toTranscript(newName);
         String[] result = new String[list.size()];
-        System.out.println(24);
 
 
         for (int i = 0; i < list.size(); i++) {
@@ -125,22 +117,15 @@ public class Crutch {
                 System.out.println("Exception: " + e);
             }
         }
-        System.out.println(25 + " forStep: " + forStep);
 
         if (!forStep) return result;
         else {
             String[] stepResult = new String[stepLength];
-            System.out.println("stepResult.length: " + stepResult.length);
-            System.out.println(251);
             for (int i = 0, j = 0; i < stepResult.length; i++) {
                 if (result.length == 0) {
                     stepResult[i] = "0";
                     continue;
                 }
-                System.out.println("list.size: " + list.size());
-                for (String x: list)
-                    System.out.println("list: " + x);
-//                if (list.get(0).equals(""))
                 String lastPart = list.get(j).split("-")[list.get(j).split("-").length - 1];
                 if (lastPart.equals("")) {
                     stepResult[i] = "0";

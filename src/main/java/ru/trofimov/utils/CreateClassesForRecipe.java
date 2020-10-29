@@ -1,6 +1,8 @@
-package ru.trofimov.model;
+package ru.trofimov.utils;
 
 import org.springframework.web.multipart.MultipartFile;
+import ru.trofimov.model.Ingredient;
+import ru.trofimov.model.Step;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -10,7 +12,6 @@ public class CreateClassesForRecipe {
 
     public static Ingredient[] createIngredients(String[] ingredient, List<Integer> quantity, int[] measure) throws UnsupportedEncodingException {
 
-        System.out.println("CreateClassesForRecipe.createIngredients: " + ingredient.length + " " + quantity.size() + " " + measure.length);
         for (int i = 0; i < quantity.size(); i++){
             try{
                 quantity.get(i).toString();

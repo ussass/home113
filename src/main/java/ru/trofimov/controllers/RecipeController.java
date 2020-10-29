@@ -8,7 +8,10 @@ import ru.trofimov.config.AppConfig;
 import ru.trofimov.model.*;
 import ru.trofimov.service.RecipeService;
 import ru.trofimov.service.RecipeServiceImp;
+import ru.trofimov.utils.CreateClassesForRecipe;
+import ru.trofimov.utils.Crutch;
 import ru.trofimov.utils.Utils;
+import ru.trofimov.utils.WorkWithMultipartFile;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -146,7 +149,7 @@ public class RecipeController {
         String[] secondStepImage = Crutch.removStepeImage(oldStepPhotoNames, photoStep, delStepPhoto, id, Crutch.toUTF8(recipeName), true, step.length);
         WorkWithMultipartFile stepWork = new WorkWithMultipartFile(photoStep, Crutch.toUTF8(recipeName));
         String[] resultStepImage = Crutch.twoArraysIntoOne2(stepWork.saveFiles(true), secondStepImage);
-       stepWork.setResultPhotoName(resultStepImage);
+        stepWork.setResultPhotoName(resultStepImage);
 
         Crutch.deleteAllFilesFolder(id);
         work.moveImg(id);
