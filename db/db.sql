@@ -1,4 +1,4 @@
-CREATE DATABASE config_lesson ENCODING 'UTF-8';
+CREATE DATABASE home113 ENCODING 'UTF-8';
 
 CREATE TABLE public.recipes
 (
